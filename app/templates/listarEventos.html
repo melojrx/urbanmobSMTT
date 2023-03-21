@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+
+<div class="container-fluid">
+  <div class="row">
+    <aside class="col-md-3 col-lg-3 col-sm-12 col-xs-12 bg-info bg-gradient shadow" id="painel-lateral">
+      <section class="main-identificacao ">
+        {% if current_user.is_authenticated %}
+        <div class="container box-identificacao">
+          <i class="bi bi-person-circle "></i>
+          <span class="text-uppercase">{{ current_user.name }}</span>
+        </div>
+        {% endif %}
+        <!-- <div class="container">
+              <p class="text"> © Tiger_Dev 2022 - Todos os Direitos Reservados </p>
+            </div> -->
+      </section>
+    </aside>
+    <main class="col-md-9 col-lg-9 col-sm-12 col-xs-12">
+      <!-- Botão Cadastrar Demanda -->
+      <div class="d-grid gap-2 d-md-flex justify-content-center botao_demanda">
+        <a class="btn btn-primary me-md-2" href="{{url_for('evento.iniciar')}}" type="submit"> <i
+            class="bi bi-plus-circle"></i> Como você quer ajudar sua cidade?
+        </a>
+      </div>
+
+      <!-- Lista Eventos -->
+      {% for eventoHistorico in listHistoricoEvento.items %}
+      <!--Nome e Status Evento  -->
+      <div class="container painel-direito">
+        <div class="row m-1">
+          <div class="col m-1 align-items-center">
+            <!-- <div class="container nome_usuario "> -->
+            <i class="bi bi-person-circle "></i>
+            <span class="fw-semibold">{{eventoHistorico.evento.usuario.name}}</span>
+            <!-- </div>   -->
+          </div>
+          <div class="col m-1 justify-content-md-end">
+            <!-- <div class="container status_evento"> -->
+            <p class="text-end fs-6"> {{eventoHistorico.statusEvento.txtStatusEvento}} </p>
+            <!-- </div> -->
+          </div>
+        </div>
+        <!-- Imagem  -->
+        <div class="container">
+          <div class="row m-1 align-items-center justify-content-center">
+            <figure class="figure text-center" id="img">
+              <img class="figure-img rounded" src="data:image/jpeg;base64,{{eventoHistorico.evento.fileBase64}}"
+                width="100%">
+              <figcaption class="figure-caption">{{eventoHistorico.evento.txtProblema}}</figcaption>
+            </figure>
+          </div>
+        </div>
+        <!-- <div class="container">
+          <div class="row m-2">
+            <div class="col m-0 d-grid gap-2 d-md-flex mx-auto justify-content-md-end">
+              {% if eventoHistorico.idStatusEvento != 1 %}
+                <button type="button" class="btn btn-primary btn-sm" disabled
+                  onclick="window.location.href='{{url_for('evento.atender', evento_historico_id=eventoHistorico.id)}}';">
+                  Atender
+                </button>
+              {% else %}
+                <button type="button" class="btn btn-primary btn-sm"
+                onclick="window.location.href='{{url_for('evento.atender', evento_historico_id=eventoHistorico.id)}}';">
+                Atender
+                </button>
+              {% endif %}
+
+              <button type="button" class="btn btn-primary btn-sm"
+                onclick="window.location.href='{{url_for('evento.selecionarEvento', num_ocorrencia=eventoHistorico.evento.numOcorrencia)}}';">
+                Atualizar
+              </button> 
+
+              {% if eventoHistorico.idStatusEvento != 2 %}
+                <button type="button" class="btn btn-primary btn-sm" disabled
+                  onclick="window.location.href='{{url_for('evento.finalizar', evento_historico_id=eventoHistorico.id)}}';">
+                  Finalizar
+                </button>
+              {% else %}
+                <button type="button" class="btn btn-primary btn-sm"
+                onclick="window.location.href='{{url_for('evento.finalizar', evento_historico_id=eventoHistorico.id)}}';">
+                Finalizar
+                </button>              
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div> -->
+      {%endfor%}
+
+      <!-- Pagination Links-->
+      <div class="col m-0 d-grid gap-2 d-md-flex mx-auto justify-content-md-center">
+        <a href="{{ url_for('evento.listar', page=listHistoricoEvento.prev_num) }}" class="btn btn-outline-primary 
+            {% if listHistoricoEvento.page == 1 %}disabled{% endif %}">
+          &laquo;
+        </a><!-- Loop through the number of pages to display a link for each-->
+        {% for page_num in listHistoricoEvento.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2)
+        %}{% if page_num %}
+        <!-- Check for the active page and set the link to "Active"-->
+        {% if listHistoricoEvento.page == page_num %}
+        <a href="{{ url_for('evento.listar', page=page_num) }}" class="btn btn-primary">
+          {{ page_num }}
+        </a>
+        {% else %}
+        <a href="{{ url_for('evento.listar', page=page_num) }}" class="btn btn-outline-primary">
+          {{ page_num }}
+        </a>
+        {% endif %}
+        {% else %}
+        ...
+        {% endif %}
+        {% endfor %} <a href="{{ url_for('evento.listar', page=listHistoricoEvento.next_num) }}" class="btn btn-outline-primary 
+            {% if listHistoricoEvento.page == listHistoricoEvento.pages %}disabled{% endif %}">
+          &raquo;
+        </a>
+      </div>
+      <p class="col m-0 d-grid gap-2 d-md-flex mx-auto justify-content-md-center text-primary ">
+        Página {{ listHistoricoEvento.page }} de {{ listHistoricoEvento.pages }}
+      </p>
+      <!-- End Pagination Links-->
+
+    </main>
+    <section class="painel_direito_gov">
+      <h6 class="titulo_lista_demandas"> Ultimas demandas </h6>
+      <!-- Lista Eventos -->
+      {% for eventoHistorico in listHistoricoEventoDireita %}
+      <!--Nome e Status Evento  -->
+      <div class="container container_lista_ultimas_demandas">
+        <div class="row m-1">
+          <div class="col m-1 align-items-center">
+            <!-- <div class="container nome_usuario "> -->
+            <i class="bi bi-person-circle "></i>
+            <span class="usuario-logado-lista">{{eventoHistorico.evento.usuario.name}}</span>
+            <!-- </div>   -->
+          </div>
+
+          <div class="col m-1 align-items-center justify-content-md-end">
+            <!-- <div class="container status_evento"> -->
+            <p class="data_hora_lista_gov text-end"> {{eventoHistorico.evento.dataInicio.strftime('%d/%m/%Y %H:%M')}} </p>
+            <!-- </div> -->
+          </div>
+        </div>
+        <!-- Imagem  -->
+        <div class="container">
+          <div class="row m-1 align-items-center justify-content-center">
+            <figure class="figure text-center" id="img_gov">
+              <img class="figure-img rounded" src="data:image/jpeg;base64,{{eventoHistorico.evento.fileBase64}}"
+                width="100%">
+              <figcaption class="figure-caption">{{eventoHistorico.evento.txtProblema}}
+                <br>
+
+                {% if eventoHistorico.statusEvento.id == 1 %}
+                <p class="alert alert-danger mt-2 p-1 " role="alert"> {{eventoHistorico.statusEvento.txtStatusEvento}} </p>
+                {% endif %}
+
+                {% if eventoHistorico.statusEvento.id == 2 %}
+                <p class="alert alert-success mt-2 p-1" role="alert"> {{eventoHistorico.statusEvento.txtStatusEvento}} </p>
+                {% endif %}
+
+                {% if eventoHistorico.statusEvento.id == 3 %}
+                <p class="alert alert-info mt-2 p-1" role="alert"> {{eventoHistorico.statusEvento.txtStatusEvento}} </p>
+                {% endif %}
+
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+        <div>
+          <button type="button" class="btn mb-2 btn-primary btn-sm"
+            onclick="window.location.href='{{url_for('evento.selecionarEvento', num_ocorrencia=eventoHistorico.evento.numOcorrencia)}}';">
+            Selecionar
+          </button>
+        </div>
+      </div>
+      {%endfor%}
+    </section>
+  </div>
+</div>
+
+
+{% endblock conteudo %}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+{% include 'include.html' %}
+
+<body>
+    <div class="container col-11 col-md-9" id="form-container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 order-md-2">
+                <h2>Faça o login para continuar</h2>   
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ messages[0] }}.
+                    </div>
+                {% endif %}
+                {% endwith %}                            
+                <form action="" method="POST">
+                    <div class="form-floating mb-3">
+                        {{form.email.label(class_="form-label")}}
+                        {{form.email(class_="form-control")}}
+                        {% for error in form.email.errors %}
+                            <div class="important">
+                                {{error}}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="form-floating mb-3">
+                        {{form.password.label(class_="form-label")}}
+                        {{form.password(class_="form-control")}}
+                        {% for error in form.password.errors %}
+                            <div class="important">
+                                {{error}}
+                            </div>
+                        {% endfor %}                                             
+                    </div>
+                    {{ form.submit(class_="btn btn-primary") }}
+                </form>
+            </div>
+            <div class="col-md-6 order-md-1">
+                <div class="col-12">
+                    <img src="{{url_for('static', filename = 'img/login_image.svg')}}" alt="Olá Usuário" class="img-fluid">
+                </div>
+                <div class="col-12" id="link-container">
+                    <a href="{{url_for('login.register')}}">Ainda não tenho cadastro</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</body>
+
+</html>

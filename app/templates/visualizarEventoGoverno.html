@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+
+<div class="container-fluid">
+    <div class="row">
+        
+        <section class="painel_esquerdo_gov">
+            <div class="titulo_identificacao_logado">
+              
+              <div class="urban-gov-menu-gov">
+                {% if current_user.is_authenticated %}
+                <a href="/"><i class="bi bi-person-circle "></i></a>
+                <span class="titulo-menu-gov">{{ current_user.name }}</span>
+                {% endif %}
+              </div>
+              <div class="urban-gov-menu-gov" id="div-iden-cargo">
+                <span class="ident-cargo"> GESTOR - NÍVEL 1</span>
+                <i class="bi bi-check2-square"></i>
+              </div>
+        
+            </div>
+
+            {% include 'includeLinksEsquerda.html' %}
+
+        </section>
+        
+        <div class="container-fluid main-visualiza-evento-gov">
+
+            <form method="POST" enctype='multipart/form-data'
+                action="{{ url_for('evento.cadastrarObservacao', evento_historico_id=eventoHistorico.id, num_ocorrencia=eventoHistorico.evento.numOcorrencia)}}">
+                <div class="row visualiza-evento-gov">
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    Ocorrência: <span class="fw-normal">{{eventoHistorico.evento.numOcorrencia}}</span> <br>
+                    Início: <span class="fw-normal">{{eventoHistorico.evento.dataInicio.strftime('%d/%m/%Y %H:%M')}}</span> <br>
+                    <div class="status-evento">
+                    Status: <span class="fw-normal">
+                        {% if eventoHistorico.statusEvento.id == 1 %}
+                        <p class="alert alert-danger mt-2 p-1 " role="alert"> {{eventoHistorico.statusEvento.txtStatusEvento}} </p>
+                        {% endif %}
+        
+                        {% if eventoHistorico.statusEvento.id == 2 %}
+                        <p class="alert alert-success mt-2 p-1" role="alert"> {{eventoHistorico.statusEvento.txtStatusEvento}} </p>
+                        {% endif %}
+        
+                        {% if eventoHistorico.statusEvento.id == 3 %}
+                        <p class="alert alert-info mt-2 p-1" role="alert"> {{eventoHistorico.statusEvento.txtStatusEvento}} </p>
+                        {% endif %}
+                    </span>
+                    </div>
+                    Última Atualização: <span class="fw-normal">{{eventoHistorico.dataInicio.strftime('%d/%m/%Y %H:%M')}}</span> <br>
+                    Tipo: <span class="fw-normal">{{eventoHistorico.evento.subcategoria.txtSubcategoria}} -
+                        {{eventoHistorico.evento.subcategoria.categoria.txtCategoria}}</span> <br>
+                    Endereço: <span class="fw-normal">{{eventoHistorico.evento.txtEndereco}}</span> <br>
+                    <strong>Problema:</strong> <span class="fw-normal"><strong>{{eventoHistorico.evento.txtProblema}}</strong></span> <br>
+                    Latitude: <span class="fw-normal">{{eventoHistorico.evento.txtLat}}</span> <br>
+                    Longitude: <span class="fw-normal">{{eventoHistorico.evento.txtLong}}</span> <br><br>
+                        <div class="col m-0 mb-2 d-grid gap-2 d-md-flex mx-auto justify-content-md-end">
+                            {% if eventoHistorico.idStatusEvento != 1 %}
+                            <button type="button" class="btn btn-success btn-sm" disabled ><i class="bi bi-play-circle"></i>
+                                Atender
+                            </button>
+                            {% else %}
+                            <button type="button" class="btn btn-success btn-sm"
+                                onclick="window.location.href='{{url_for('evento.atender', num_ocorrencia=eventoHistorico.evento.numOcorrencia)}}';"><i class="bi bi-play-circle"></i>
+                                Atender
+                            </button>
+                            {% endif %}
+
+                            {% if eventoHistorico.idStatusEvento != 2 %}
+                            <button type="button" class="btn btn-primary btn-sm" disabled ><i class="bi bi-check2-circle"></i>
+                                Finalizar
+                            </button>
+                            {% else %}
+                            <button type="button" class="btn btn-primary btn-sm"
+                                onclick="window.location.href='{{url_for('evento.finalizar', num_ocorrencia=eventoHistorico.evento.numOcorrencia)}}';"><i class="bi bi-check2-circle"></i>
+                                Finalizar
+                            </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-xs-hidden col-sm-hidden col-img-detalha-demanda">
+                        <div class="row m-1 align-items-center justify-content-center">
+                            <figure class="figure text-center" id="img">
+                                <img class="figure-img rounded"
+                                    src="data:image/jpeg;base64,{{eventoHistorico.evento.fileBase64}}" width="100%">
+                                <figcaption class="figure-caption">Tipo: <span class="fw-normal">{{eventoHistorico.evento.subcategoria.txtSubcategoria}} -
+                                    {{eventoHistorico.evento.subcategoria.categoria.txtCategoria}}</span></figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>    
+                <div class="row detalha-ocorrencia">
+                    <div class="container-fluid">
+                        <h5> <strong> Ocorrência: <span>{{eventoHistorico.evento.numOcorrencia}}</span></strong></h5> 
+                        <hr>
+                    </div>
+                    <div class="container-fluid mb-4">
+                        {% for eventoHistorico in listEventoHistorico %}
+                            <span class="font-weight-bold"> Status: </span><span class="fw-normal">{{eventoHistorico.statusEvento.txtStatusEvento}}</span> <br>
+                            <!-- Usuário que mudou o status: <span class="fw-normal">{{eventoHistorico.usuario.name}}</span> <br> -->
+                            {% for obs in eventoHistorico.listObservacao %}
+                                <span class="font-weight-bold">{{obs.usuario.name}}</span> em <span class="fw-normal">{{obs.dataInicio.strftime('%d/%m/%Y %H:%M')}}: </span> <span class="fw-normal">{{obs.txtObservacao}}</span> <br>
+                                <!-- Usuário que cadastrou a observação: <span class="fw-normal">{{obs.usuario.name}}</span> <br> -->
+                            {%endfor%}
+                        {%endfor%}
+                    </div>
+                </div>
+                    
+                <div class="row">
+                    <div class="container-fluid">
+                        <label for="content" class="form-label">Observação:</label>
+                        <textarea name="observacao" id="observacao" class="form-control mb-2"></textarea>
+                        <div class="col m-0 mb-2 d-grid gap-2 d-md-flex mx-auto justify-content-md-end">
+                            <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i>Cadastrar</button> 
+                            <button type="button" class="btn btn-danger btn-sm"
+                                onclick="window.location.href='{{url_for('evento.home')}}';"><i class="bi bi-arrow-left-circle"></i>Voltar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock conteudo %}

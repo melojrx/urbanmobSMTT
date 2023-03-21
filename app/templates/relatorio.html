@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+
+<div class="container-fluid">
+    <div class="row">
+        <section class="col-md-3 col-lg-3 painel_esquerdo_gov">
+            <div class="titulo_identificacao_logado">
+
+                <div class="urban-gov-menu-gov">
+                    {% if current_user.is_authenticated %}
+                    <a href="/"><i class="bi bi-person-circle "></i></a>
+                    <span class="titulo-menu-gov">{{ current_user.name }}</span>
+                    {% endif %}
+                </div>
+                <div class="urban-gov-menu-gov" id="div-iden-cargo">
+                    <span class="ident-cargo"> GESTOR - NÍVEL 1</span>
+                    <i class="bi bi-check2-square"></i>
+                </div>
+
+            </div>
+            {% include 'includeLinksEsquerda.html' %}
+        </section>
+
+        <div class="col-md-9 col-lg-9 container-fluid">
+
+            <div class="container p-0 mb-1 mt-4">
+                <h5 class="titulo-relatorios"> <strong><i class="bi bi-file-text"></i> Relatórios </strong></h5>
+                <hr class="mt-1">
+            </div>
+
+            <form action="{{url_for('relatorio.export')}}" method="GET">
+                
+                <div class="container main-filtra-eventos">
+
+                
+                        <div class="col-3 m-1">
+                            <label class="form-label m-1"> Categoria: </label>
+                            <select class="form-select form-select-sm m-1" aria-label="Selecione o status"
+                                name="categoriaSearch">
+                                <option selected value="">- Todos - </option>
+                                {% for cat in listCategoria %}
+                                <option value="{{ cat.id }}">{{ cat.txtCategoria }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="col-3 m-1">
+                            <label class="form-label m-1"> Início: </label>
+                            <input type="date" name="dataInicioSearch" class="form-control form-control-sm m-1"
+                                placeholder="dd/mm/aa" />
+                        </div>
+
+                        <div class="col-3 m-1">
+                            <label class="form-label m-1"> Fim: </label>
+                            <input type="date" name="dataFimSearch" class="form-control form-control-sm m-1"
+                                placeholder="dd/mm/aa" />
+                        </div>
+                    
+                 
+                    <div class="filtros-relatorios-card">
+                        <div class="filtros-relatorios p-4 m-2">
+
+                            <div class="col-6 m-1">
+                                
+                                <label class="form-label m-1"> Exportar para: </label>
+                                <div class="forms-pdf-csv-export">
+                                    <input type="radio" id="pdf" name="exportType" value="PDF" >
+                                    <label for="pdf" class="label-pdf">PDF</label>
+
+                                    <input type="radio" id="csv" name="exportType" value="CSV">
+                                    <label for="csv">CSV</label>
+                                </div>
+
+                            </div>
+
+                            <div class="col-6 m-1 buttons-relatorios">
+                                <button type="submit" class="btn btn-primary btn-sm m-1"> <i class="bi bi-download"></i> Exportar </button>
+                                <button type="button" class="btn btn-danger btn-sm m-1"
+                                        onclick="window.location.href='{{url_for('evento.home')}}';"><i class="bi bi-arrow-left-circle"></i>Voltar
+                                </button>
+                            </div>
+                        
+                        </div>
+                    </div>        
+
+                </div>
+                    
+            </form>
+
+
+            <!-- {% if listEventoHistoricoSearch!= None%}
+
+            <div class="container mb-1 mt-3">
+                <h5> <strong> Demandas </strong></h5>
+                <hr>
+            </div>
+
+            <div class="container mb-1 mt-3">
+                <table class="table table-striped tabela-filtros">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Usuário</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Categoria</th>
+                            <th scope="col">Data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in listEventoHistoricoSearch %}
+                        <tr>
+                            <th scope="row">{{loop.index0 + 1}}</th>
+                            <td>{{row.evento.usuario.name}}</td>
+                            <td>{{row.statusEvento.txtStatusEvento}}</td>
+                            <td>{{row.evento.subcategoria.categoria.txtCategoria}}</td>
+                            <td>{{row.evento.dataInicio.strftime('%d/%m/%Y %H:%M')}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-danger"
+                        onclick="window.location.href='{{url_for('relatorio.printPDF', listEventoHistoricoSearch=listEventoHistoricoSearch)}}';"><i
+                            class="bi bi-file-earmark-pdf"></i> imprimir PDF
+                    </button>
+                    <button type="button" class="btn btn-dark"
+                        onclick="window.location.href='{{url_for('relatorio.printPDF', listEventoHistoricoSearch=listEventoHistoricoSearch)}}';"><i
+                            class="bi bi-filetype-csv"></i> imprimir CSV
+                    </button>
+                </div>
+
+                {% endif %}
+
+
+            </div> -->
+        </div>
+    </div>
+</div>
+
+{% endblock conteudo %}

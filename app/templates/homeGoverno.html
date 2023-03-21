@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+
+<div class="container-fluid urban_gov_principal">
+  <div class="row">
+    <section class="painel_esquerdo_gov">
+      <div class="titulo_identificacao_logado">
+
+        <div class="urban-gov-menu-gov">
+          {% if current_user.is_authenticated %}
+          <a href="/"><i class="bi bi-person-circle "></i></a>
+          <span class="titulo-menu-gov">{{ current_user.name }}</span>
+          {% endif %}
+        </div>
+        <div class="urban-gov-menu-gov" id="div-iden-cargo">
+          <span class="ident-cargo"> GESTOR - NÍVEL 1</span>
+          <i class="bi bi-check2-square"></i>
+        </div>
+
+      </div>
+
+      <div class="card mb-4 align-self-center">
+        <div class="card-body">
+          <h7 class="card-title">Demandas Totais</h7>
+          <span class="badge bg-secondary"> {{contTotal}} </span>
+        </div>
+      </div>
+
+      <div class="card mb-4 align-self-center" id="card-finalizadas">
+        <div class="card-body">
+          <h7 class="card-title">Demandas Finalizadas</h7>
+          <span class="badge bg-success"> {{contFinalizada}} </span>
+        </div>
+      </div>
+
+      {% include 'includeLinksEsquerda.html' %}
+
+    </section>
+
+    <section class="container main-gov">
+
+      <div class="container titulo_gestor_demandas">
+        <h6 class="titulo_texto_gestor_demandas"> GESTOR DE DEMANDAS MUNICIPAIS
+        </h6>
+        <div class="div-notificacoes">
+          <i class="bi bi-bell-fill"></i>
+          <span class="titulo_notificacoes"> NOTIFICAÇÕES </span>
+          <span class="badge bg-danger">{{contAguardando}}</span>
+        </div>
+      </div>
+
+      <div class="ratio ratio-16x9">
+        <iframe id="mapa" srcdoc="{{mapHtml}}" title="Mapa de Eventos" allowfullscreen scrolling="no"></iframe>
+      </div>
+
+      <div class="pesquisa_demanda">
+        <form action="{{url_for('evento.search')}}" method="GET">
+          <h7 class="form-label"> Pesquisar Demanda: </h7>
+          <div class="pesquisa_demanda_form">
+            <input type="text" id="numOcorrencia" name="numOcorrencia" class="form-control"
+              placeholder="Número da Ocorrência" />
+            <button type="submit" class="btn btn-primary bg-primary btn_pesquisa_demanda"><i class="bi bi-search icone-pesquisa-demanda-sm"></i>
+              Pesquisar</button>
+            <button class="btn btn-primary btn-lista-demandas" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="bi bi-card-list"></i>Demandas</button>
+          </div>
+
+        </form>
+      </div>
+
+    </section>
+    
+    <!-- Off Canvas -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 id="offcanvasRightLabel">Últimas Demandas</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <section class="painel_direito_gov">
+          <!-- Lista Eventos -->
+          {% for eventoHistorico in listHistoricoEventoDireita %}
+          <!--Nome e Status Evento  -->
+          <div class="container container_lista_ultimas_demandas">
+            <div class="row m-2">
+              <div class="col  align-items-center">
+                <!-- <div class="container nome_usuario "> -->
+                <!-- <i class="bi bi-person-circle"></i> -->
+                <span class="usuario-logado-lista">{{eventoHistorico.evento.usuario.name}}</span>
+                <!-- </div>   -->
+              </div>
+    
+              <div class="col  align-items-center justify-content-md-end">
+                <!-- <div class="container status_evento"> -->
+                <p class="data_hora_lista_gov text-end"> {{eventoHistorico.evento.dataInicio.strftime('%d/%m/%Y %H:%M')}} </p>
+                <!-- </div> -->
+              </div>
+            </div>
+            <!-- Imagem  -->
+            <div class="container">
+              <div class="row m-1 align-items-center justify-content-center">
+                <figure class="figure text-center" id="img_gov">
+                  <img class="figure-img rounded" src="data:image/jpeg;base64,{{eventoHistorico.evento.fileBase64}}"
+                    width="100%">
+                  <figcaption class="figure-caption">{{eventoHistorico.evento.txtProblema}}
+                    
+                    {% if eventoHistorico.statusEvento.id == 1 %}
+                    <p class="alert alert-danger mt-2 p-1 " role="alert"> {{eventoHistorico.statusEvento.txtStatusEvento}} </p>
+                    {% endif %}
+    
+                    {% if eventoHistorico.statusEvento.id == 2 %}
+                    <p class="alert alert-success mt-2 p-1" role="alert"> {{eventoHistorico.statusEvento.txtStatusEvento}} </p>
+                    {% endif %}
+    
+                    {% if eventoHistorico.statusEvento.id == 3 %}
+                    <p class="alert alert-info mt-2 p-1" role="alert"> {{eventoHistorico.statusEvento.txtStatusEvento}} </p>
+                    {% endif %}
+    
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="button-visualiza-demanda-off-canvas">
+              <button type="button" class="btn mb-2 btn-primary btn-sm"
+                onclick="window.location.href='{{url_for('evento.selecionarEvento', num_ocorrencia=eventoHistorico.evento.numOcorrencia)}}';"><i class="bi bi-search icone-pesquisa-demanda-sm"></i>
+                Selecionar
+              </button>
+            </div>
+          </div>
+          {%endfor%}
+        </section>
+  
+      </div>
+  </div>
+  </div>
+  
+ 
+</div>
+
+
+
+{% endblock conteudo %}

@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <section class="col-md-3 col-lg-3 painel_esquerdo_gov">
+            <div class="titulo_identificacao_logado">
+
+                <div class="urban-gov-menu-gov">
+                    {% if current_user.is_authenticated %}
+                    <a href="/"><i class="bi bi-person-circle "></i></a>
+                    <span class="titulo-menu-gov">{{ current_user.name }}</span>
+                    {% endif %}
+                </div>
+                <div class="urban-gov-menu-gov" id="div-iden-cargo">
+                    <span class="ident-cargo"> GESTOR - NÍVEL 1</span>
+                    <i class="bi bi-check2-square"></i>
+                </div>
+
+            </div>
+            {% include 'includeLinksEsquerda.html' %}
+        </section>
+
+        <div class="col-md-9 col-lg-9 container-fluid">
+
+            <div class="container p-0 mb-1 mt-4">
+                <h5 class="titulo-estatisticas"> <strong><i class="bi bi-bar-chart-line"></i> Estatísticas </strong></h5>
+                <hr class="mt-1">
+            </div>
+
+            <div class="container-fluid">
+
+                    <div class="row painel-estatisticas justify-content-center">
+
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 main-estatisticas">
+
+                            <div class="container mt-2">
+
+                                <div class="btn-group mt-1 mb-4 p-1" role="group" aria-label="">
+                                    <button type="button" class="btn btn-sm btn-primary">Totais</button>
+                                    <button type="button" class="btn btn-success">Finalizadas</button>
+                                    <button type="button" class="btn btn-sm btn-warning">Em andamento</button>
+                                    <button type="button" class="btn btn-sm btn-danger">Aguardando atendimento</button>
+                                </div>
+                                  
+                                <div>
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: {{ (contAguardando / contTotal ) * 100}}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">{{perAguardando}}%</div>
+                                    </div>
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ (contFinalizada / contTotal ) * 100}}%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{perFinalizada}}%</div>
+                                    </div>
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: {{ (contAndamento / contTotal ) * 100}}%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">{{perAndamento}}%</div>
+                                    </div>
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar" role="progressbar" style="width: {{ (contTotal / contTotal ) * 100}}%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{perTotal}}%</div>
+                                    </div> 
+                                </div> 
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 cards-estatisticas">
+                            
+                            <div class="card mb-4 align-self-center">
+                                <div class="card-body">
+                                  <h7 class="card-title">Demandas Totais</h7>
+                                  <span class="badge bg-secondary"> {{ contTotal }} </span>
+                                </div>
+                            </div>
+                        
+                            <div class="card mb-4 align-self-center" >
+                                <div class="card-body">
+                                  <h7 class="card-title">Demandas Finalizadas</h7>
+                                  <span class="badge bg-success"> {{contFinalizada}} </span>
+                                </div>
+                            </div>
+
+                            <div class="container button-voltar-estatisticas">
+                                <button type="button" class="btn btn-danger btn-sm"
+                                      onclick="window.location.href='{{url_for('evento.home')}}';"><i class="bi bi-arrow-left-circle"></i> Voltar
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>    
+   
+            </div>
+
+            
+        
+        </div>
+
+    </div>
+</div>
+
+{% endblock conteudo %}
+           
+

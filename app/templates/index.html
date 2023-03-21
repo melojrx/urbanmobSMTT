@@ -1,0 +1,92 @@
+{% include 'include.html' %}
+
+<body>
+    <header class="menu-bg">
+        <div class="menu-site">
+            <div class="menu-logo">
+                <a href="#">URBAN MOB</a>
+            </div>
+            <nav class="menu-nav"> 
+                <ul> 
+                    <li> <a href="/">Cidadão</a></li>
+                    <li> <a href="/">Governo</a></li>
+                    <li> <a href="/">Contato</a></li>
+                    <li> <a href="{{url_for('login.login')}}">Entrar</a></li>
+                </ul>    
+            </nav>
+        </div>
+    </header>
+   
+    <main class="conteudo_site">
+        <section class="conteudo_principal">
+            <h1 class="conteudo_principal_titulo"><strong> Vamos</strong> fazer<br>juntos uma<br><strong>cidade melhor.</strong>  </h1>
+            <div class="img_site">
+                <img class="img_googleplay" src="static/img/google-play-dark.png">
+                <img class="img_appstore" src="static/img/app-store-dark.png">
+            </div>
+        </section>
+        
+    
+    </main> 
+
+    <section class="row grids-site">
+        <div class="row titulo-site-secao1">
+            <h1 class="titulo-section1-site">A nossa solução envolve três elementos integrados 
+            e dependentes entre si </h1>   
+        </div>
+        <div class="row suporte-grids-site justify-content-center">
+            <div class="col-md-3 col-lg-3 col-sm-12 grid-site">
+                <i class="bi bi-check-circle-fill"></i>
+                <p class="par-grid-site-titulo">O cidadão participando da gestão pública.</p>
+                <p>É um aplicativo em formato de rede social focada para cidadania, 
+                    gratuito e disponível nas plataformas iOS e Android Mobile.</p>
+            </div>
+            <div class="col-md-3 col-lg-3 col-sm-12 grid-site-meio">
+                <i class="bi bi-check-circle-fill"></i>
+                <p class="par-grid-site-titulo">Monitor de gestão de demandas e suporte. </p>
+                <p>Monitor de gestão de demandas e suporte.
+                    Uma gestão baseada em dados aumenta o nível de eficiência, 
+                    eficácia e responsividade com as quais as decisões são tomadas.</p>
+            </div>
+            <div class="col-md-3 col-lg-3 col-sm-12 grid-site">
+                <i class="bi bi-check-circle-fill"></i>
+                <p class="par-grid-site-titulo">Apoio técnico especializado.</p>
+                <p>Apoio técnico especializado.
+                   foco em gestão pública colaborativa, 
+                   participação e engajamento cidadão.</p>
+            </div>
+        </div>
+    </section>
+
+
+
+    <footer class="footer-bg">
+        <div class="footer-menu">
+
+            <div class="copy-footer-site">
+            Copyright © 2022 Tiger_Dev. Todos os direitos reservados
+            </div>
+
+            <div class="contato-footer">
+                <i class="bi bi-envelope-fill"></i>
+                <a href="#" class="link-mail">contato@tiger_dev.com</a>
+            </div>
+
+            <div class="social-footer">
+                <i class="bi bi-linkedin"></i>
+                <i class="bi bi-instagram"></i>
+                <i class="bi bi-facebook"></i>
+            </div>
+            
+        </div>
+    </footer>  
+    
+
+     <!-- Start of HubSpot Embed Code -->
+     <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/22511705.js"></script>
+     <!-- End of HubSpot Embed Code -->
+
+
+   
+
+</body>

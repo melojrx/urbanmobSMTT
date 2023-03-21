@@ -1,0 +1,25 @@
+  <div class="urban-gov-menu-gov">
+    <i class="bi bi-search"></i>
+    <a href="{{url_for('eventoSearch.prepareSearch')}}"><span class="titulo-menu-gov">Consultas</span></a>
+  </div>
+  {% if ('URBANMOB_ADMIN' in session["roles"]) %}
+    <div class="urban-gov-menu-gov">
+      <i class="bi bi-file-text"></i>
+      <a href="{{url_for('relatorio.prepareRelatorio')}}"><span class="titulo-menu-gov">Relatórios</span></a>
+    </div>
+  {% endif %}
+  {% if ('URBANMOB_GOVERNO' in session["roles"] or 'URBANMOB_ADMIN' in session["roles"]) %}
+    <div class="urban-gov-menu-gov">
+      <i class="bi bi-file-earmark-plus"></i>
+      <a href="{{url_for('evento.iniciar')}}"><span class="titulo-menu-gov">Nova Ocorrência</span></a>
+    </div>
+  {% endif %}
+  <div class="urban-gov-menu-gov">
+    <i class="bi bi-bar-chart-line"></i>
+    <a href="{{url_for('eventoSearch.estatisticas')}}"><span class="titulo-menu-gov">Estatísticas</span></a>
+  </div>
+  <div class="footer_painel_esquerdo">
+    <p class="titulo_footer_painel_esquedo">
+      Política de Privacidade </p>
+    <p class="Tiger_Dev2022"> © Tiger_Dev 2022 </p>
+  </div>

@@ -1,0 +1,16 @@
+<div class="form-group">
+    <!-- <label for="subcategoria" class="form-label">Subcategoria:</label>
+    <select name="subcategoria"  id="subcategoria" class="selectpicker form-control">
+       <option value="" selected="Selecione..."></option>
+        {% for sub in listSubcategoria %} 
+            <option value="{{sub.id}}">{{sub.txtSubcategoria}}</option>
+        {% endfor %}
+    </select>  -->
+    {{form.subcategoria.label(class_="form-label")}}
+    {{form.subcategoria(class_="form-select")}}
+    {% for error in form.subcategoria.errors %}
+        <div class="important">
+            {{error}}
+        </div>
+    {% endfor %}  
+</div>
