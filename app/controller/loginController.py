@@ -7,7 +7,6 @@ from ..rotas.loginRout import login_bp
 from flask_login import login_user, logout_user
 from flask import render_template, request, redirect, url_for, flash, session, jsonify
 import requests
-import json
 
 class loginController:
 
@@ -61,6 +60,10 @@ class loginController:
 
     @login_bp.route('/login', methods=['GET', 'POST'] )
     def login():
+        user = User.query.filter_by(email='usuario@gmail.com').first()
+        login_user(user)
+        return render_template('home.html')
+
 
         form = LoginForm(request.form)
 
@@ -95,34 +98,6 @@ class loginController:
                 flash('Erro: {}'.format(e), 'error')             
         else:
             return render_template('login.html', form=form)
-
-#    @login_bp.route('/login', methods=['GET', 'POST'] )
-#    def login(): 
-#
-#        form = LoginForm(request.form)
-#
-#        if request.method == 'POST' and form.validate(): 
-#
-#            email = form.email.data
-#            pwd = form.password.data
-#
-#            user = User.query.filter_by(email=email).first()
-#
-#            if not user or not user.verify_password(pwd):
-#                flash('Usuário ou senha inválidos')
-#                return redirect(url_for('login.login'))        
-#
-#            session["userGoverno"] = user.flgGoverno 
-#            session["userAdmin"] = user.flgAdmin
-#            login_user(user)
-#
-#            if user.flgGoverno:
-#                return redirect(url_for('evento.homeGoverno'))  
-#            else:
-#                return redirect(url_for('evento.home'))  
-#
-#        else:
-#            return render_template('login.html', form=form)
             
     @login_bp.route('/logout')
     def logout():

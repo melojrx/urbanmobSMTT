@@ -7,7 +7,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark" >
     <div class="container-fluid container_nav">
        
-            <a class="navbar-brand" href="{{url_for('evento.home')}}"> 
+            <a class="navbar-brand" href="{{url_for('login.site')}}"> 
               <h3 class="urban_logo"> URBAN MOB </h3>
             </a>
        
@@ -21,13 +21,8 @@
             <a class="nav-link" href="{{url_for('login.site')}}">Site</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{url_for('evento.home')}}">Início</a>
-          </li> 
-          {% if ('URBANMOB_GOVERNO' in session["roles"] or 'URBANMOB_ADMIN' in session["roles"]) %}
-          <li class="nav-item" id="novaocorrenciaadmmenu">
-            <a class="nav-link" href="{{url_for('evento.iniciar')}}">Cadastrar Ocorrência</a>
-          </li>   
-          {% endif %}       
+            <a class="nav-link" href="{{url_for('login.site')}}">Início</a>
+          </li>     
           <li class="nav-item">
             <a class="nav-link" href="{{url_for('login.logout')}}">Sair</a>
           </li>
@@ -57,5 +52,7 @@
   {% endblock conteudo %}
 
 </body>
+
+{% include 'includeLinksEsquerda.html' %}
 
 </html>
