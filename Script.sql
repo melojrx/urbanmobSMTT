@@ -155,10 +155,10 @@ INSERT INTO credencial.tb_status_sta (txt_status_sta, dat_inicio_sta, dat_fim_st
 INSERT INTO credencial.tb_status_sta (txt_status_sta, dat_inicio_sta, dat_fim_sta) VALUES('Em andamento', now(), null);
 INSERT INTO credencial.tb_status_sta (txt_status_sta, dat_inicio_sta, dat_fim_sta) VALUES('Finalizado', now(), null);
 
-INSERT INTO credencial.tb_tipo_solicitacao_tis (txt_tipo_solicitacao_tis, txt_icone_tis, dat_inicio_tis, dat_fim_tis) VALUES('Deficiente', 'person-square', now(), null);
-INSERT INTO credencial.tb_tipo_solicitacao_tis (txt_tipo_solicitacao_tis, txt_icone_tis, dat_inicio_tis, dat_fim_tis) VALUES('Idoso', 'person-plus-fill', now(), null);
-INSERT INTO credencial.tb_tipo_solicitacao_tis (txt_tipo_solicitacao_tis, txt_icone_tis, dat_inicio_tis, dat_fim_tis) VALUES('ônibus', 'bus-front-fill', now(), null);
-INSERT INTO credencial.tb_tipo_solicitacao_tis (txt_tipo_solicitacao_tis, txt_icone_tis, dat_inicio_tis, dat_fim_tis) VALUES('Táxi', 'taxi-front-fill', now(), null);
+INSERT INTO credencial.tb_tipo_solicitacao_tis (txt_tipo_solicitacao_tis, txt_icone_tis, dat_inicio_tis, dat_fim_tis) VALUES('Deficiente', 'bi bi-person-plus-fill', now(), null);
+INSERT INTO credencial.tb_tipo_solicitacao_tis (txt_tipo_solicitacao_tis, txt_icone_tis, dat_inicio_tis, dat_fim_tis) VALUES('Idoso', 'bi bi-person-plus-fill', now(), null);
+INSERT INTO credencial.tb_tipo_solicitacao_tis (txt_tipo_solicitacao_tis, txt_icone_tis, dat_inicio_tis, dat_fim_tis) VALUES('ônibus', 'bi bi-bus-front-fill', now(), null);
+INSERT INTO credencial.tb_tipo_solicitacao_tis (txt_tipo_solicitacao_tis, txt_icone_tis, dat_inicio_tis, dat_fim_tis) VALUES('Táxi', 'bi bi-taxi-front-fill', now(), null);
 
 INSERT INTO credencial.tb_documento_doc(id_tipo_solicitacao_doc, txt_documento_doc, dat_inicio_doc, dat_fim_doc) VALUES(1, 'RG', now(), null);
 INSERT INTO credencial.tb_documento_doc(id_tipo_solicitacao_doc, txt_documento_doc, dat_inicio_doc, dat_fim_doc) VALUES(2, 'RG', now(), null);
