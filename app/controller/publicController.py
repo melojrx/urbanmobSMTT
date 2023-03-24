@@ -11,6 +11,8 @@ class publicController:
     @public_bp.route('/cidadao')
     def cidadao():
             
+        ##global listTipoSolicitacao
+
         try:
                 listTipoSolicitacao = TipoSolicitacao.query.filter( TipoSolicitacao.dataFim.is_(None)).order_by(TipoSolicitacao.txtTipoSolicitacao.desc()).all()
                 print(listTipoSolicitacao)
@@ -21,5 +23,9 @@ class publicController:
     
     @public_bp.route('/tipoSolicitacao/<tipo_solicitacao>')
     def selecionarTipoSolicitacao(tipo_solicitacao):
-          print(tipo_solicitacao)
-          return render_template('cidadao.html')
+        print(tipo_solicitacao)
+
+        tipoSolicitacao= TipoSolicitacao.query.filter(TipoSolicitacao.id == tipo_solicitacao)
+        listDocumento = TipoSolicitacao.query.filter( TipoSolicitacao.dataFim.is_(None)).order_by(TipoSolicitacao.txtTipoSolicitacao.desc()).all()
+
+        return render_template('cadastrarSolicitacao.html',tipoSolicitacao=tipoSolicitacao) ##, listTipoSolicitacao=listTipoSolicitacao)
