@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+  {{tipoSolicitacao.txtTipoSolicitacao}}
+
+<div>
+  <div class="container painel-direito">
+    {% for tipoSolicitacaoDocumento in listTipoSolicitacaoDocumento %}
+    <!--Nome e Status Evento  -->
+    <div class="row m-1">
+      <div class="col m-1 align-items-center">
+        <span class="fw-semibold">{{tipoSolicitacaoDocumento.documento.txtdocumento}}</span>
+      </div>
+    </div>
+    {%endfor%}
+  </div>
+</div>
+
+{% endblock conteudo %}

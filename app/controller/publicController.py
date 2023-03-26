@@ -1,6 +1,7 @@
 from ..rotas.publicRout import public_bp
-from ..models.tipoSolicitacao import TipoSolicitacao
 from flask import flash, render_template
+from ..models.tipoSolicitacao import TipoSolicitacao
+from app.models.tipoSolicitacaoDocumento import TipoSolicitacaoDocumento
 
 class publicController:
 
@@ -15,7 +16,7 @@ class publicController:
 
         try:
                 listTipoSolicitacao = TipoSolicitacao.query.filter( TipoSolicitacao.dataFim.is_(None)).order_by(TipoSolicitacao.txtTipoSolicitacao.desc()).all()
-                print(listTipoSolicitacao)
+
         except Exception as e:
                 flash('Erro: {}'.format(e), 'error')
                 
@@ -23,9 +24,8 @@ class publicController:
     
     @public_bp.route('/tipoSolicitacao/<tipo_solicitacao>')
     def selecionarTipoSolicitacao(tipo_solicitacao):
-        print(tipo_solicitacao)
 
-        tipoSolicitacao= TipoSolicitacao.query.filter(TipoSolicitacao.id == tipo_solicitacao)
-        listDocumento = TipoSolicitacao.query.filter( TipoSolicitacao.dataFim.is_(None)).order_by(TipoSolicitacao.txtTipoSolicitacao.desc()).all()
-
-        return render_template('cadastrarSolicitacao.html',tipoSolicitacao=tipoSolicitacao) ##, listTipoSolicitacao=listTipoSolicitacao)
+        listTipoSolicitacaoDocumento = TipoSolicitacaoDocumento.query.filter(TipoSolicitacaoDocumento.idTipoSolicitacao == tipo_solicitacao)
+        tipoSolicitacao = listTipoSolicitacaoDocumento.first().tipoSolicitacao
+ 
+        return render_template('cadastrarSolicitacao.html', tipoSolicitacao=tipoSolicitacao, listTipoSolicitacaoDocumento=listTipoSolicitacaoDocumento)

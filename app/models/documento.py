@@ -1,7 +1,6 @@
 from ..database import db
-from flask_login import UserMixin
 
-class Documento(db.Model, UserMixin):
+class Documento(db.Model):
     __tablename__ = 'tb_documento_doc'
     __table_args__ = {"schema":"credencial"}
 
