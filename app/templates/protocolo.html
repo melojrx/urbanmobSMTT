@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<div class="container container_lista_ultimas_demandas">
+  <div class="row m-1">
+    <div class="col m-1 align-items-center">
+      <label class="form-label" for="protocolo">Protocolo:</label>
+      <i class="bi bi-person-circle "></i>
+      <span id="protocolo" class="usuario-logado-lista">{{protocolo}}</span>
+    </div>
+
+    <div class="col m-1 align-items-center justify-content-md-end">
+      <label class="form-label" for="data">Gerado em:</label>
+      <p id="data" class="data_hora_lista_gov text-end"> {{data.strftime('%d/%m/%Y %H:%M')}} </p>
+    </div>
+  </div>
+
+{% endblock conteudo %}
