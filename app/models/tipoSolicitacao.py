@@ -1,8 +1,6 @@
 from ..database import db
-from flask_login import UserMixin
 
-
-class TipoSolicitacao(db.Model, UserMixin):
+class TipoSolicitacao(db.Model):
     __tablename__ = 'tb_tipo_solicitacao_tis'
     __table_args__ = {"schema":"credencial"}
 
@@ -11,4 +9,3 @@ class TipoSolicitacao(db.Model, UserMixin):
     txtIcone = db.Column('txt_icone_tis', db.String(50), nullable=False, unique=True)
     dataInicio = db.Column('dat_inicio_tis', db.DateTime, nullable=False)
     dataFim = db.Column('dat_fim_tis', db.DateTime, nullable=True)
-

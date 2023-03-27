@@ -44,6 +44,13 @@ CREATE SEQUENCE credencial.documento_seq
   START 1
   CACHE 1;
 
+CREATE SEQUENCE credencial.tipo_solicitacao_documento_seq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1
+  CACHE 1;
+
 CREATE SEQUENCE credencial.solicitacao_seq
   INCREMENT 1
   MINVALUE 1
@@ -106,13 +113,22 @@ CREATE TABLE credencial.tb_status_sta (
 
 CREATE TABLE credencial.tb_documento_doc (
 	id_documento_doc integer NOT NULL DEFAULT nextval('credencial.documento_seq'::regclass),
-  id_tipo_solicitacao_doc integer NOT NULL,
   txt_documento_doc varchar(200) NOT NULL,
 	dat_inicio_doc timestamp without time zone NOT null default now(),
 	dat_fim_doc timestamp without time zone default null,
 	CONSTRAINT documento_pkey PRIMARY KEY (id_documento_doc)
 );
-ALTER TABLE credencial.tb_documento_doc ADD CONSTRAINT tipo_solicitacao_fkey FOREIGN KEY (id_tipo_solicitacao_doc) REFERENCES credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis);
+
+CREATE TABLE credencial.tb_tipo_solicitacao_documento_tsd (
+	id_tipo_solicitacao_documento_tsd integer NOT NULL DEFAULT nextval('credencial.tipo_solicitacao_documento_seq'::regclass),
+  id_tipo_solicitacao_tsd integer NOT NULL,
+  id_documento_tsd integer NOT NULL,
+	dat_inicio_tsd timestamp without time zone NOT null default now(),
+	dat_fim_tsd timestamp without time zone default null,
+	CONSTRAINT tipo_solicitacaodocumento_pkey PRIMARY KEY (id_tipo_solicitacao_documento_tsd)
+);
+ALTER TABLE credencial.tb_tipo_solicitacao_documento_tsd ADD CONSTRAINT tipo_solicitacao_fkey FOREIGN KEY (id_tipo_solicitacao_tsd) REFERENCES credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis);
+ALTER TABLE credencial.tb_tipo_solicitacao_documento_tsd ADD CONSTRAINT documento_fkey FOREIGN KEY (id_documento_tsd) REFERENCES credencial.tb_documento_doc (id_documento_doc);
 
 CREATE TABLE credencial.tb_solicitacao_sol (
 	id_solicitacao_sol integer NOT NULL DEFAULT nextval('credencial.solicitacao_seq'::regclass),
@@ -151,16 +167,27 @@ ALTER TABLE credencial.tb_solicitacao_historico_shi ADD CONSTRAINT usuario_fkey 
 -- #        INSERTS PARA TESTES       #
 -- ####################################
 
-INSERT INTO credencial.tb_status_sta (txt_status_sta, dat_inicio_sta, dat_fim_sta) VALUES('Aguardando Atendimento', now(), null);
-INSERT INTO credencial.tb_status_sta (txt_status_sta, dat_inicio_sta, dat_fim_sta) VALUES('Em andamento', now(), null);
-INSERT INTO credencial.tb_status_sta (txt_status_sta, dat_inicio_sta, dat_fim_sta) VALUES('Finalizado', now(), null);
+INSERT INTO credencial.tb_status_sta (id_status_sta, txt_status_sta, dat_inicio_sta, dat_fim_sta) VALUES(1,'Aguardando Atendimento', now(), null);
+INSERT INTO credencial.tb_status_sta (id_status_sta, txt_status_sta, dat_inicio_sta, dat_fim_sta) VALUES(2,'Em andamento', now(), null);
+INSERT INTO credencial.tb_status_sta (id_status_sta, txt_status_sta, dat_inicio_sta, dat_fim_sta) VALUES(3,'Finalizado', now(), null);
+SELECT setval('credencial.status_seq', 3);
 
-INSERT INTO credencial.tb_tipo_solicitacao_tis (txt_tipo_solicitacao_tis, txt_icone_tis, dat_inicio_tis, dat_fim_tis) VALUES('Deficiente', 'bi bi-person-plus-fill', now(), null);
-INSERT INTO credencial.tb_tipo_solicitacao_tis (txt_tipo_solicitacao_tis, txt_icone_tis, dat_inicio_tis, dat_fim_tis) VALUES('Idoso', 'bi bi-person-plus-fill', now(), null);
-INSERT INTO credencial.tb_tipo_solicitacao_tis (txt_tipo_solicitacao_tis, txt_icone_tis, dat_inicio_tis, dat_fim_tis) VALUES('ônibus', 'bi bi-bus-front-fill', now(), null);
-INSERT INTO credencial.tb_tipo_solicitacao_tis (txt_tipo_solicitacao_tis, txt_icone_tis, dat_inicio_tis, dat_fim_tis) VALUES('Táxi', 'bi bi-taxi-front-fill', now(), null);
+INSERT INTO credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis, txt_tipo_solicitacao_tis, txt_icone_tis, dat_inicio_tis, dat_fim_tis) VALUES(1, 'Deficiente', 'bi bi-person-plus-fill', now(), null);
+INSERT INTO credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis, txt_tipo_solicitacao_tis, txt_icone_tis, dat_inicio_tis, dat_fim_tis) VALUES(2, 'Idoso', 'bi bi-person-plus-fill', now(), null);
+INSERT INTO credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis, txt_tipo_solicitacao_tis, txt_icone_tis, dat_inicio_tis, dat_fim_tis) VALUES(3, 'ônibus', 'bi bi-bus-front-fill', now(), null);
+INSERT INTO credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis, txt_tipo_solicitacao_tis, txt_icone_tis, dat_inicio_tis, dat_fim_tis) VALUES(4, 'Táxi', 'bi bi-taxi-front-fill', now(), null);
+SELECT setval('credencial.tipo_solicitacao_seq', 4);
 
-INSERT INTO credencial.tb_documento_doc(id_tipo_solicitacao_doc, txt_documento_doc, dat_inicio_doc, dat_fim_doc) VALUES(1, 'RG', now(), null);
-INSERT INTO credencial.tb_documento_doc(id_tipo_solicitacao_doc, txt_documento_doc, dat_inicio_doc, dat_fim_doc) VALUES(2, 'RG', now(), null);
-INSERT INTO credencial.tb_documento_doc(id_tipo_solicitacao_doc, txt_documento_doc, dat_inicio_doc, dat_fim_doc) VALUES(3, 'RG', now(), null);
-INSERT INTO credencial.tb_documento_doc(id_tipo_solicitacao_doc, txt_documento_doc, dat_inicio_doc, dat_fim_doc) VALUES(4, 'RG', now(), null);
+INSERT INTO credencial.tb_documento_doc(id_documento_doc, txt_documento_doc, dat_inicio_doc, dat_fim_doc) VALUES(1, 'RG', now(), null);
+INSERT INTO credencial.tb_documento_doc(id_documento_doc, txt_documento_doc, dat_inicio_doc, dat_fim_doc) VALUES(2, 'CPF', now(), null);
+SELECT setval('credencial.documento_seq', 2);
+
+INSERT INTO credencial.tb_tipo_solicitacao_documento_tsd (id_tipo_solicitacao_documento_tsd, id_tipo_solicitacao_tsd, id_documento_tsd, dat_inicio_tsd, dat_fim_tsd) VALUES(1, 1, 1, now(), null);
+INSERT INTO credencial.tb_tipo_solicitacao_documento_tsd (id_tipo_solicitacao_documento_tsd, id_tipo_solicitacao_tsd, id_documento_tsd, dat_inicio_tsd, dat_fim_tsd) VALUES(2, 1, 2, now(), null);
+INSERT INTO credencial.tb_tipo_solicitacao_documento_tsd (id_tipo_solicitacao_documento_tsd, id_tipo_solicitacao_tsd, id_documento_tsd, dat_inicio_tsd, dat_fim_tsd) VALUES(3, 2, 1, now(), null);
+INSERT INTO credencial.tb_tipo_solicitacao_documento_tsd (id_tipo_solicitacao_documento_tsd, id_tipo_solicitacao_tsd, id_documento_tsd, dat_inicio_tsd, dat_fim_tsd) VALUES(4, 2, 2, now(), null);
+INSERT INTO credencial.tb_tipo_solicitacao_documento_tsd (id_tipo_solicitacao_documento_tsd, id_tipo_solicitacao_tsd, id_documento_tsd, dat_inicio_tsd, dat_fim_tsd) VALUES(5, 3, 1, now(), null);
+INSERT INTO credencial.tb_tipo_solicitacao_documento_tsd (id_tipo_solicitacao_documento_tsd, id_tipo_solicitacao_tsd, id_documento_tsd, dat_inicio_tsd, dat_fim_tsd) VALUES(6, 3, 2, now(), null);
+INSERT INTO credencial.tb_tipo_solicitacao_documento_tsd (id_tipo_solicitacao_documento_tsd, id_tipo_solicitacao_tsd, id_documento_tsd, dat_inicio_tsd, dat_fim_tsd) VALUES(7, 4, 1, now(), null);
+INSERT INTO credencial.tb_tipo_solicitacao_documento_tsd (id_tipo_solicitacao_documento_tsd, id_tipo_solicitacao_tsd, id_documento_tsd, dat_inicio_tsd, dat_fim_tsd) VALUES(8, 4, 2, now(), null);
+SELECT setval('credencial.tipo_solicitacao_documento_seq', 8);
