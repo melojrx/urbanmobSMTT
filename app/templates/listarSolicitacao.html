@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<main class="col-md-12 col-lg-9 col-sm-12 col-xs-12">
+
+
+    <div class="container">
+
+      <br>
+      <div class="mb-4">
+          {% for solicitacaoHistorico in listSolicitacaoHistorico %}
+          
+            {{solicitacaoHistorico.solicitacao.tipoSolicitacao.txtTipoSolicitacao}}
+            {{solicitacaoHistorico.solicitacao.txtProtocolo}}
+            {{solicitacaoHistorico.status.txtStatus}}
+            {{solicitacaoHistorico.dataInicio.strftime('%d/%m/%Y %H:%M')}}
+
+          {% endfor %}
+      </div>
+    </div>
+
+
+</main>
+
+{% endblock conteudo %}
