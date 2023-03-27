@@ -1,12 +1,14 @@
 import datetime
 from ..database import db
-from app.forms.solicitacaoDocumentoForm import SolicitacaoDocumentoForm
-from app.models.solicitacaoDocumento import SolicitacaoDocumento
-from app.models.solicitacao import Solicitacao
 from ..rotas.publicRout import public_bp
-from flask import flash, redirect, render_template, request, url_for
+from flask import flash, render_template, request
+from ..enum.statusEnum import StatusEnum
+from ..models.solicitacao import Solicitacao
 from ..models.tipoSolicitacao import TipoSolicitacao
-from app.models.tipoSolicitacaoDocumento import TipoSolicitacaoDocumento
+from ..models.solicitacaoHistorico import SolicitacaoHistorico
+from ..models.solicitacaoDocumento import SolicitacaoDocumento
+from ..models.tipoSolicitacaoDocumento import TipoSolicitacaoDocumento
+from ..forms.solicitacaoDocumentoForm import SolicitacaoDocumentoForm
 
 class publicController:
 
@@ -60,9 +62,13 @@ class publicController:
 
                         solicitacao.set_txtProtocolo(txtProtocolo)
                         solicitacao.set_listSolicitacaoDocumento(listSolicitacaoDocumento)
+
+                        solicitacaoHistorico = SolicitacaoHistorico(solicitacao, StatusEnum.AGUARDANDO_ATENDIMENTO.value, dataInicio)
+
                         db.session.add(solicitacao)
+                        db.session.add(solicitacaoHistorico)
                         db.session.commit()
-                        flash('Solicitação cadastrada com sucesso.', 'sucess')
+                        flash('Solicitação cadastrada com sucesso', 'sucess')
                 except Exception as e:
                        db.session.rollback
                        flash('Erro: {}'.format(e), 'error')

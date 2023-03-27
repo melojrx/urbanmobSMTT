@@ -152,8 +152,8 @@ CREATE TABLE credencial.tb_solicitacao_historico_shi (
 	id_solicitacao_historico_shi integer NOT NULL DEFAULT nextval('credencial.solicitacao_historico_seq'::regclass),
   id_solicitacao_shi integer NOT NULL,
   id_status_shi integer NOT NULL,
-  id_usuario_shi integer NOT NULL,
-  txt_observacao_shi varchar(500) NOT NULL,
+  id_usuario_shi integer,
+  txt_observacao_shi varchar(500),
 	dat_inicio_shi timestamp without time zone NOT null default now(),
 	dat_fim_shi timestamp without time zone default null,
 	CONSTRAINT solicitacao_historico_pkey PRIMARY KEY (id_solicitacao_historico_shi)
