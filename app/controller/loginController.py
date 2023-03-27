@@ -60,10 +60,6 @@ class loginController:
 
     @login_bp.route('/login', methods=['GET', 'POST'] )
     def login():
-        user = User.query.filter_by(email='usuario@gmail.com').first()
-        login_user(user)
-        return render_template('home.html')
-
 
         form = LoginForm(request.form)
 

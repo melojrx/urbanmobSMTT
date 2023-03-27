@@ -4,7 +4,7 @@ from wtforms.validators import InputRequired
 class SolicitacaoDocumentoForm(Form):
     
     file = FileField(
-        'Selecione o documento solicitado:',
+        '',
         validators = [
             InputRequired(message=('*Campo Requerido'))
     ])

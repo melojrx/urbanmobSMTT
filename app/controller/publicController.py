@@ -62,7 +62,7 @@ class publicController:
                         solicitacao.set_listSolicitacaoDocumento(listSolicitacaoDocumento)
                         db.session.add(solicitacao)
                         db.session.commit()
-                        flash('Solicitação cadastrada com sucesso.', 'Sucess')
+                        flash('Solicitação cadastrada com sucesso.', 'sucess')
                 except Exception as e:
                        db.session.rollback
                        flash('Erro: {}'.format(e), 'error')

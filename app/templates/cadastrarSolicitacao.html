@@ -18,6 +18,7 @@
       <div class="mb-4">
         {{form.file.label(class_="form-label")}}
           {% for tipoSolicitacaoDocumento in listTipoSolicitacaoDocumento %}
+          {{tipoSolicitacaoDocumento.documento.txtDocumento}}:
           {{form.file(class_="form-control")}}
           {% for error in form.file.errors %}
           <div class="important">
