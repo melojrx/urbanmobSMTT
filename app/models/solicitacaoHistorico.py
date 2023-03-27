@@ -17,7 +17,7 @@ class SolicitacaoHistorico(db.Model):
 
 
     solicitacao = db.relationship("Solicitacao") 
-    # status = db.relationship("Status")
+    status = db.relationship("Status")
     # usuario = db.relationship("User")
 
 
