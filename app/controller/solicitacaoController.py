@@ -1,4 +1,6 @@
 from ..database import db
+from flask_login import login_required
+from roleRequired import  roles_required
 from ..rotas.solicitacaoRout import solicitacao_bp
 from ..models.solicitacaoHistorico import SolicitacaoHistorico
 from flask import flash, redirect, render_template, request, url_for
@@ -6,6 +8,8 @@ from flask import flash, redirect, render_template, request, url_for
 
 class solicitacaoController:
     
+        @login_required
+        @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
         @solicitacao_bp.route('/listar')
         def listar():
                 
