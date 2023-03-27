@@ -62,10 +62,9 @@ class publicController:
                         solicitacao.set_listSolicitacaoDocumento(listSolicitacaoDocumento)
                         db.session.add(solicitacao)
                         db.session.commit()
-                        
+                        flash('Solicitação cadastrada com sucesso.', 'Sucess')
                 except Exception as e:
                        db.session.rollback
                        flash('Erro: {}'.format(e), 'error')
                  
-                return redirect(url_for('public.cidadao'))
-                #return render_template('protocolo.html')
+                return render_template('protocolo.html', protocolo=solicitacao.get_txtProtocolo(), data=dataInicio)
