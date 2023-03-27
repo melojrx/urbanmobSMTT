@@ -9,6 +9,7 @@ class Solicitacao(db.Model):
     idTipoSolicitacao = db.Column('id_tipo_solicitacao_sol',db.Integer, db.ForeignKey(TipoSolicitacao.id), nullable=False)
     txtProtocolo = db.Column('txt_protocolo_sol', db.String(50), nullable=False)
 
+    tipoSolicitacao = db.relationship("TipoSolicitacao")
     listSolicitacaoDocumento = db.relationship("SolicitacaoDocumento", back_populates="solicitacao")
 
     def get_idTipoSolicitacao(self):
