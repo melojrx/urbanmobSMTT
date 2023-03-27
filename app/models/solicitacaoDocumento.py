@@ -10,6 +10,7 @@ class SolicitacaoDocumento(db.Model):
     file = db.Column('img_file_sdo', db.LargeBinary, nullable=False)
     dataInicio = db.Column('dat_inicio_sdo', db.DateTime, nullable=False)
     dataFim = db.Column('dat_fim_sdo', db.DateTime, nullable=True)
+    fileBase64 = None
 
     solicitacao = db.relationship("Solicitacao", back_populates="listSolicitacaoDocumento") 
 

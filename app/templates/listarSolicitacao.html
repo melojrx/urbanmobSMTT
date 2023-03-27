@@ -15,7 +15,9 @@
             {{solicitacaoHistorico.solicitacao.txtProtocolo}}
             {{solicitacaoHistorico.status.txtStatus}}
             {{solicitacaoHistorico.dataInicio.strftime('%d/%m/%Y %H:%M')}}
-
+            <form method="post" action="{{url_for('solicitacao.visualizar', idSolicitacao=solicitacaoHistorico.solicitacao.id)}}">
+                  <button type="submit" class="btn btn-primary btn-sm "><i class="bi bi-binoculars-fill"></i></button>
+            </form>
           {% endfor %}
       </div>
     </div>

@@ -12,6 +12,13 @@ class Solicitacao(db.Model):
     tipoSolicitacao = db.relationship("TipoSolicitacao")
     listSolicitacaoDocumento = db.relationship("SolicitacaoDocumento", back_populates="solicitacao")
 
+
+    def get_id(self):
+        return self.id
+       
+    def set_id(self, id):
+        self.id = id
+
     def get_idTipoSolicitacao(self):
         return self.idTipoSolicitacao
        

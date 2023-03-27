@@ -1,5 +1,4 @@
 from functools import wraps
-from flask_login import  current_user
 from flask import render_template, session
 
 def roles_required(roles):
