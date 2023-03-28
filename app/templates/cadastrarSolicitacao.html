@@ -19,10 +19,10 @@
         {{form.file.label(class_="form-label")}}
           {% for tipoSolicitacaoDocumento in listTipoSolicitacaoDocumento %}
           {{tipoSolicitacaoDocumento.documento.txtDocumento}}:
-          {{form.file(class_="form-control")}}
+          {{form.file(class_="form-control", id=tipoSolicitacaoDocumento.documento.id)}}
           {% for error in form.file.errors %}
           <div class="important">
-            g {{error}}
+            {{error}}
           </div>
           {% endfor %}
         {% endfor %}

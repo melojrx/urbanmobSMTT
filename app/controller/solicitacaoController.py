@@ -15,7 +15,7 @@ class solicitacaoController:
     
         @login_required
         @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
-        @solicitacao_bp.route('/listar', methods=['GET', 'POST'])
+        @solicitacao_bp.route('/listar', methods=['GET'])
         def listar():
                 
                 try:
@@ -29,7 +29,7 @@ class solicitacaoController:
 
         @login_required
         @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
-        @solicitacao_bp.route('/visualizar/<idSolicitacao>', methods=['POST'])
+        @solicitacao_bp.route('/visualizar/<idSolicitacao>', methods=['GET'])
         def visualizar(idSolicitacao):
                 
                 try:
@@ -43,7 +43,7 @@ class solicitacaoController:
 
         @login_required
         @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
-        @solicitacao_bp.route('/open/<idSolicitacaoDocumento>')
+        @solicitacao_bp.route('/open/<idSolicitacaoDocumento>', methods=['GET'])
         def open(idSolicitacaoDocumento):
                 
                 solicitacaoDocumento = db.session.query(SolicitacaoDocumento).filter(SolicitacaoDocumento.id==idSolicitacaoDocumento).first() 
@@ -55,7 +55,7 @@ class solicitacaoController:
 
         @login_required
         @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
-        @solicitacao_bp.route('/atender/<idSolicitacaoHistorico>', methods=['POST'])
+        @solicitacao_bp.route('/atender/<idSolicitacaoHistorico>', methods=['GET'])
         def atender(idSolicitacaoHistorico):
 
                 try:
