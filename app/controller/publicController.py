@@ -63,7 +63,7 @@ class publicController:
                         solicitacao.set_txtProtocolo(txtProtocolo)
                         solicitacao.set_listSolicitacaoDocumento(listSolicitacaoDocumento)
 
-                        solicitacaoHistorico = SolicitacaoHistorico(solicitacao, StatusEnum.AGUARDANDO_ATENDIMENTO.value, dataInicio)
+                        solicitacaoHistorico = SolicitacaoHistorico(solicitacao, StatusEnum.AGUARDANDO_ATENDIMENTO.value, None, dataInicio)
 
                         db.session.add(solicitacao)
                         db.session.add(solicitacaoHistorico)

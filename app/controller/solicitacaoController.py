@@ -1,14 +1,14 @@
+import datetime
 from ..database import db
 from operator import and_
-from base64 import b64encode
-from flask_login import login_required
-
+from flask_login import current_user, login_required
+from ..enum.statusEnum import StatusEnum
 from app.models.solicitacao import Solicitacao
 from .roleRequired import  roles_required
 from ..rotas.solicitacaoRout import solicitacao_bp
 from ..models.solicitacaoHistorico import SolicitacaoHistorico
 from ..models.solicitacaoDocumento import SolicitacaoDocumento
-from flask import flash, redirect, render_template, request, url_for
+from flask import flash, make_response, redirect, render_template, request, url_for
 
 
 class solicitacaoController:
@@ -33,14 +33,42 @@ class solicitacaoController:
         def visualizar(idSolicitacao):
                 
                 try:
-                        print(request.method)
-
                         listSolicitacaoDocumento = db.session.query(SolicitacaoDocumento).join(Solicitacao).filter(and_(Solicitacao.id==idSolicitacao , SolicitacaoDocumento.dataFim.is_(None))).order_by(SolicitacaoDocumento.id.asc()).all() 
-
-                        for t in listSolicitacaoDocumento:
-                                t.fileBase64 = b64encode(t.file).decode()
 
                 except Exception as e:
                         flash('Erro: {}'.format(e), 'error')
                         
                 return render_template('visualizarDocumentos.html', listSolicitacaoDocumento=listSolicitacaoDocumento)        
+        
+
+        @login_required
+        @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+        @solicitacao_bp.route('/open/<idSolicitacaoDocumento>')
+        def open(idSolicitacaoDocumento):
+                
+                solicitacaoDocumento = db.session.query(SolicitacaoDocumento).filter(SolicitacaoDocumento.id==idSolicitacaoDocumento).first() 
+                response = make_response(solicitacaoDocumento.file)
+                response.headers['Content-Type'] = 'application/pdf'
+                response.headers['Content-Disposition'] = \
+                '_blank; filename=%s.pdf' % 'yourfilename'
+                return response  
+
+        @login_required
+        @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+        @solicitacao_bp.route('/atender/<idSolicitacaoHistorico>', methods=['POST'])
+        def atender(idSolicitacaoHistorico):
+
+                try:
+                        data = datetime.datetime.now()
+                        solicitacaoHistorico = db.session.query(SolicitacaoHistorico).filter(SolicitacaoHistorico.id==idSolicitacaoHistorico).first() 
+                        solicitacaoHistorico.dataFim = data
+                        
+                        newSolicitacaoHistorico = SolicitacaoHistorico(solicitacaoHistorico.solicitacao, StatusEnum.EM_ANDAMENTO.value, current_user.id, data)
+                        db.session.add(newSolicitacaoHistorico)
+                        db.session.commit()
+                        flash('Solicitação alterada para: {status}'.format(status = StatusEnum.EM_ANDAMENTO.name), 'sucess')
+                except Exception as e:
+                        db.session.rollback
+                        flash('Erro: {}'.format(e), 'error') 
+
+                return redirect(url_for('solicitacao.visualizar', idSolicitacao=solicitacaoHistorico.solicitacao.id)) 
