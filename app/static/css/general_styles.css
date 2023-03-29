@@ -9,6 +9,7 @@
 
 body {
     font-family: 'Roboto', sans-serif;
+    height: 100%;
 }
 
 .navbar {
@@ -31,14 +32,13 @@ body {
 /* Painel esquerdo - geral */
 
 .painel_esquerdo_geral {
-  display: flex;
-  flex-direction: column;
-  /* justify-content: space-between; */
-  background-image: url('../img/barra_lateral.png');
-  max-height: 750px;
-  min-height: 550px;
-  background-size: cover;
-  background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    background-image: url('../img/barra_lateral.png');
+    max-height: calc(100vh - 100px);
+    min-height: 90vh;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 /* Localização do Nome do Cidadão Logado */
@@ -178,6 +178,20 @@ body {
     display: flex;
     justify-content: space-between;
 }
+
+
+/* página cidadão */
+
+.card {
+    background: linear-gradient(to bottom right, #87CEFA, #ADD8E6);
+  }
+  
+  .card-body i {
+    font-size: 2em;
+    cursor: pointer;
+  }
+
+  
 
 /* Ajuste para Tela de Celular */
 

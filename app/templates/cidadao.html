@@ -2,20 +2,26 @@
 
 {% block conteudo %}
 
-<div>
-  <div class="container painel-direito">
-    {% for tipoSolicitacao in listTipoSolicitacao %}
-    <!--Nome e Status Evento  -->
-    <div class="row m-1">
-      <div class="col m-1 align-items-center">
-        <!-- <div class="container nome_usuario "> -->
-        <i class="{{tipoSolicitacao.txtIcone}}" onclick="window.location.href='{{url_for('public.selecionarTipoSolicitacao', tipo_solicitacao=tipoSolicitacao.id)}}';" ></i>
-        <span class="fw-semibold">{{tipoSolicitacao.txtTipoSolicitacao}}</span>
-        <!-- </div>   -->
+<div class="d-flex mt-5 justify-content-center align-items-center"  >
+  <div class="container">
+    <div class="row">
+      {% for tipoSolicitacao in listTipoSolicitacao %}
+      <div class="col-md-4">
+        <div class="card m-1">
+          <div class="card-body">
+            <i class="{{tipoSolicitacao.txtIcone}}" onclick="window.location.href='{{url_for('public.selecionarTipoSolicitacao', tipo_solicitacao=tipoSolicitacao.id)}}';"></i>
+            <span class="fw-semibold">{{tipoSolicitacao.txtTipoSolicitacao}}</span>
+          </div>
+        </div>
       </div>
+      {% endfor %}
     </div>
-    {%endfor%}
   </div>
 </div>
 
 {% endblock conteudo %}
+
+
+
+
+

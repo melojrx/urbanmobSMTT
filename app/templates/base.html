@@ -30,60 +30,65 @@
     </div>
   </nav>
   <div class="container-fluid">
-  <div class="row">
-  <section class="col-md-3 col-lg-3 painel_esquerdo_geral">
+    
+    <div class="row">
+      
+      <section class="col-md-3 col-lg-3 painel_esquerdo_geral">
 
-    <div class="titulo_identificacao_logado">
-      <!-- Identificação do Cidadão Logado -->
+        <div class="titulo_identificacao_logado">
+          <!-- Identificação do Cidadão Logado -->
 
-      <div class="urban-gov-menu-gov">
-        {% if current_user.is_authenticated %}
-        <a href="/"><i class="bi bi-person-circle"></i></a>
-        <span class="titulo-menu-gov">{{ current_user.name }}</span>
+          <div class="urban-gov-menu-gov">
+            {% if current_user.is_authenticated %}
+            <a href="/"><i class="bi bi-person-circle"></i></a>
+            <span class="titulo-menu-gov">{{ current_user.name }}</span>
+            {% endif %}
+          </div>
+
+          <div class="urban-gov-menu-gov mt-2" id="div-iden-cidade">
+            <span class="logado-cidade"> Fortaleza-CE </span>
+            <i class="bi bi-check2-square"></i>
+          </div>
+
+        </div>
+        <div class="titulo-baixar-app-barra-lateral">
+          <span class="titulo-baixar-app-barra-lateral">Para uma experiência completa baixe nosso app:</span></a>
+        </div>
+        <div class="imagens-lojas-apps">
+          <img class="img_googleplay_home" src="static/img/google-play-dark.png">
+          <img class="img_appstore_home" src="static/img/app-store-dark.png">
+        </div>
+        <div class="footer_painel_esquerdo_geral">
+          <span class="titulo_footer_painel_esquerdo_geral">
+            Política de Privacidade</span>
+          <span class="titulo_footer_painel_esquerdo_geral"> © Tiger_Dev 2022 </span>
+        </div>
+        
+      </section>
+
+      <section class="col-md-9 col-lg-9">
+        {% with messages = get_flashed_messages(category_filter=["sucess"]) %}
+        {% if messages %}
+        <div class="alert alert-success" role="alert">
+          {{ messages[0] }}.
+        </div>
         {% endif %}
-      </div>
+        {% endwith %}
 
-      <div class="urban-gov-menu-gov" id="div-iden-cidade">
-        <span class="logado-cidade"> Fortaleza-CE</span>
-        <i class="bi bi-check2-square"></i>
-      </div>
+        {% with messages = get_flashed_messages(category_filter=["error"]) %}
+        {% if messages %}
+        <div class="alert alert-danger" role="alert">
+          {{ messages[0] }}.
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        {% block conteudo %}
+        {% endblock conteudo %}
+      </section>
 
     </div>
-
-    <div class="titulo-baixar-app-barra-lateral">
-      <span class="titulo-baixar-app-barra-lateral">Para uma experiência completa baixe nosso app:</span></a>
-    </div>
-    <div class="imagens-lojas-apps">
-      <img class="img_googleplay_home" src="static/img/google-play-dark.png">
-      <img class="img_appstore_home" src="static/img/app-store-dark.png">
-    </div>
-    <div class="footer_painel_esquerdo_geral">
-      <span class="titulo_footer_painel_esquerdo_geral">
-        Política de Privacidade</span>
-      <span class="titulo_footer_painel_esquerdo_geral"> © Tiger_Dev 2022 </span>
-    </div>
-  </section>
-
-  <section class="col-md-9 col-lg-9">
-    {% with messages = get_flashed_messages(category_filter=["sucess"]) %}
-    {% if messages %}
-    <div class="alert alert-success" role="alert">
-      {{ messages[0] }}.
-    </div>
-    {% endif %}
-    {% endwith %}
-
-    {% with messages = get_flashed_messages(category_filter=["error"]) %}
-    {% if messages %}
-    <div class="alert alert-danger" role="alert">
-      {{ messages[0] }}.
-    </div>
-    {% endif %}
-    {% endwith %}
-
-    {% block conteudo %}
-    {% endblock conteudo %}
-  </section>
+  
   </div>
 
 </body>
