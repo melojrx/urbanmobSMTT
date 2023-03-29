@@ -23,6 +23,7 @@
         <div class="mb-3">
           <label for="{{tipoSolicitacaoDocumento.documento.id}}" class="form-label">{{tipoSolicitacaoDocumento.documento.txtDocumento}}:</label>
           {{form.file(class_="form-control", id=tipoSolicitacaoDocumento.documento.id)}}
+          {{form.documento(class_="form-control", id=tipoSolicitacaoDocumento.documento.id , value=tipoSolicitacaoDocumento.documento.id)}}
           {% for error in form.file.errors %}
           <div class="invalid-feedback">
             {{error}}

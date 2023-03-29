@@ -47,10 +47,11 @@ class solicitacaoController:
         def open(idSolicitacaoDocumento):
                 
                 solicitacaoDocumento = db.session.query(SolicitacaoDocumento).filter(SolicitacaoDocumento.id==idSolicitacaoDocumento).first() 
+                print(solicitacaoDocumento.filename.split(".")[1])
                 response = make_response(solicitacaoDocumento.file)
-                response.headers['Content-Type'] = 'application/pdf'
+                response.headers['Content-Type'] = solicitacaoDocumento.txtContenttype
                 response.headers['Content-Disposition'] = \
-                '_blank; filename=%s.pdf' % 'yourfilename'
+                '_blank; filename=%s.pdf' % solicitacaoDocumento.documento.txtDocumento
                 return response  
 
         @login_required
