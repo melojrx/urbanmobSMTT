@@ -13,6 +13,8 @@
           
             {{solicitacaoDocumento.solicitacao.tipoSolicitacao.txtTipoSolicitacao}}
             {{solicitacaoDocumento.solicitacao.txtProtocolo}}
+            {{solicitacaoDocumento.documento.txtDocumento}}
+            {{solicitacaoDocumento.filename}}
             <i class="bi bi-binoculars-fill" onclick="window.location.href='{{url_for('solicitacao.open', idSolicitacaoDocumento=solicitacaoDocumento.id)}}';" ></i>
             <br>
           {% endfor %}

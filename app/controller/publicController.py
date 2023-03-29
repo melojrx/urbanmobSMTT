@@ -32,6 +32,7 @@ class publicController:
 
                 listTipoSolicitacaoDocumento = TipoSolicitacaoDocumento.query.filter(TipoSolicitacaoDocumento.idTipoSolicitacao == tipo_solicitacao)
                 tipoSolicitacao = listTipoSolicitacaoDocumento.first().tipoSolicitacao
+                documento = listTipoSolicitacaoDocumento.first().documento
                 form = SolicitacaoDocumentoForm(request.form)
                 form.tipoSolicitacao.data = tipo_solicitacao
                 return render_template('cadastrarSolicitacao.html', tipoSolicitacao=tipoSolicitacao, listTipoSolicitacaoDocumento=listTipoSolicitacaoDocumento, form=form)
@@ -53,10 +54,18 @@ class publicController:
                         solicitacao.set_idTipoSolicitacao(idTipoSolicitacao)
 
                         listSolicitacaoDocumento = []
-                        for file in request.files.getlist('file'):
+                        
+                        listDocumentos = request.form.getlist('documento')
+                        listFiles = request.files.getlist('file')
+
+                        for documento, file in zip(listDocumentos, listFiles):
+                                print(file.content_type)
                                 solicitacaoDocumento = SolicitacaoDocumento()
                                 solicitacaoDocumento.set_solicitacao(solicitacao)
+                                solicitacaoDocumento.set_idDocumento(documento)
                                 solicitacaoDocumento.set_file(file.read())
+                                solicitacaoDocumento.set_filename(file.filename)
+                                solicitacaoDocumento.set_contenttype(file.content_type)
                                 solicitacaoDocumento.set_dataInicio(dataInicio)
                                 listSolicitacaoDocumento.append(solicitacaoDocumento)
 

@@ -20,6 +20,7 @@
           {% for tipoSolicitacaoDocumento in listTipoSolicitacaoDocumento %}
           {{tipoSolicitacaoDocumento.documento.txtDocumento}}:
           {{form.file(class_="form-control", id=tipoSolicitacaoDocumento.documento.id)}}
+          {{form.documento(class_="form-control", id=tipoSolicitacaoDocumento.documento.id , value=tipoSolicitacaoDocumento.documento.id)}}
           {% for error in form.file.errors %}
           <div class="important">
             {{error}}

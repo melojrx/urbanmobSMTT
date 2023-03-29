@@ -141,12 +141,16 @@ ALTER TABLE credencial.tb_solicitacao_sol ADD CONSTRAINT tipo_solicitacao_fkey F
 CREATE TABLE credencial.tb_solicitacao_documento_sdo (
 	id_solicitacao_documento_sdo integer NOT NULL DEFAULT nextval('credencial.solicitacao_documento_seq'::regclass),
   id_solicitacao_sdo integer NOT NULL,
+  id_documento_sdo integer NOT NULL,
   img_file_sdo bytea NOT NULL,
+  txt_contenttype_sdo varchar(50) NOT NULL,
+  txt_filename_sdo varchar(50) NOT NULL,
 	dat_inicio_sdo timestamp without time zone NOT null default now(),
 	dat_fim_sdo timestamp without time zone default null,
 	CONSTRAINT solicitacao_documento_pkey PRIMARY KEY (id_solicitacao_documento_sdo)
 );
 ALTER TABLE credencial.tb_solicitacao_documento_sdo ADD CONSTRAINT solicitacao_fkey FOREIGN KEY (id_solicitacao_sdo) REFERENCES credencial.tb_solicitacao_sol (id_solicitacao_sol);
+ALTER TABLE credencial.tb_solicitacao_documento_sdo ADD CONSTRAINT documento_fkey FOREIGN KEY (id_documento_sdo) REFERENCES credencial.tb_documento_doc (id_documento_doc);
 
 CREATE TABLE credencial.tb_solicitacao_historico_shi (
 	id_solicitacao_historico_shi integer NOT NULL DEFAULT nextval('credencial.solicitacao_historico_seq'::regclass),
