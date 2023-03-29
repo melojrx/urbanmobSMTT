@@ -2,33 +2,36 @@
 
 {% block conteudo %}
 
-{{tipoSolicitacao.txtTipoSolicitacao}}
-
 
 <main class="col-md-12 col-lg-9 col-sm-12 col-xs-12">
+  
   <form method="POST" enctype='multipart/form-data' action="{{ url_for('public.cadastrar') }}">
 
     <div class="container">
 
-      <div class="mb-4">
+      <div class="form-group mb-4">
         {{form.tipoSolicitacao(class_="form-control")}}
       </div>
-
-      <br>
-      <div class="mb-4">
+      <div class="container p-0 mb-1 mt-4">
+        <h5 class="titulo-filtra-demandas"> <strong> <i class="bi bi-file-earmark-plus"></i> Cadastro de Documentos/{{tipoSolicitacao.txtTipoSolicitacao}}</strong></h5>
+        <hr class="mt-1">
+      </div>
+    
+      <div class="form-group mb-4">
         {{form.file.label(class_="form-label")}}
-          {% for tipoSolicitacaoDocumento in listTipoSolicitacaoDocumento %}
-          {{tipoSolicitacaoDocumento.documento.txtDocumento}}:
+        {% for tipoSolicitacaoDocumento in listTipoSolicitacaoDocumento %}
+        <div class="mb-3">
+          <label for="{{tipoSolicitacaoDocumento.documento.id}}" class="form-label">{{tipoSolicitacaoDocumento.documento.txtDocumento}}:</label>
           {{form.file(class_="form-control", id=tipoSolicitacaoDocumento.documento.id)}}
           {{form.documento(class_="form-control", id=tipoSolicitacaoDocumento.documento.id , value=tipoSolicitacaoDocumento.documento.id)}}
           {% for error in form.file.errors %}
-          <div class="important">
+          <div class="invalid-feedback">
             {{error}}
           </div>
           {% endfor %}
+        </div>
         {% endfor %}
       </div>
-    </div>
 
     <div class="d-grid gap-2 d-md-flex mx-auto justify-content-md-end">
       <button type="submit" class="btn btn-primary btn-sm "><i class="bi bi-pencil-square"></i>Cadastrar</button>
