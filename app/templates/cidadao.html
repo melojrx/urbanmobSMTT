@@ -2,22 +2,24 @@
 
 {% block conteudo %}
 
-<div class="d-flex mt-5 justify-content-center align-items-center"  >
+<div class="d-flex mt-5 justify-content-center align-items-center">
   <div class="container">
     <div class="row">
       {% for tipoSolicitacao in listTipoSolicitacao %}
-      <div class="col-md-4">
-        <div class="card m-1">
-          <div class="card-body">
-            <i class="{{tipoSolicitacao.txtIcone}}" onclick="window.location.href='{{url_for('public.selecionarTipoSolicitacao', tipo_solicitacao=tipoSolicitacao.id)}}';"></i>
-            <span class="fw-semibold">{{tipoSolicitacao.txtTipoSolicitacao}}</span>
+        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+          <div class="card mb-3">
+            <div class="card-body text-center">
+              <i class="{{tipoSolicitacao.txtIcone}} mb-2"
+                onclick="window.location.href='{{ url_for('public.selecionarTipoSolicitacao', tipo_solicitacao=tipoSolicitacao.id) }}';"></i>
+              <h5 class="fw-semibold">{{tipoSolicitacao.txtTipoSolicitacao}}</h5>
+            </div>
           </div>
         </div>
-      </div>
       {% endfor %}
     </div>
   </div>
 </div>
+
 
 {% endblock conteudo %}
 
