@@ -1,78 +1,78 @@
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 
-body, h1, h2, p, ul, li, a {
+* {
+    box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+p,
+ul,
+li,
+a {
     margin: 0;
     padding: 0;
-    
 }
 
 a {
     text-decoration: none;
+    color: white;
 }
 
 ul {
     list-style: none;
 }
 
-
-* {
-    box-sizing: border-box;
-}
-
-/*Menu*/
-
 .menu-bg {
-   background: rgb(9,9,121);
-   background: linear-gradient(90deg, rgba(9,9,121,1) 0%, rgba(49,5,245,1) 35%, rgba(0,212,255,1) 100%);
+    background: linear-gradient(90deg, rgba(9, 9, 121, 1) 0%, rgba(49, 5, 245, 1) 35%, rgba(0, 212, 255, 1) 100%);
 }
 
 .menu-site {
     max-width: 960px;
-	margin: 0 auto;
-	padding: 15px 0;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	align-items: center;  
+    margin: 0 auto;
+    padding: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.menu-site a {
+.menu-logo a {
+    font-family: 'Righteous', cursive !important;
+    font-size: 2.25em;
+    font-weight: bold;
+    margin: 0 10px;
     color: white;
 }
 
-.menu-logo a {  
-    font-family: 'Righteous', cursive !important; 
-    font-size: 2.25em;
-	font-weight: bold;
-	margin: 0 10px;
-}
-
-.menu-logo a:hover{
-	color: #3a51d5;
+.menu-logo a:hover {
+    color: #3a51d5;
     transition: all .3s;
+    text-decoration: none;
 }
 
 .menu-nav ul {
-	display: flex;
-	flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .menu-nav a {
-	font-size: 1.25em;
+    font-size: 1.25em;
     font-weight: bold;
-	display: block;
-	padding: 10px;
+    display: block;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
 }
 
-.menu-nav a:hover{
-	color: #122ab2;
+.menu-nav a:hover {
+    color: #122ab2;
     transition: .3s;
+    text-decoration: none;
 }
-
-/* main site */
 
 .conteudo_site {
-    
     display: flex;
     flex-direction: column;
     background-image: url('/static/img/imagem_fundo_site.png');
@@ -81,7 +81,6 @@ ul {
     background-size: cover;
     justify-content: center;
     background-attachment: fixed;
-
 }
 
 .conteudo_principal {
@@ -90,7 +89,6 @@ ul {
     padding: 10px;
     margin-left: 50px;
     text-align: left;
-
 }
 
 .conteudo_principal_titulo {
@@ -98,176 +96,134 @@ ul {
     font-family: 'Open Sans', sans-serif;
     font-weight: 500;
     text-align: left;
-      
 }
 
 .img_site {
     margin-top: 5px;
 }
 
-.img_googleplay {
+.img_googleplay,
+.img_appstore {
     max-height: 50px;
     margin-right: 5px;
 }
 
-.img_appstore {
-    max-height: 50px;
-}
-
 @media screen and (max-width: 479px) {
     .conteudo_principal,
-    .conteudo_principal_titulo
-     {
+    .conteudo_principal_titulo {
         font-size: 34px;
         line-height: 42px;
         margin: 0 auto;
         text-align: center;
     }
-}
 
-@media screen and (max-width: 479px) {
-    .img_site
-     {
+    .img_site {
         padding: 20px;
     }
 }
 
 @media screen and (max-width: 390px) {
-    .img_site
-     {
-       display: flex;
-       flex-direction: column;
-      
+    .img_site {
+        display: flex;
+        flex-direction: column;
     }
-}
 
-@media screen and (max-width: 390px) {
     .img_appstore,
-    .img_googleplay
-     {
-       display: none;
-       
-      
+    .img_googleplay {
+        display: none;
     }
 }
-
-
-
-/* Footer */
 
 .footer-bg {
-    background: rgb(9,9,121);
-    background: linear-gradient(90deg, rgba(9,9,121,1) 0%, rgba(49,5,245,1) 35%, rgba(0,212,255,1) 100%);
+    background: linear-gradient(90deg, rgba(9, 9, 121, 1) 0%, rgba(49, 5, 245, 1) 35%, rgba(0, 212, 255, 1) 100%);
 }
 
 .footer-menu {
     display: flex;
     max-width: 960px;
-	margin: 0 auto;
-	padding: 15px 0;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	align-items: center;  
+    margin: 0 auto;
+    padding: 15px 0;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.footer-menu i, a {
+.footer-menu i,
+.contato-footer i,
+a {
     color: white;
-}
-
-.contato-footer i, a {
-    padding: 5px;
 }
 
 .copy-footer-site {
     color: white;
     padding-right: 40px;
     border-right: 1px solid white;
-
 }
 
 .social-footer {
     display: flex;
-
 }
 
 .social-footer i {
-   font-size: 34px;
-   padding: 5px;
+    font-size: 34px;
+    padding: 5px;
 }
 
 @media screen and (max-width: 794px) {
-   .footer-menu {
-    flex-direction: column;
-    flex-wrap: wrap;
-   } 
-}
+    .footer-menu {
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
 
-@media screen and (max-width: 794px) {
     .contato-footer,
     .social-footer,
     .copy-footer-site {
-     padding: 20px;
-     border: none;
-    } 
- }
+        padding: 20px;
+        border: none;
+    }
 
- @media screen and (max-width: 794px) {
     .social-footer i {
-     padding: 15px;
-    } 
- }
+        padding: 15px;
+    }
+}
 
- @media screen and (max-width: 461px) {
+@media screen and (max-width: 461px) {
     .copy-footer-site {
         text-align: center;
         border: none;
         padding: 0;
     }
- }
-
- /* Seção1 - Grids */
+}
 
 .titulo-site-secao1 {
     margin-top: 100px;
     margin-bottom: 50px;
     text-align: center;
-    
 }
 
-.grid-site {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    gap: 3em;
-    margin: 40px 20px;
-    color: white;
-    background: rgb(9,9,121);
-    background: linear-gradient(90deg, rgba(9,9,121,1) 0%, rgba(49,5,245,1) 35%, rgba(0,212,255,1) 100%);
-    border-radius: 8px;
-    padding-bottom: 50px;
-    
- }
-
+.grid-site,
 .grid-site-meio {
     display: flex;
     flex-direction: column;
     text-align: center;
     gap: 3em;
     margin: 40px 20px;
-    background-color: aliceblue;
     border-radius: 8px;
     padding-bottom: 50px;
 }
 
-.grid-site i {
+.grid-site i,
+.grid-site-meio i {
     font-size: 3.5em;
     padding-top: 40px;
-    color: aliceblue;
+}
+
+.grid-site {
+    background: linear-gradient(90deg, rgba(9, 9, 121, 1) 0%, rgba(49, 5, 245, 1) 35%, rgba(0, 212, 255, 1) 100%);
+    color: white;
 }
 
 .grid-site-meio i {
-    font-size: 3.5em;
-    padding-top: 30px;
     color: #3a51d5;
 }
 
@@ -275,7 +231,7 @@ ul {
     font-size: 1.5em;
     font-weight: 700;
 }
- 
+
 .grids-site {
     margin-right: 0;
     margin-left: 0;
