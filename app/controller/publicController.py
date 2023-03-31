@@ -9,6 +9,7 @@ from ..models.solicitacaoHistorico import SolicitacaoHistorico
 from ..models.solicitacaoDocumento import SolicitacaoDocumento
 from ..models.tipoSolicitacaoDocumento import TipoSolicitacaoDocumento
 from ..forms.solicitacaoDocumentoForm import SolicitacaoDocumentoForm
+from ..forms.consultarProtocoloForm import ConsultarProtocoloForm
 
 class publicController:
 
@@ -82,3 +83,18 @@ class publicController:
                        flash('Erro: {}'.format(e), 'error')
                  
                 return render_template('protocolo.html', protocolo=solicitacao.get_txtProtocolo(), data=dataInicio)
+        
+        @public_bp.route('/consultarProtocolo' , methods=['GET', 'POST'])
+        def consultarProtocolo():
+
+                form = ConsultarProtocoloForm(request.form)
+                if request.method == 'POST': 
+                        try:
+                                numeroProtocolo = form.numeroProtocolo.data
+                                solicitacao= db.session.query(Solicitacao).join(SolicitacaoHistorico).filter(Solicitacao.txtProtocolo==numeroProtocolo).order_by(SolicitacaoHistorico.dataInicio.asc()).first() 
+                                return render_template('consultarProtocolo.html', form=form, solicitacao=solicitacao)
+                        except Exception as e:
+                                flash('Erro: {}'.format(e), 'error')     
+                else:
+                        return render_template('consultarProtocolo.html', form=form, solicitacao=None)
+        

@@ -1,0 +1,7 @@
+  
+  {% if not current_user.is_authenticated %}
+    <div class="urban-gov-menu-gov">
+      <i class="bi bi-search"></i>
+      <a href="{{url_for('public.consultarProtocolo')}}"><span class="titulo-menu-gov">Consultar Protocolo</span></a>
+    </div>
+  {% endif %}
