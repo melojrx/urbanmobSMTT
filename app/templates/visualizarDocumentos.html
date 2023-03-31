@@ -18,7 +18,7 @@
                 <th>Número do protocolo</th>
                 <th>Nome do documento</th>
                 <th>Nome do arquivo</th>
-                <th>Deferido</th>
+                <th>Status</th>
                 <th>Abrir</th>
                 {% if solicitacaoHistorico.status.id == 2%}
                 <th>{{form.analise.label(class_="form-label")}}</th>
@@ -32,7 +32,7 @@
                 <td>{{ solicitacaoDocumento.solicitacao.txtProtocolo }}</td>
                 <td>{{ solicitacaoDocumento.documento.txtDocumento }}</td>
                 <td>{{ solicitacaoDocumento.filename }}</td>
-                <td>{{ 'Sim' if solicitacaoDocumento.flgDeferido else ( 'Não Analisado' if solicitacaoDocumento.flgDeferido == None else'Não') }}</td>
+                <td>{{ 'Deferido' if solicitacaoDocumento.flgDeferido else ( 'Não Analisado' if solicitacaoDocumento.flgDeferido == None else'Indeferido') }}</td>
                 <td>
                   <a href="{{ url_for('solicitacao.open', idSolicitacaoDocumento=solicitacaoDocumento.id) }}"
                     class="btn btn-link" role="button">
@@ -71,7 +71,6 @@
               <tr>
                 <td colspan="5">
                   {{form.observacao(cols="100", rows="5")}}
-                  <!-- <textarea id="observacao" name="observacao" rows="5" cols="100" maxlength="400" ></textarea> -->
                 </td>
               </tr>
             </tbody>
@@ -81,12 +80,15 @@
         <div class="card-footer border-0 text-end justify-content-end">
           {% if solicitacaoHistorico.status.id == 2%}
           {{ form.submit(class_="btn btn-primary") }}
-          <!-- <button class="btn btn-primary ms-3" type="submit">Cadastrar</button> -->
           {% endif %}
           {% if solicitacaoHistorico.status.id == 1%}
           <button class="btn btn-success ms-3" type="button"
             onclick="window.location.href='{{url_for('solicitacao.atender', idSolicitacaoHistorico=solicitacaoHistorico.id)}}';">Atender</button>
           {% endif %}
+          {% if solicitacaoHistorico.status.id == 3%}
+          <button class="btn btn-secondary ms-3" type="button"
+            onclick="window.location.href='{{url_for('solicitacao.imprimirCredencial', idSolicitacao=solicitacaoHistorico.solicitacao.id)}}';">Imprimir Credencial</button>
+          {% endif %}          
           <button class="btn btn-danger ms-3" type="button" onclick="window.history.back()">Voltar</button>
         </div>
       </div>

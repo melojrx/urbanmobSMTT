@@ -9,7 +9,8 @@ from .roleRequired import  roles_required
 from ..rotas.solicitacaoRout import solicitacao_bp
 from ..models.solicitacaoHistorico import SolicitacaoHistorico
 from ..models.solicitacaoDocumento import SolicitacaoDocumento
-from flask import flash, make_response, redirect, render_template, request, url_for
+from app.relatorios.relatorio import PDF
+from flask import flash, make_response, redirect, render_template, request, url_for, Response
 
 
 class solicitacaoController:
@@ -83,17 +84,17 @@ class solicitacaoController:
         @solicitacao_bp.route('/analisar', methods=['POST'])
         def analisar():
                 listDocumentos = request.form.getlist('documento')
-                print('listDocumentos', listDocumentos)
+                #print('listDocumentos', listDocumentos)
                 listRadio = [request.form[arg] for arg in listDocumentos]
-                print('listRadio', listRadio)
+                #print('listRadio', listRadio)
                 listSolicitacaoDocumento = request.form.getlist('idSolicitacaoDocumento')
-                print('listSolicitacaoDocumento', listSolicitacaoDocumento)
+                #print('listSolicitacaoDocumento', listSolicitacaoDocumento)
 
                 form = AnaliseDocumentacaoForm(request.form)
                 idSolicitacaoHistorico = form.idSolicitacaoHistorico.data
-                print('idSolicitacaoHistorico', idSolicitacaoHistorico)
+                #print('idSolicitacaoHistorico', idSolicitacaoHistorico)
                 observacao = form.observacao.data
-                print('observacao', observacao)
+                #print('observacao', observacao)
 
                 try:
 
@@ -111,7 +112,7 @@ class solicitacaoController:
                         solicitacaoHistorico = db.session.query(SolicitacaoHistorico).filter(SolicitacaoHistorico.id==idSolicitacaoHistorico).first() 
                         solicitacaoHistorico.dataFim = data
                         
-                        newSolicitacaoHistorico = SolicitacaoHistorico(solicitacaoHistorico.solicitacao, StatusEnum.FINALIZADO.value if resultadoAnalise else StatusEnum.INDEFERIDO.value, current_user.id, observacao, data)
+                        newSolicitacaoHistorico = SolicitacaoHistorico(solicitacaoHistorico.solicitacao, StatusEnum.DEFERIDO.value if resultadoAnalise else StatusEnum.INDEFERIDO.value, current_user.id, observacao, data)
                         db.session.add(newSolicitacaoHistorico)
                         db.session.commit()                        
 
@@ -120,3 +121,42 @@ class solicitacaoController:
                         flash('Erro: {}'.format(e), 'error') 
 
                 return redirect(url_for('solicitacao.visualizar', form=form, idSolicitacao=solicitacaoHistorico.solicitacao.id)) 
+        
+
+        @login_required
+        @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+        @solicitacao_bp.route('/imprimirCredencial/<idSolicitacao>', methods=['GET'])
+        def imprimirCredencial(idSolicitacao):
+
+                try:
+                        solicitacao = db.session.query(Solicitacao).filter(Solicitacao.id==idSolicitacao).first()
+
+                        pdf = PDF()
+                        pdf.alias_nb_pages()
+                        pdf.add_page('L')
+                                
+                        
+                        
+                        
+                        
+
+                        # pdf.set_font('Courier', '', 12)
+                        # page_width = pdf.w - 2 * pdf.l_margin
+                        # col_width = page_width/4
+                        # th = pdf.font_size
+                        # pdf.ln(1)
+                        # pdf.set_fill_color(64,64,64)
+                        # pdf.set_text_color(255,255,255)
+                        # pdf.cell(col_width, th, 'Usuário', border=1, fill=True)
+                        # pdf.cell(col_width, th, 'Status', border=1, fill=True)
+                        # pdf.cell(col_width, th, 'Categoria', border=1, fill=True)
+                        # pdf.cell(col_width, th, 'Data', border=1, fill=True)
+                        # pdf.ln(th)
+                        # pdf.set_text_color(0,0,0)
+                        # pdf.set_fill_color(224,224,224)
+
+                
+                        return Response(pdf.output(dest='S').encode('latin-1'), mimetype='application/pdf', headers={'Content-Disposition':'attachment;filename=relatorio.pdf'})
+
+                except Exception as e:
+                        flash('Erro: {}'.format(e), 'error')       
