@@ -96,16 +96,22 @@ class solicitacaoController:
                 print('observacao', observacao)
 
                 try:
+
+                        resultadoAnalise = True
+
                         for sd, r in zip(listSolicitacaoDocumento, listRadio):
                                 solicitacaoDocumento = db.session.query(SolicitacaoDocumento).filter(SolicitacaoDocumento.id==sd).first() 
                                 solicitacaoDocumento.flgDeferido = r=='true'
                                 db.session.add(solicitacaoDocumento)
 
+                                if r == 'false':
+                                        resultadoAnalise = False
+
                         data = datetime.datetime.now()
                         solicitacaoHistorico = db.session.query(SolicitacaoHistorico).filter(SolicitacaoHistorico.id==idSolicitacaoHistorico).first() 
                         solicitacaoHistorico.dataFim = data
                         
-                        newSolicitacaoHistorico = SolicitacaoHistorico(solicitacaoHistorico.solicitacao, StatusEnum.EM_ANDAMENTO.value, current_user.id, observacao, data)
+                        newSolicitacaoHistorico = SolicitacaoHistorico(solicitacaoHistorico.solicitacao, StatusEnum.FINALIZADO.value if resultadoAnalise else StatusEnum.INDEFERIDO.value, current_user.id, observacao, data)
                         db.session.add(newSolicitacaoHistorico)
                         db.session.commit()                        
 
