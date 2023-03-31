@@ -19,7 +19,6 @@
               <th scope="col">Status</th>
               <th scope="col">Data de Início</th>
               <th scope="col">Visualizar</th>
-              <th scope="col">Atender</th>
             </tr>
           </thead>
           <tbody>
@@ -30,7 +29,6 @@
               <td>{{solicitacaoHistorico.status.txtStatus}}</td>
               <td>{{solicitacaoHistorico.dataInicio.strftime('%d/%m/%Y %H:%M')}}</td>
               <td><i class="bi bi-binoculars-fill" onclick="window.location.href='{{url_for('solicitacao.visualizar', idSolicitacao=solicitacaoHistorico.solicitacao.id)}}';" ></i></td>
-              <td><i class="bi bi-arrow-right-square-fill" onclick="window.location.href='{{url_for('solicitacao.atender', idSolicitacaoHistorico=solicitacaoHistorico.id)}}';" ></i></td>
             </tr>
             {% endfor %}
           </tbody>

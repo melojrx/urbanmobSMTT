@@ -62,6 +62,15 @@ class loginController:
     def login():
 
         form = LoginForm(request.form)
+        if request.method == 'POST' and form.validate(): 
+            user = User.query.filter_by(email=form.email.data).first()
+            session["roles"] = 'URBANMOB_GOVERNO'
+            login_user(user)
+            return redirect(url_for('solicitacao.listar')) 
+        else:
+             return render_template('login.html', form=form)
+        # ------------------------------------------------
+        form = LoginForm(request.form)
 
         if request.method == 'POST' and form.validate(): 
 

@@ -59,7 +59,6 @@ class publicController:
                         listFiles = request.files.getlist('file')
 
                         for documento, file in zip(listDocumentos, listFiles):
-                                print(file.content_type)
                                 solicitacaoDocumento = SolicitacaoDocumento()
                                 solicitacaoDocumento.set_solicitacao(solicitacao)
                                 solicitacaoDocumento.set_idDocumento(documento)
@@ -72,7 +71,7 @@ class publicController:
                         solicitacao.set_txtProtocolo(txtProtocolo)
                         solicitacao.set_listSolicitacaoDocumento(listSolicitacaoDocumento)
 
-                        solicitacaoHistorico = SolicitacaoHistorico(solicitacao, StatusEnum.AGUARDANDO_ATENDIMENTO.value, None, dataInicio)
+                        solicitacaoHistorico = SolicitacaoHistorico(solicitacao, StatusEnum.AGUARDANDO_ATENDIMENTO.value, None, None, dataInicio)
 
                         db.session.add(solicitacao)
                         db.session.add(solicitacaoHistorico)

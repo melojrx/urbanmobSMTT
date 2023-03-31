@@ -12,6 +12,7 @@ class SolicitacaoDocumento(db.Model):
     file = db.Column('img_file_sdo', db.LargeBinary, nullable=False)
     filename = db.Column('txt_filename_sdo', db.String(50), nullable=False)
     txtContenttype = db.Column('txt_contenttype_sdo', db.String(50), nullable=False)
+    flgDeferido = db.Column('flg_deferido_sdo', db.Boolean, nullable=True, default=None)
     dataInicio = db.Column('dat_inicio_sdo', db.DateTime, nullable=False)
     dataFim = db.Column('dat_fim_sdo', db.DateTime, nullable=True)
 
@@ -47,6 +48,12 @@ class SolicitacaoDocumento(db.Model):
        
     def set_contenttype(self, txtContenttype):
         self.txtContenttype = txtContenttype
+
+    def get_flgDeferido(self):
+        return self.flgDeferido
+       
+    def set_flgDeferido(self, flgDeferido):
+        self.flgDeferido = flgDeferido
 
     def get_dataInicio(self):
         return self.dataInicio

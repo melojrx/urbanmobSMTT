@@ -21,8 +21,9 @@ class SolicitacaoHistorico(db.Model):
     # usuario = db.relationship("User")
 
 
-    def __init__(self, solicitacao, idStatus, idUsuario, dataInicio):
+    def __init__(self, solicitacao, idStatus, idUsuario, txtObservacao, dataInicio):
         self.solicitacao = solicitacao
         self.idStatus = idStatus
         self.idUsuario = idUsuario
+        self.txtObservacao = txtObservacao
         self.dataInicio = dataInicio

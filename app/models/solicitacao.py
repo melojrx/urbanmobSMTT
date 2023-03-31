@@ -10,6 +10,7 @@ class Solicitacao(db.Model):
     txtProtocolo = db.Column('txt_protocolo_sol', db.String(50), nullable=False)
 
     tipoSolicitacao = db.relationship("TipoSolicitacao")
+    listSolicitacaoHistorico = db.relationship("SolicitacaoHistorico", back_populates="solicitacao")
     listSolicitacaoDocumento = db.relationship("SolicitacaoDocumento", back_populates="solicitacao")
 
 
