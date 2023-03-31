@@ -135,8 +135,8 @@ class solicitacaoController:
                         pdf.alias_nb_pages()
                         pdf.add_page('L')
                                 
-                        
-                        
+                        margin = 5
+                        pdf.rect(margin, margin, pdf.h - ( margin *2) , pdf.w - ( margin *2), 'S')
                         
                         
 
