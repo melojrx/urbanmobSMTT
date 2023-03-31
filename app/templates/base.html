@@ -22,50 +22,37 @@
           <li class="nav-item">
             <a class="nav-link" href="{{url_for('login.site')}}">Início</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{url_for('login.logout')}}">Sair</a>
-          </li>
         </ul>
+        {% if current_user.is_authenticated %}
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="log_user"><i class="fa fa-user"></i>
+              {{ current_user.name }}
+          </span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ url_for('login.logout') }}" id="logout-btn" class="dropdown-item" onclick="logoutUser()">
+              <i class="fa fa-power-off"> </i> Sair </a></li>
+          </ul>
+        </div>
+        {% endif %}
       </div>
     </div>
   </nav>
+
+  
   <div class="container-fluid">
     
     <div class="row">
       
       <section class="col-md-3 col-lg-3 painel_esquerdo_geral">
 
-        <div class="titulo_identificacao_logado">
-          <!-- Identificação do Cidadão Logado -->
-
-          <div class="urban-gov-menu-gov">
-            {% if current_user.is_authenticated %}
-            <a href="/"><i class="bi bi-person-circle"></i></a>
-            <span class="titulo-menu-gov">{{ current_user.name }}</span>
-            {% endif %}
-          </div>
-
-          <div class="urban-gov-menu-gov mt-2" id="div-iden-cidade">
-            <span class="logado-cidade"> Fortaleza-CE </span>
-            <i class="bi bi-check2-square"></i>
-          </div>
-
+        <div class="urban-gov-menu-gov-inicio">
+          <i class="bi bi-house-fill"></i>
+          <a href="#"><span class="titulo-menu-gov">Inicio</span></a>
         </div>
 
         {% include 'includeLinksEsquerda.html' %}
-        
-        <div class="titulo-baixar-app-barra-lateral">
-          <span class="titulo-baixar-app-barra-lateral">Para uma experiência completa baixe nosso app:</span></a>
-        </div>
-        <div class="imagens-lojas-apps">
-          <img class="img_googleplay_home" src="static/img/google-play-dark.png">
-          <img class="img_appstore_home" src="static/img/app-store-dark.png">
-        </div>
-        <div class="footer_painel_esquerdo_geral">
-          <span class="titulo_footer_painel_esquerdo_geral">
-            Política de Privacidade</span>
-          <span class="titulo_footer_painel_esquerdo_geral"> © Tiger_Dev 2022 </span>
-        </div>
         
       </section>
 
@@ -93,7 +80,12 @@
     </div>
   
   </div>
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    function logoutUser() {
+      document.getElementById('logout-btn').click();
+  }
+  </script>
 </body>
 
 </html>

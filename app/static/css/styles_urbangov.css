@@ -9,18 +9,18 @@
 }
 
   /* Barra Lateral esquerda  */
-.painel_esquerdo_gov {
+/*.painel_esquerdo_gov {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 20%;
   background-image: url('../img/barra_lateral.png');
-  max-height: 850px;
+  max-height: 1200px;
   min-height: 550px;
   background-size: cover;
   background-repeat: no-repeat;
-
 }
+*/
 
 .card {
   width: 80%;
@@ -53,12 +53,26 @@
   font-weight: bold; 
 }
 
+.urban-gov-menu-gov-inicio {
+  display: flex;
+  color: black;
+  font-weight: bold;
+  margin-top: 20px;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
 .urban-gov-menu-gov {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   margin-left: 20px;
   cursor: pointer;
+  display: flex;
+  color: black;
+  font-weight: bold;
 }
 
 .titulo-menu-gov {
@@ -68,7 +82,11 @@
 .bi-file-text, 
 .bi-search, 
 .bi-bar-chart-line, 
+.bi-file-earmark-plus,
+.bi-house-fill,
 .bi-file-earmark-plus
+.bi-envelope-dash,
+.bi-envelope
  {
   font-size: 2.5em;
   padding-right: 8px;
@@ -83,20 +101,19 @@
  justify-content: center;
 }
 
-.footer_painel_esquerdo {
-  display: flex;
-  flex-direction: column;
-  align-self: flex-end;
-  align-items: center;
-  font-style: normal;
-  font-size: 14px;
-  font-weight: bolder;
+.menu-categorias {
+  border-bottom: 1.5px solid #A6A6A6;
+  padding-bottom: 10px;
+  margin-top: 10px;
   margin-bottom: 5px;
-  margin-left: auto;
-  margin-right: auto;
+}
+.categorias-menu-gov {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
   
-  }
-
    /* Seção Principal - Mapa */
 
 .main-gov {

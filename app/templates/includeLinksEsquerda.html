@@ -1,7 +1,36 @@
   
+  
+  <div class="menu-categorias">
+    <span class="categorias-menu-gov">ATENDIMENTO</span>
+  </div>
+  <div class="urban-gov-menu-gov">
+    <i class="bi bi-search"></i>
+    <a href="{{url_for('public.consultarProtocolo')}}"><span class="titulo-menu-gov">Consultar Protocolo</span></a>
+  </div>
+  {% if current_user.is_authenticated %}
+  <div class="urban-gov-menu-gov">
+    <i class="bi bi-envelope"></i>
+    <a href="#"><span class="titulo-menu-gov">Avisos</span></a>
+  </div>
+  <div class="urban-gov-menu-gov">
+    <i class="bi bi-file-earmark-plus"></i>
+    <a href="{{url_for('public.cidadao')}}"><span class="titulo-menu-gov">Cadastros</span></a>
+  </div>
+  <div class="urban-gov-menu-gov">
+    <i class="bi bi-file-text"></i>
+    <a href="#"><span class="titulo-menu-gov">Relatórios</span></a>
+  </div>
+  <div class="urban-gov-menu-gov">
+    <i class="bi bi-bar-chart-line"></i>
+    <a href="#"><span class="titulo-menu-gov">Estatísticas</span></a>
+  </div>
+  {% endif %}
   {% if not current_user.is_authenticated %}
     <div class="urban-gov-menu-gov">
-      <i class="bi bi-search"></i>
-      <a href="{{url_for('public.consultarProtocolo')}}"><span class="titulo-menu-gov">Consultar Protocolo</span></a>
+      <i class="bi bi-envelope"></i>
+      <a href="#"><span class="titulo-menu-gov">Fale Conosco</span></a>
     </div>
   {% endif %}
+ 
+  
+  
