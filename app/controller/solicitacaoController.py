@@ -1,4 +1,9 @@
 import datetime
+from io import BytesIO
+import io
+import os
+from os.path import join, dirname, realpath
+from pyreportjasper import PyReportJasper
 from ..database import db
 from operator import and_
 from flask_login import current_user, login_required
@@ -9,7 +14,6 @@ from .roleRequired import  roles_required
 from ..rotas.solicitacaoRout import solicitacao_bp
 from ..models.solicitacaoHistorico import SolicitacaoHistorico
 from ..models.solicitacaoDocumento import SolicitacaoDocumento
-from app.relatorios.relatorio import PDF
 from flask import flash, make_response, redirect, render_template, request, url_for, Response
 
 
@@ -131,32 +135,19 @@ class solicitacaoController:
                 try:
                         solicitacao = db.session.query(Solicitacao).filter(Solicitacao.id==idSolicitacao).first()
 
-                        pdf = PDF()
-                        pdf.alias_nb_pages()
-                        pdf.add_page('L')
-                                
-                        margin = 5
-                        pdf.rect(margin, margin, pdf.h - ( margin *2) , pdf.w - ( margin *2), 'S')
-                        
-                        
+                        input_file = join(dirname(realpath(__file__)), '../static/report/credencial.jrxml')
+                        output_file = join(dirname(realpath(__file__)), '../static/report/')
+                        pyreportjasper = PyReportJasper()
+                        pyreportjasper.config(input_file, output_file, output_formats=["pdf"])
+                        pyreportjasper.process_report()
 
-                        # pdf.set_font('Courier', '', 12)
-                        # page_width = pdf.w - 2 * pdf.l_margin
-                        # col_width = page_width/4
-                        # th = pdf.font_size
-                        # pdf.ln(1)
-                        # pdf.set_fill_color(64,64,64)
-                        # pdf.set_text_color(255,255,255)
-                        # pdf.cell(col_width, th, 'Usuário', border=1, fill=True)
-                        # pdf.cell(col_width, th, 'Status', border=1, fill=True)
-                        # pdf.cell(col_width, th, 'Categoria', border=1, fill=True)
-                        # pdf.cell(col_width, th, 'Data', border=1, fill=True)
-                        # pdf.ln(th)
-                        # pdf.set_text_color(0,0,0)
-                        # pdf.set_fill_color(224,224,224)
+                        pdf_file = join(output_file + 'credencial.pdf')
 
-                
-                        return Response(pdf.output(dest='S').encode('latin-1'), mimetype='application/pdf', headers={'Content-Disposition':'attachment;filename=relatorio.pdf'})
+                        with open(pdf_file, 'rb') as f:
+                                pdf_content = f.read()
+
+                        # os.remove(join(output_file + 'credencial.pdf'))
+                        return Response(pdf_content, mimetype='application/pdf', headers={'Content-Disposition':'attachment;filename=' + solicitacao.txtProtocolo + '.pdf'})
 
                 except Exception as e:
                         flash('Erro: {}'.format(e), 'error')       
