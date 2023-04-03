@@ -40,14 +40,14 @@ class solicitacaoController:
                 
                 try:
                         form = AnaliseDocumentacaoForm(request.form)
-                        solicitacao = db.session.query(Solicitacao).join(SolicitacaoHistorico).filter(and_(Solicitacao.id==idSolicitacao , SolicitacaoHistorico.dataFim.is_(None))).order_by(SolicitacaoHistorico.id.asc()).first() 
+                        solicitacaoHistorico = db.session.query(SolicitacaoHistorico).join(Solicitacao).filter(and_(Solicitacao.id==idSolicitacao , SolicitacaoHistorico.dataFim.is_(None))).order_by(SolicitacaoHistorico.dataInicio.desc()).first() 
                         listSolicitacaoDocumento = db.session.query(SolicitacaoDocumento).join(Solicitacao).filter(and_(Solicitacao.id==idSolicitacao , SolicitacaoDocumento.dataFim.is_(None))).order_by(SolicitacaoDocumento.id.asc()).all() 
-                        #solicitacao = Solicitacao.query.filter(Solicitacao.id == idSolicitacao).first()
+                        # solicitacao = Solicitacao.query.filter(Solicitacao.id == idSolicitacao).first()
 
                 except Exception as e:
                         flash('Erro: {}'.format(e), 'error')
                         
-                return render_template('visualizarDocumentos.html', form=form, solicitacao=solicitacao, listSolicitacaoDocumento=listSolicitacaoDocumento)        
+                return render_template('visualizarDocumentos.html', form=form, solicitacaoHistorico=solicitacaoHistorico, listSolicitacaoDocumento=listSolicitacaoDocumento)        
         
 
         @login_required
@@ -134,11 +134,15 @@ class solicitacaoController:
 
                 try:
                         solicitacao = db.session.query(Solicitacao).filter(Solicitacao.id==idSolicitacao).first()
+                        emissao = datetime.datetime.now()
+                        validade =  emissao + datetime.timedelta(days=365*5)
+
+                        parametros = {'emissao': emissao.strftime('%d/%m/%Y'), 'unidadeUF': 'CE', 'municipio': 'Fortaleza', 'orgao': 'SMTT', 'validade': validade.strftime('%d/%m/%Y')}
 
                         input_file = join(dirname(realpath(__file__)), '../static/report/credencial.jrxml')
                         output_file = join(dirname(realpath(__file__)), '../static/report/')
                         pyreportjasper = PyReportJasper()
-                        pyreportjasper.config(input_file, output_file, output_formats=["pdf"])
+                        pyreportjasper.config(input_file, output_file, output_formats=["pdf"], parameters=parametros)
                         pyreportjasper.process_report()
 
                         pdf_file = join(output_file + 'credencial.pdf')
