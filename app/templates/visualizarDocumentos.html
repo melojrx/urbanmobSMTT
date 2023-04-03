@@ -109,6 +109,10 @@
           {% if solicitacaoHistorico.status.id == 2%}
           {{ form.submit(class_="btn btn-primary") }}
           {% endif %}
+          {% if solicitacaoHistorico.status.id == 3%}
+          <button class="btn btn-warning ms-3" type="button"
+            onclick="window.location.href='{{url_for('solicitacao.finalizar', idSolicitacaoHistorico=solicitacaoHistorico.id)}}';">Finalizar</button>
+          {% endif %}
           <!-- Se o status do documento for AGUARDANDO ATENDIMENTO ou REENVIADO permite atender -->
           {% if solicitacaoHistorico.status.id == 1 or solicitacaoHistorico.status.id == 6%}
           <button class="btn btn-success ms-3" type="button"

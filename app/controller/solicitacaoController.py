@@ -2,7 +2,7 @@ import os
 import datetime
 import tempfile
 from ..database import db
-from operator import and_
+from operator import and_, or_
 from io import BytesIO
 from ..enum.statusEnum import StatusEnum
 from pyreportjasper import PyReportJasper
@@ -10,6 +10,7 @@ from .roleRequired import  roles_required
 from app.models.solicitacao import Solicitacao
 from ..rotas.solicitacaoRout import solicitacao_bp
 from flask_login import current_user, login_required
+from ..models.status import Status
 from ..models.solicitacaoHistorico import SolicitacaoHistorico
 from ..models.solicitacaoDocumento import SolicitacaoDocumento
 from ..forms.analiseDocumentacaoForm import AnaliseDocumentacaoForm
@@ -24,8 +25,8 @@ class solicitacaoController:
         def listar():
                 
                 try:
-                        listSolicitacaoHistorico = SolicitacaoHistorico.query.filter(SolicitacaoHistorico.dataFim.is_(None)).order_by(SolicitacaoHistorico.dataInicio.desc()).limit(10).all()
-                
+                        listSolicitacaoHistorico = db.session.query(SolicitacaoHistorico).join(Status).filter(and_(SolicitacaoHistorico.dataFim.is_(None), or_(Status.id == StatusEnum.AGUARDANDO_ATENDIMENTO.value, Status.id == StatusEnum.REENVIADO.value))).all()
+                        print(listSolicitacaoHistorico)
                 except Exception as e:
                         flash('Erro: {}'.format(e), 'error')
                         
@@ -151,4 +152,25 @@ class solicitacaoController:
                         return Response(pdf_content, mimetype='application/pdf', headers={'Content-Disposition':'attachment;filename=' + solicitacao.txtProtocolo + '.pdf'})
 
                 except Exception as e:
-                        flash('Erro: {}'.format(e), 'error')       
+                        flash('Erro: {}'.format(e), 'error') 
+
+        @login_required
+        @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+        @solicitacao_bp.route('/finalizar/<idSolicitacaoHistorico>', methods=['GET'])
+        def finalizar(idSolicitacaoHistorico):
+
+                try:
+                        form = AnaliseDocumentacaoForm(request.form)
+                        data = datetime.datetime.now()
+                        solicitacaoHistorico = db.session.query(SolicitacaoHistorico).filter(SolicitacaoHistorico.id==idSolicitacaoHistorico).first() 
+                        solicitacaoHistorico.dataFim = data
+                        
+                        newSolicitacaoHistorico = SolicitacaoHistorico(solicitacaoHistorico.solicitacao, StatusEnum.FINALIZADO.value, current_user.id, None, data)
+                        db.session.add(newSolicitacaoHistorico)
+                        db.session.commit()
+                        flash('Solicitação alterada para: {status}'.format(status = StatusEnum.FINALIZADO.name), 'sucess')
+                except Exception as e:
+                        db.session.rollback
+                        flash('Erro: {}'.format(e), 'error') 
+
+                return redirect(url_for('solicitacao.listar'))                       
