@@ -70,6 +70,11 @@ class publicController:
                                 listSolicitacaoDocumento.append(solicitacaoDocumento)
 
                         solicitacao.set_txtProtocolo(txtProtocolo)
+                        solicitacao.set_txtCpf(form.cpf.data)
+                        solicitacao.set_txtNome(form.nome.data)
+                        solicitacao.set_txtEmail(form.email.data)
+                        solicitacao.set_txtEndereco(form.endereco.data)
+                        solicitacao.set_txtWhatsapp(form.whatsapp.data)
                         solicitacao.set_listSolicitacaoDocumento(listSolicitacaoDocumento)
 
                         solicitacaoHistorico = SolicitacaoHistorico(solicitacao, StatusEnum.AGUARDANDO_ATENDIMENTO.value, None, None, dataInicio)

@@ -40,14 +40,14 @@ class solicitacaoController:
                 
                 try:
                         form = AnaliseDocumentacaoForm(request.form)
-                        solicitacaoHistorico = db.session.query(SolicitacaoHistorico).join(Solicitacao).filter(and_(Solicitacao.id==idSolicitacao , SolicitacaoHistorico.dataFim.is_(None))).order_by(SolicitacaoHistorico.id.asc()).first() 
+                        solicitacao = db.session.query(Solicitacao).join(SolicitacaoHistorico).filter(and_(Solicitacao.id==idSolicitacao , SolicitacaoHistorico.dataFim.is_(None))).order_by(SolicitacaoHistorico.id.asc()).first() 
                         listSolicitacaoDocumento = db.session.query(SolicitacaoDocumento).join(Solicitacao).filter(and_(Solicitacao.id==idSolicitacao , SolicitacaoDocumento.dataFim.is_(None))).order_by(SolicitacaoDocumento.id.asc()).all() 
                         #solicitacao = Solicitacao.query.filter(Solicitacao.id == idSolicitacao).first()
 
                 except Exception as e:
                         flash('Erro: {}'.format(e), 'error')
                         
-                return render_template('visualizarDocumentos.html', form=form, solicitacaoHistorico=solicitacaoHistorico, listSolicitacaoDocumento=listSolicitacaoDocumento)        
+                return render_template('visualizarDocumentos.html', form=form, solicitacao=solicitacao, listSolicitacaoDocumento=listSolicitacaoDocumento)        
         
 
         @login_required

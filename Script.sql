@@ -134,6 +134,11 @@ CREATE TABLE credencial.tb_solicitacao_sol (
 	id_solicitacao_sol integer NOT NULL DEFAULT nextval('credencial.solicitacao_seq'::regclass),
   id_tipo_solicitacao_sol integer NOT NULL,
 	txt_protocolo_sol varchar(50) NOT NULL,
+  txt_cpf_sol varchar(11) NOT NULL,
+  txt_nome_sol varchar(200) NOT NULL,
+  txt_email_sol varchar(50) NOT NULL,
+  txt_endereco_sol varchar(200) NOT NULL,
+  txt_whatsapp_sol varchar(15) NOT NULL,
 	CONSTRAINT solicitacao_pkey PRIMARY KEY (id_solicitacao_sol)
 );
 ALTER TABLE credencial.tb_solicitacao_sol ADD CONSTRAINT tipo_solicitacao_fkey FOREIGN KEY (id_tipo_solicitacao_sol) REFERENCES credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis);
