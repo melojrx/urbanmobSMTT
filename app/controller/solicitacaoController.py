@@ -1,6 +1,5 @@
 import datetime
 from io import BytesIO
-import io
 import os
 from os.path import join, dirname, realpath
 from pyreportjasper import PyReportJasper
@@ -136,21 +135,22 @@ class solicitacaoController:
                         solicitacao = db.session.query(Solicitacao).filter(Solicitacao.id==idSolicitacao).first()
                         emissao = datetime.datetime.now()
                         validade =  emissao + datetime.timedelta(days=365*5)
-
+                        # brasao = os.path.join(os.path.dirname(__file__), '..', 'static', 'img','pdf', 'republicaFederativaBrasil.jpg')
+                        # with open(brasao, 'rb') as f:
+                                # brasaoIO = BytesIO(f.read())
+        
                         parametros = {'emissao': emissao.strftime('%d/%m/%Y'), 'unidadeUF': 'CE', 'municipio': 'Fortaleza', 'orgao': 'SMTT', 'validade': validade.strftime('%d/%m/%Y')}
 
-                        input_file = join(dirname(realpath(__file__)), '../static/report/credencial.jrxml')
-                        output_file = join(dirname(realpath(__file__)), '../static/report/')
+                        import tempfile
+                        input_file = os.path.join(os.path.dirname(__file__), '..', 'static', 'report','credencial.jrxml')
+                        output_file = tempfile.NamedTemporaryFile(suffix='.pdf').name
                         pyreportjasper = PyReportJasper()
                         pyreportjasper.config(input_file, output_file, output_formats=["pdf"], parameters=parametros)
                         pyreportjasper.process_report()
 
-                        pdf_file = join(output_file + 'credencial.pdf')
+                        with open(output_file, 'rb') as f:
+                                 pdf_content = f.read()
 
-                        with open(pdf_file, 'rb') as f:
-                                pdf_content = f.read()
-
-                        # os.remove(join(output_file + 'credencial.pdf'))
                         return Response(pdf_content, mimetype='application/pdf', headers={'Content-Disposition':'attachment;filename=' + solicitacao.txtProtocolo + '.pdf'})
 
                 except Exception as e:
