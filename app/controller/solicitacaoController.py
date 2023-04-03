@@ -1,7 +1,5 @@
 import datetime
-from io import BytesIO
 import os
-from os.path import join, dirname, realpath
 from pyreportjasper import PyReportJasper
 from ..database import db
 from operator import and_

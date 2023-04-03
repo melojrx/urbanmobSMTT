@@ -1,7 +1,8 @@
 import datetime
 from ..database import db
+from operator import and_
 from ..rotas.publicRout import public_bp
-from flask import flash, render_template, request
+from flask import flash, render_template, request, redirect, url_for
 from ..enum.statusEnum import StatusEnum
 from ..models.solicitacao import Solicitacao
 from ..models.tipoSolicitacao import TipoSolicitacao
@@ -96,10 +97,51 @@ class publicController:
                 if request.method == 'POST': 
                         try:
                                 numeroProtocolo = form.numeroProtocolo.data
-                                solicitacao= db.session.query(Solicitacao).join(SolicitacaoHistorico).filter(Solicitacao.txtProtocolo==numeroProtocolo).order_by(SolicitacaoHistorico.dataInicio.asc()).first() 
-                                return render_template('consultarProtocolo.html', form=form, solicitacao=solicitacao)
+                                solicitacao = db.session.query(Solicitacao).join(SolicitacaoHistorico).filter(Solicitacao.txtProtocolo==numeroProtocolo).order_by(SolicitacaoHistorico.dataInicio.asc()).first() 
+                                solicitacaoHistorico = db.session.query(SolicitacaoHistorico).join(Solicitacao).filter(and_(Solicitacao.id==solicitacao.id , SolicitacaoHistorico.dataFim.is_(None))).order_by(SolicitacaoHistorico.dataInicio.desc()).first() 
+                                form = SolicitacaoDocumentoForm(request.form)
+                                return render_template('visualizarSolicitacao.html', form=form, solicitacao=solicitacao, solicitacaoHistorico=solicitacaoHistorico)
                         except Exception as e:
                                 flash('Erro: {}'.format(e), 'error')     
                 else:
-                        return render_template('consultarProtocolo.html', form=form, solicitacao=None)
+                        return render_template('consultarProtocolo.html', form=form, solicitacao=None)             
         
+        @public_bp.route('/atualizarDocumento', methods=['POST'])
+        def atualizarDocumento():
+
+                try:
+
+                        form = SolicitacaoDocumentoForm(request.form)
+                        data = datetime.datetime.now()
+
+                        solicitacaoHistorico = db.session.query(SolicitacaoHistorico).filter(SolicitacaoHistorico.id==form.solicitacaoHistorico.data).first() 
+                        solicitacaoHistorico.dataFim = data
+
+                        newSolicitacaoHistorico = SolicitacaoHistorico(solicitacaoHistorico.solicitacao, StatusEnum.REENVIADO.value, None, None, data)
+
+                        listSolicitacaoDocumentos = request.form.getlist('solicitacaoDocumento')
+                        listDocumentos = request.form.getlist('documento')
+                        listFiles = request.files.getlist('file')
+
+                        for solicitacaoDocumento, file, documento in zip(listSolicitacaoDocumentos, listFiles, listDocumentos):
+                                solicitacaoDocumentoAntigo = db.session.query(SolicitacaoDocumento).filter(SolicitacaoDocumento.id==solicitacaoDocumento).first()
+                                solicitacaoDocumentoAntigo.dataFim = data
+                                db.session.add(solicitacaoDocumentoAntigo)
+
+                                newSolicitacaoDocumento = SolicitacaoDocumento()
+                                newSolicitacaoDocumento.set_solicitacao(solicitacaoHistorico.solicitacao)
+                                newSolicitacaoDocumento.set_idDocumento(documento)
+                                newSolicitacaoDocumento.set_file(file.read())
+                                newSolicitacaoDocumento.set_filename(file.filename)
+                                newSolicitacaoDocumento.set_contenttype(file.content_type)
+                                newSolicitacaoDocumento.set_dataInicio(data)
+                                db.session.add(newSolicitacaoDocumento)
+
+                        db.session.add(newSolicitacaoHistorico)
+                        db.session.commit()
+                        flash('Solicitação reeenviada com sucesso', 'sucess')
+                except Exception as e:
+                       db.session.rollback
+                       flash('Erro: {}'.format(e), 'error')
+
+                return redirect(url_for('public.cidadao'))

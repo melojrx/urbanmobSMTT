@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+{% if solicitacao %}
+Solicitação: {{ solicitacao.tipoSolicitacao.txtTipoSolicitacao}}
+{% endif %}
+
+{% for solicitacaoHistorico in solicitacao.listSolicitacaoHistorico %}
+
+<table>
+  <tr>
+    <td>Status: {{ solicitacaoHistorico.status.txtStatus}}</td>
+  </tr>
+  <tr>
+    <td>Observação: {{ solicitacaoHistorico.txtObservacao}}</td>
+  </tr>
+  <tr>
+    <td>Data: {{solicitacaoHistorico.dataInicio.strftime('%d/%m/%Y %H:%M')}}</td>
+  </tr>
+</table>
+{% endfor %}
+
+{% if solicitacaoHistorico.status.id == 4 %}
+
+  <form method="POST" enctype='multipart/form-data' action="{{ url_for('public.atualizarDocumento')}}">
+    <div class="form-group mb-4">
+      {{form.file.label(class_="form-label")}}
+      {% for solicitacaoDocumento in solicitacao.listSolicitacaoDocumento %}
+      <div class="mb-3">
+        <label for="{{solicitacaoDocumento.documento.id}}" class="form-label">{{solicitacaoDocumento.documento.txtDocumento}}:</label>
+        {% if solicitacaoDocumento.flgDeferido %}
+          {{solicitacaoDocumento.filename}} - Deferido
+        {% else %}
+          {{form.file(class_="form-control", id=solicitacaoDocumento.documento.id)}}
+          {{form.documento(class_="form-control", id=solicitacaoDocumento.documento.id, value=solicitacaoDocumento.documento.id)}}
+          {{form.solicitacaoHistorico(class_="form-control", id=solicitacaoDocumento.id, value=solicitacaoHistorico.id)}}
+          {{form.solicitacaoDocumento(class_="form-control", id=solicitacaoDocumento.id, value=solicitacaoDocumento.id)}}
+        {% endif %}
+        {% for error in form.file.errors %}
+        <div class="invalid-feedback">
+          {{error}}
+        </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="border-0 text-end justify-content-end">
+      <button type="submit" class="btn btn-primary "><i class="bi bi-pencil-square"></i>Reenviar</button>
+      <button type="button" class="btn btn-danger" onclick="window.location.href='{{url_for('public.cidadao')}}';"><i
+          class="bi bi-arrow-left-circle"></i>Voltar
+      </button>
+    </div>
+  </form>
+{% endif %}  
+
+
+{% endblock conteudo %}

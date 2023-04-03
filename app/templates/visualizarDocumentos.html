@@ -35,84 +35,90 @@
       <div class="mb-4">
         <div class="table-responsive">
           <table class="table table-striped table-hover">
-          <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th>Tipo de solicitação</th>
-                <th>Número do protocolo</th>
-                <th>Nome do documento</th>
-                <th>Nome do arquivo</th>
-                <th>Status</th>
-                <th>Abrir</th>
-                {% if solicitacaoHistorico.status.id == 2%}
-                <th>{{form.analise.label(class_="form-label")}}</th>
-                {% endif %}
-              </tr>
-            </thead>
-            <tbody>
-              {% for solicitacaoDocumento in listSolicitacaoDocumento %}
-              <tr>
-                <td>{{ solicitacaoDocumento.solicitacao.tipoSolicitacao.txtTipoSolicitacao }}</td>
-                <td>{{ solicitacaoDocumento.solicitacao.txtProtocolo }}</td>
-                <td>{{ solicitacaoDocumento.documento.txtDocumento }}</td>
-                <td>{{ solicitacaoDocumento.filename }}</td>
-                <td>{{ 'Deferido' if solicitacaoDocumento.flgDeferido else ( 'Não Analisado' if solicitacaoDocumento.flgDeferido == None else'Indeferido') }}</td>
-                <td>
-                  <a href="{{ url_for('solicitacao.open', idSolicitacaoDocumento=solicitacaoDocumento.id) }}"
-                    class="btn btn-link" role="button">
-                    <i class="bi bi-binoculars"></i>
-                  </a>
-                </td>
-                {% if solicitacaoHistorico.status.id == 2%}
-                <td>
-                  {{form.documento(value=solicitacaoDocumento.documento.id)}}
-                  {{form.idSolicitacaoDocumento(value=solicitacaoDocumento.id)}}
-                  {{form.idSolicitacaoHistorico(value=solicitacaoHistorico.id)}}
-                  <div>
-                    <input type="radio" name={{solicitacaoDocumento.documento.id}} value="true">
-                    <label for="huey">Sim</label>
-                  </div>
-                  <div>
-                    <input type="radio" name={{solicitacaoDocumento.documento.id}} value="false">
-                    <label for="dewey">Não</label>
-                  </div>
-                </td>
-                {% endif %}
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>Tipo de solicitação</th>
+                  <th>Número do protocolo</th>
+                  <th>Nome do documento</th>
+                  <th>Nome do arquivo</th>
+                  <th>Status</th>
+                  <th>Abrir</th>
+                  {% if solicitacaoHistorico.status.id == 2%}
+                  <th>{{form.analise.label(class_="form-label")}}</th>
+                  {% endif %}
+                </tr>
+              </thead>
+              <tbody>
+                {% for solicitacaoDocumento in listSolicitacaoDocumento %}
+                <tr>
+                  <td>{{ solicitacaoDocumento.solicitacao.tipoSolicitacao.txtTipoSolicitacao }}</td>
+                  <td>{{ solicitacaoDocumento.solicitacao.txtProtocolo }}</td>
+                  <td>{{ solicitacaoDocumento.documento.txtDocumento }}</td>
+                  <td>{{ solicitacaoDocumento.filename }}</td>
+                  <td>{{ 'Deferido' if solicitacaoDocumento.flgDeferido else ( 'Não Analisado' if
+                    solicitacaoDocumento.flgDeferido == None else'Indeferido') }}</td>
+                  <td>
+                    <a href="{{ url_for('solicitacao.open', idSolicitacaoDocumento=solicitacaoDocumento.id) }}"
+                      class="btn btn-link" role="button">
+                      <i class="bi bi-binoculars"></i>
+                    </a>
+                  </td>
+                  {% if solicitacaoHistorico.status.id == 2%}
+                  <td>
+                    {% if not solicitacaoDocumento.flgDeferido %}
+                    {{form.documento(value=solicitacaoDocumento.documento.id)}}
+                    {{form.idSolicitacaoDocumento(value=solicitacaoDocumento.id)}}
+                    {{form.idSolicitacaoHistorico(value=solicitacaoHistorico.id)}}
+                    <div>
+                      <input type="radio" name={{solicitacaoDocumento.documento.id}} value="true">
+                      <label for="huey">Sim</label>
+                    </div>
+                    <div>
+                      <input type="radio" name={{solicitacaoDocumento.documento.id}} value="false">
+                      <label for="dewey">Não</label>
+                    </div>
+                    {% endif %}
+                  </td>
+                  {% endif %}
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
 
-          {% if solicitacaoHistorico.status.id == 2%}
-          <br>
-          <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th><label for="observacao">{{form.observacao.label(class_="form-label")}}:</label></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td colspan="5">
-                  {{form.observacao(cols="100", rows="5")}}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          {% endif %}
+            {% if solicitacaoHistorico.status.id == 2%}
+            <br>
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th><label for="observacao">{{form.observacao.label(class_="form-label")}}:</label></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="5">
+                    {{form.observacao(cols="100", rows="5")}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            {% endif %}
         </div>
         <div class="card-footer border-0 text-end justify-content-end">
+          <!-- Se o status do documento for EM ANDAMENTO -->
           {% if solicitacaoHistorico.status.id == 2%}
           {{ form.submit(class_="btn btn-primary") }}
           {% endif %}
-          {% if solicitacaoHistorico.status.id == 1%}
+          <!-- Se o status do documento for AGUARDANDO ATENDIMENTO ou REENVIADO permite atender -->
+          {% if solicitacaoHistorico.status.id == 1 or solicitacaoHistorico.status.id == 6%}
           <button class="btn btn-success ms-3" type="button"
             onclick="window.location.href='{{url_for('solicitacao.atender', idSolicitacaoHistorico=solicitacaoHistorico.id)}}';">Atender</button>
           {% endif %}
           {% if solicitacaoHistorico.status.id== 3%}
           <button class="btn btn-secondary ms-3" type="button"
-            onclick="window.location.href='{{url_for('solicitacao.imprimirCredencial', idSolicitacao=solicitacaoHistorico.solicitacao.id)}}';">Imprimir Credencial</button>
-          {% endif %}          
+            onclick="window.location.href='{{url_for('solicitacao.imprimirCredencial', idSolicitacao=solicitacaoHistorico.solicitacao.id)}}';">Imprimir
+            Credencial</button>
+          {% endif %}
           <button class="btn btn-danger ms-3" type="button" onclick="window.history.back()">Voltar</button>
         </div>
       </div>

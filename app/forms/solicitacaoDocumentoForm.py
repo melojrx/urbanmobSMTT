@@ -15,6 +15,10 @@ class SolicitacaoDocumentoForm(FlaskForm):
 
     documento = HiddenField("documento")
 
+    solicitacaoDocumento = HiddenField("solicitacaoDocumento")
+
+    solicitacaoHistorico = HiddenField("solicitacaoHistorico")
+
     tipoSolicitacao = HiddenField("tipoSolicitacao")
 
     nome = StringField(

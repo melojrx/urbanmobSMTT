@@ -6,3 +6,4 @@ class StatusEnum(Enum):
     DEFERIDO = 3
     INDEFERIDO = 4
     FINALIZADO = 5
+    REENVIADO= 6

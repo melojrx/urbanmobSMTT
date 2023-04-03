@@ -8,27 +8,6 @@
   {{ form.submit(class_="btn btn-primary") }}
   <button class="btn btn-danger ms-3" type="button"
     onclick="window.location.href='{{url_for('public.cidadao')}}';">Voltar</button>
-</form>
-
-{% if solicitacao %}
-  Solicitação: {{ solicitacao.tipoSolicitacao.txtTipoSolicitacao}}      
-{% endif %}
-
-{% for solicitacaoHistorico in solicitacao.listSolicitacaoHistorico %}
-
-<table> 
-  <tr>
-    <td>Status:  {{ solicitacaoHistorico.status.txtStatus}}</td>
-  </tr>
-  <tr>
-     <td>Observação: {{ solicitacaoHistorico.txtObservacao}}</td>
-  </tr>
-  <tr>
-     <td>Data: {{solicitacaoHistorico.dataInicio.strftime('%d/%m/%Y %H:%M')}}</td>
-  </tr>
-</table>
-{% endfor %}
-        
-
+</form>  
 
 {% endblock conteudo %}

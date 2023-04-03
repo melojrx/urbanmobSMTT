@@ -184,7 +184,8 @@ INSERT INTO credencial.tb_status_sta (id_status_sta, txt_status_sta, dat_inicio_
 INSERT INTO credencial.tb_status_sta (id_status_sta, txt_status_sta, dat_inicio_sta, dat_fim_sta) VALUES(3,'Deferido', now(), null);
 INSERT INTO credencial.tb_status_sta (id_status_sta, txt_status_sta, dat_inicio_sta, dat_fim_sta) VALUES(4,'Indeferido', now(), null);
 INSERT INTO credencial.tb_status_sta (id_status_sta, txt_status_sta, dat_inicio_sta, dat_fim_sta) VALUES(5,'Finalizado', now(), null);
-SELECT setval('credencial.status_seq', 5);
+INSERT INTO credencial.tb_status_sta (id_status_sta, txt_status_sta, dat_inicio_sta, dat_fim_sta) VALUES(6,'Reenviado', now(), null);
+SELECT setval('credencial.status_seq', 6);
 
 INSERT INTO credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis, txt_tipo_solicitacao_tis, txt_icone_tis, dat_inicio_tis, dat_fim_tis) VALUES(1, 'Deficiente', 'bi bi-person-square', now(), null);
 INSERT INTO credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis, txt_tipo_solicitacao_tis, txt_icone_tis, dat_inicio_tis, dat_fim_tis) VALUES(2, 'Idoso', 'bi bi-person-plus-fill', now(), null);
