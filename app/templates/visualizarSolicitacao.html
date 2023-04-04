@@ -2,8 +2,14 @@
 
 {% block conteudo %}
 
+
 {% if solicitacao %}
-Solicitação: {{ solicitacao.tipoSolicitacao.txtTipoSolicitacao}}
+<div class="container border mt-4 rounded p-4">
+  <div class="container p-0 mb-1 mt-2">
+    <h5 class="titulo-filtra-demandas"><strong><i class="bi bi-search"></i> Consulta Solicitações </strong></h5>
+    <hr class="mt-1">
+  </div>
+  <span>Solicitação: {{ solicitacao.tipoSolicitacao.txtTipoSolicitacao}}</span>
 {% endif %}
 
 {% for solicitacaoHistorico in solicitacao.listSolicitacaoHistorico %}
@@ -20,6 +26,12 @@ Solicitação: {{ solicitacao.tipoSolicitacao.txtTipoSolicitacao}}
   </tr>
 </table>
 {% endfor %}
+  <div class="border-0 text-end justify-content-end">
+    <button type="button" class="btn btn-danger" onclick="window.location.href='{{url_for('public.cidadao')}}';"><i
+        class="bi bi-arrow-left-circle"></i>Voltar
+    </button>
+  </div>
+</div>
 
 {% if solicitacaoHistorico.status.id == 4 %}
 
