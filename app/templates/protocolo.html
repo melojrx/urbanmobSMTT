@@ -2,27 +2,37 @@
 
 {% block conteudo %}
 
-<div class="container">
-  <div class="row mt-5 justify-content-center">
+<div class="container mt-5">
+  <div class="row justify-content-center">
     <div class="col-md-6">
-      <div class="card p-3">
-        <div class="card-header border-0 text-center">
-          <h3 class="fw-bold m-0">PROTOCOLO</h3>
+      <div class="card">
+        <div class="card-header bg-light text-center">
+          <span class="fw-bold m-0">PROTOCOLO: <span class="fw-bold">{{solicitacao.txtProtocolo}}</span> </span>
         </div>
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center">
-            <h4 class="fw-bold mb-0">Número:&nbsp;</h4>
-            <span class="fs-5">{{protocolo}}</span>
-          </div>
-          <div class="d-flex justify-content-between align-items-center mt-3">
-            <h4 class="fw-bold mb-0">Gerado em:&nbsp;</h4>
-            <span class="fs-5">{{data.strftime('%d/%m/%Y %H:%M')}}</span>
+        <div class="card-body bg-white">
+          <div class="d-flex flex-column">
+            <div class="d-flex justify-content-start">
+              <span class="fw-bold">Interessado:&nbsp;</span>
+              <span class="fw-regular">{{solicitacao.txtNome}}</span>
+            </div>
+            <div class="d-flex justify-content-start">
+              <span class="fw-bold">Solicitação:&nbsp;</span>
+              <span class="fw-regular">{{solicitacao.tipoSolicitacao.txtTipoSolicitacao}}</span>
+            </div>
+            <div class="d-flex justify-content-start">
+              <span class="fw-bold">Gerado em:&nbsp;</span>
+              <span class="fw-regular">{{data.strftime('%d/%m/%Y às %H:%M')}}h</span>
+            </div> 
           </div>
         </div>
-        <div class="card-footer border-0 text-center">
-          <button class="btn btn-primary" type="button" onclick="window.print()"> <i class="bi bi-printer"></i> Imprimir</button>
-          <button class="btn btn-danger ms-4" type="button"
-          onclick="window.location.href='{{url_for('public.cidadao')}}';">Voltar</button>
+        <div class="card-footer bg-white border-0 text-center">
+          <div class="mb-2">
+            <span class="text-muted small">O andamento do protocolo pode ser consultado no site www.urban-pass.gov.br</span>
+          </div> 
+          <div class='d-flex justify-content-center align-items-center mb-3'>
+            <button class="btn btn-primary me-3" type="button" onclick="window.print()"> <i class="bi bi-printer"></i> Imprimir</button>
+            <button class="btn btn-danger" type="button" onclick="window.location.href='{{url_for('public.cidadao')}}';"><i class="bi bi-arrow-left-circle"></i>Voltar</button>
+          </div>
         </div>
       </div>
     </div>

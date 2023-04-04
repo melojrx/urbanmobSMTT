@@ -88,7 +88,7 @@ class publicController:
                        db.session.rollback
                        flash('Erro: {}'.format(e), 'error')
                  
-                return render_template('protocolo.html', protocolo=solicitacao.get_txtProtocolo(), data=dataInicio)
+                return render_template('protocolo.html', solicitacao=solicitacao, data=dataInicio)
         
         @public_bp.route('/consultarProtocolo' , methods=['GET', 'POST'])
         def consultarProtocolo():
