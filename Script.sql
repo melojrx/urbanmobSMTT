@@ -98,6 +98,7 @@ CREATE TABLE credencial.tb_tipo_solicitacao_tis (
 	id_tipo_solicitacao_tis integer NOT NULL DEFAULT nextval('credencial.tipo_solicitacao_seq'::regclass),
 	txt_tipo_solicitacao_tis varchar(200) NOT NULL,
   txt_icone_tis varchar(50) NOT NULL,
+  txt_resolucao_tis varchar(50) NOT NULL,
 	dat_inicio_tis timestamp without time zone NOT null default now(),
 	dat_fim_tis timestamp without time zone default null,
 	CONSTRAINT tipo_solicitacao_pkey PRIMARY KEY (id_tipo_solicitacao_tis)
@@ -187,10 +188,10 @@ INSERT INTO credencial.tb_status_sta (id_status_sta, txt_status_sta, dat_inicio_
 INSERT INTO credencial.tb_status_sta (id_status_sta, txt_status_sta, dat_inicio_sta, dat_fim_sta) VALUES(6,'Reenviado', now(), null);
 SELECT setval('credencial.status_seq', 6);
 
-INSERT INTO credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis, txt_tipo_solicitacao_tis, txt_icone_tis, dat_inicio_tis, dat_fim_tis) VALUES(1, 'Deficiente', 'bi bi-person-square', now(), null);
-INSERT INTO credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis, txt_tipo_solicitacao_tis, txt_icone_tis, dat_inicio_tis, dat_fim_tis) VALUES(2, 'Idoso', 'bi bi-person-plus-fill', now(), null);
-INSERT INTO credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis, txt_tipo_solicitacao_tis, txt_icone_tis, dat_inicio_tis, dat_fim_tis) VALUES(3, 'ônibus', 'bi bi-bus-front-fill', now(), null);
-INSERT INTO credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis, txt_tipo_solicitacao_tis, txt_icone_tis, dat_inicio_tis, dat_fim_tis) VALUES(4, 'Táxi', 'bi bi-taxi-front-fill', now(), null);
+INSERT INTO credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis, txt_tipo_solicitacao_tis, txt_icone_tis, txt_resolucao_tis, dat_inicio_tis, dat_fim_tis) VALUES(1, 'Deficiente', 'bi bi-person-square', 'CONFORME RESOLUÇÃO Nº 304/08 DO CONTRAN' , now(), null);
+INSERT INTO credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis, txt_tipo_solicitacao_tis, txt_icone_tis, txt_resolucao_tis, dat_inicio_tis, dat_fim_tis) VALUES(2, 'Idoso', 'bi bi-person-plus-fill', 'CONFORME RESOLUÇÃO Nº 303/08 DO CONTRAN', now(), null);
+INSERT INTO credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis, txt_tipo_solicitacao_tis, txt_icone_tis, txt_resolucao_tis, dat_inicio_tis, dat_fim_tis) VALUES(3, 'ônibus', 'bi bi-bus-front-fill', 'CONFORME RESOLUÇÃO Nº 303/08 DO CONTRAN', now(), null);
+INSERT INTO credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis, txt_tipo_solicitacao_tis, txt_icone_tis, txt_resolucao_tis, dat_inicio_tis, dat_fim_tis) VALUES(4, 'Táxi', 'bi bi-taxi-front-fill', 'CONFORME RESOLUÇÃO Nº 303/08 DO CONTRAN', now(), null);
 SELECT setval('credencial.tipo_solicitacao_seq', 4);
 
 INSERT INTO credencial.tb_documento_doc(id_documento_doc, txt_documento_doc, dat_inicio_doc, dat_fim_doc) VALUES(1, 'RG', now(), null);

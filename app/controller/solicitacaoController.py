@@ -5,6 +5,7 @@ from ..database import db
 from operator import and_, or_
 from io import BytesIO
 from ..enum.statusEnum import StatusEnum
+from ..enum.tipoSolicitacaoEnum import TipoSolicitacaoEnum
 from pyreportjasper import PyReportJasper
 from .roleRequired import  roles_required
 from app.models.solicitacao import Solicitacao
@@ -138,9 +139,28 @@ class solicitacaoController:
                         validade =  emissao + datetime.timedelta(days=365*5)
                         brasao = os.path.join(os.path.dirname(__file__), '..', 'static', 'img','pdf', 'republicaFederativaBrasil.jpg')
            
-                        parametros = {'emissao': emissao.strftime('%d/%m/%Y'), 'unidadeUF': 'CE', 'municipio': 'Fortaleza', 'orgao': 'SMTT', 'validade': validade.strftime('%d/%m/%Y'), 'brasao': brasao, 'registro': solicitacao.txtProtocolo}
+                        qr = solicitacao.txtCpf
 
-                        input_file = os.path.join(os.path.dirname(__file__), '..', 'static', 'report','credencial.jrxml')
+                        if solicitacao.tipoSolicitacao.id == TipoSolicitacaoEnum.IDOSO.value:
+
+                                parametros = {'emissao': emissao.strftime('%d/%m/%Y'), 'unidadeUF': 'CE', 'municipio': 'Fortaleza', 'orgao': 'SMTT',
+                                        'resolucao' : solicitacao.tipoSolicitacao.txtResolucao,
+                                        'tipoSolicitacao' : solicitacao.tipoSolicitacao.txtTipoSolicitacao,
+                                        'validade': validade.strftime('%d/%m/%Y'), 'brasao': brasao, 'registro': solicitacao.txtProtocolo, 'qr': qr}
+
+                                input_file = os.path.join(os.path.dirname(__file__), '..', 'static', 'report','credencialIdoso.jrxml')
+                        
+                        elif solicitacao.tipoSolicitacao.id == TipoSolicitacaoEnum.DEFICIENTE.value:
+                                deficienteIcon = os.path.join(os.path.dirname(__file__), '..', 'static', 'img','pdf', 'deficiente.jpg')
+
+                                parametros = {'emissao': emissao.strftime('%d/%m/%Y'), 'unidadeUF': 'CE', 'municipio': 'Fortaleza', 'orgao': 'SMTT', 
+                                        'deficienteIcon': deficienteIcon, 'resolucao' : solicitacao.tipoSolicitacao.txtResolucao,
+                                        'validade': validade.strftime('%d/%m/%Y'), 'brasao': brasao, 'registro': solicitacao.txtProtocolo, 'qr': qr}
+
+                                input_file = os.path.join(os.path.dirname(__file__), '..', 'static', 'report','credencialDeficiente.jrxml')
+                        else:
+                                return render_template('erro.html', erro='Em desenvolvimento')
+
                         output_file = tempfile.NamedTemporaryFile(suffix='.pdf').name
                         pyreportjasper = PyReportJasper()
                         pyreportjasper.config(input_file, output_file, output_formats=["pdf"], parameters=parametros)
