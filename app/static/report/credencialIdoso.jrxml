@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="credencial" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="958a283a-ed27-4730-8d6a-3260c904772a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="registro" class="java.lang.String"/>
+	<parameter name="emissao" class="java.lang.String"/>
+	<parameter name="unidadeUF" class="java.lang.String"/>
+	<parameter name="municipio" class="java.lang.String"/>
+	<parameter name="orgao" class="java.lang.String"/>
+	<parameter name="validade" class="java.lang.String"/>
+	<parameter name="brasao" class="java.lang.Object"/>
+	<parameter name="qr" class="java.lang.String"/>
+	<parameter name="tipoSolicitacao" class="java.lang.String"/>
+	<parameter name="resolucao" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="555" splitType="Stretch">
+			<staticText>
+				<reportElement x="200" y="28" width="561" height="37" uuid="7225ecd9-c932-465d-b8ff-295280790f3b"/>
+				<text><![CDATA[Static text]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="0" width="813" height="555" uuid="5c581e43-3575-4dd5-a8d6-001b8429b341"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="63" y="15" width="725" height="522" uuid="83af3822-67f3-4a7d-9402-025858f734b1"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Opaque" x="11" y="15" width="39" height="522" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#000000" uuid="6e627540-8cfe-4ebb-aae9-8208ee5d4b22"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" rotation="Left">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTACIONAMENTO]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="86" y="28" width="162" height="109" uuid="0a75b79e-8c85-4623-a8c7-2f22398aab71"/>
+				<imageExpression><![CDATA[$P{brasao}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="65" y="17" width="725" height="522" forecolor="#00CCFF" uuid="84a07e86-3b36-4e76-8c78-6bf9dc48912b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font size="220" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tipoSolicitacao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="248" y="28" width="513" height="37" uuid="a74a51eb-821f-464f-befd-6f47559a40c5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPÚBLICA FEDERATIVA DO BRASIL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="86" y="192" width="675" height="29" uuid="af8a525d-47e5-4139-97ea-f22164cf74db"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{resolucao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="86" y="137" width="675" height="48" uuid="2f19c269-71b1-4b48-b6b5-1590569b76d9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTACIONAMENTO VAGA ESPECIAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="248" y="69" width="513" height="37" uuid="e0c740cf-2259-4a04-95bc-bcbb0324e102"/>
+				<textElement verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONSELHO NACIONAL DE TRÂNSITO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="86" y="236" width="675" height="31" uuid="d2f93fdc-a5b6-44db-883b-0244af815a5d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Nº. DO REGISTRO " + $P{registro}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="86" y="279" width="675" height="1" uuid="7d93b676-a2ad-4c66-8a61-71fcfd65daed"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="96" y="350" width="665" height="31" uuid="0730394c-f08a-4d40-ad27-9e3272821db5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="22" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["UNIDADE DA FEDERAÇÃO: " + $P{unidadeUF}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="96" y="306" width="665" height="31" uuid="bcfe916e-9423-4469-9e3f-df3f98b28cda"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DATA DE EMISSÃO: " + $P{emissao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="96" y="393" width="391" height="31" uuid="bc381ca0-17ad-43e1-9d6d-23b40c2d7742"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="22" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["MUNICÍPIO: " + $P{municipio}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="616" y="393" width="145" height="121" uuid="99e57df8-6a51-4ae0-9d6c-e610f0518f9a"/>
+				<imageExpression><![CDATA["http://zxing.org/w/chart?cht=qr&chs=230x230&chld=L&choe=UTF-8&chl=" + java.net.URLEncoder.encode($P{qr})]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="96" y="438" width="391" height="31" uuid="aba78793-bfd6-44b1-a034-e7dd44cf6b86"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="22" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ÓRGÃO EXPEDIDOR: " + $P{orgao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="96" y="483" width="391" height="31" uuid="5872b4d1-d4d7-4077-8a64-9c6e9c69ad11"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="22" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["VALIDADE: " + $P{validade}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
