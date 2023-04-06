@@ -82,7 +82,7 @@
 			</textField>
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement x="616" y="393" width="145" height="121" uuid="99e57df8-6a51-4ae0-9d6c-e610f0518f9a"/>
-				<imageExpression><![CDATA["http://zxing.org/w/chart?cht=qr&chs=230x230&chld=L&choe=UTF-8&chl=" + java.net.URLEncoder.encode($P{qr})]]></imageExpression>
+				<imageExpression><![CDATA["http://zxing.org/w/chart?cht=qr&chs=230x230&chld=L&choe=UTF-8&chl=" + java.net.URLEncoder.encode("www.google.com.br/search?q="+$P{qr})]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement x="96" y="438" width="391" height="31" uuid="aba78793-bfd6-44b1-a034-e7dd44cf6b86"/>

@@ -65,7 +65,7 @@ class loginController:
             user = User.query.filter_by(email=form.email.data).first()
             session["roles"] = 'URBANMOB_GOVERNO'
             login_user(user)
-            return redirect(url_for('solicitacao.listar')) 
+            return redirect(url_for('solicitacao.prepareSearch')) 
         else:
              return render_template('login.html', form=form)
         # ------------------------------------------------
@@ -94,7 +94,7 @@ class loginController:
 
                     session["roles"] = data['roles']
                     login_user(user)
-                    return redirect(url_for('solicitacao.listar')) 
+                    return redirect(url_for('solicitacao.prepareSearch')) 
                 else:
                     flash('Erro: {}. {}'.format(response.status_code, data['message']), 'error') 
                     return render_template('login.html', form=form)
