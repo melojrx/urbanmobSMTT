@@ -3,7 +3,6 @@ import datetime
 import tempfile
 from ..database import db
 from operator import and_, or_
-from io import BytesIO
 from ..enum.statusEnum import StatusEnum
 from ..enum.tipoSolicitacaoEnum import TipoSolicitacaoEnum
 from pyreportjasper import PyReportJasper
@@ -12,6 +11,7 @@ from app.models.solicitacao import Solicitacao
 from ..rotas.solicitacaoRout import solicitacao_bp
 from flask_login import current_user, login_required
 from ..models.status import Status
+from ..models.tipoSolicitacao import TipoSolicitacao
 from ..models.solicitacaoHistorico import SolicitacaoHistorico
 from ..models.solicitacaoDocumento import SolicitacaoDocumento
 from ..forms.analiseDocumentacaoForm import AnaliseDocumentacaoForm
@@ -19,19 +19,84 @@ from flask import flash, make_response, redirect, render_template, request, url_
 
 
 class solicitacaoController:
-    
+
         @login_required
         @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
-        @solicitacao_bp.route('/listar', methods=['GET'])
-        def listar():
+        @solicitacao_bp.route('/prepareSearch', methods=['GET'])
+        def prepareSearch():
                 
+                global ROWS_PER_PAGE 
+                ROWS_PER_PAGE = 10
+
+                global listTipoSolicitacao 
+                global listStatus
+    
                 try:
-                        listSolicitacaoHistorico = db.session.query(SolicitacaoHistorico).join(Status).filter(and_(SolicitacaoHistorico.dataFim.is_(None), or_(Status.id == StatusEnum.AGUARDANDO_ATENDIMENTO.value, Status.id == StatusEnum.REENVIADO.value))).all()
-                        print(listSolicitacaoHistorico)
+                        page = request.args.get('page', 1, type=int)
+
+                        listStatus = db.session.query(Status).filter(Status.dataFim.is_(None)).all()
+                        listTipoSolicitacao = db.session.query(TipoSolicitacao).filter(TipoSolicitacao.dataFim.is_(None)).all() 
+
+                        listSolicitacaoHistorico = db.session.query(SolicitacaoHistorico).join(Status).filter(and_(SolicitacaoHistorico.dataFim.is_(None), or_(Status.id == StatusEnum.AGUARDANDO_ATENDIMENTO.value, Status.id == StatusEnum.REENVIADO.value))).paginate(page=page, per_page=ROWS_PER_PAGE)
+
+                except Exception as e:
+                        flash('Erro: {}'.format(e), 'error')                        
+
+                return render_template('listarSolicitacao.html', listSolicitacaoHistorico=listSolicitacaoHistorico, listStatus=listStatus, listTipoSolicitacao=listTipoSolicitacao)
+        
+
+        @login_required
+        @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+        @solicitacao_bp.route('/search', methods=['GET'])
+        def search():
+                
+                global ROWS_PER_PAGE 
+                ROWS_PER_PAGE = 10
+
+                try:
+                        page = request.args.get('page', 1, type=int)
+
+                        numProtocoloSearch = request.args.get('numProtocoloSearch')
+                        tipoSolicitacaoSearch = request.args.get('tipoSolicitacaoSearch') 
+                        statusSearch = request.args.get('statusSearch') 
+                        dataInicioSearch = request.args.get('dataInicioSearch') 
+                        dataFimSearch = request.args.get('dataFimSearch')
+
+
+                        # if numProtocoloSearch == "" and statusSearch == "" and tipoSolicitacaoSearch == "" and dataInicioSearch == "" and dataFimSearch == "":
+                        #         listSolicitacaoHistorico = None
+                        #         flash('Informe pelo menos um critério de pesquisa', 'error')
+                        #         return render_template('listarSolicitacao.html', listStatus=listStatus, listTipoSolicitacao=listTipoSolicitacao, listSolicitacaoHistorico=listSolicitacaoHistorico)
+                
+                        querySearch = SolicitacaoHistorico.query.filter(SolicitacaoHistorico.dataFim.is_(None))
+
+                        if numProtocoloSearch != "":
+                                querySearch= querySearch.join(SolicitacaoHistorico.solicitacao).filter(Solicitacao.txtProtocolo == numProtocoloSearch)
+
+                        if tipoSolicitacaoSearch != "":
+                                querySearch= querySearch.join(SolicitacaoHistorico.solicitacao).join(TipoSolicitacao).filter(TipoSolicitacao.id == tipoSolicitacaoSearch)
+
+                        if statusSearch != "":
+                                querySearch= querySearch.join(SolicitacaoHistorico.status).filter(Status.id == statusSearch)
+
+                        if dataInicioSearch != "" and dataFimSearch != "":
+                                querySearch = querySearch.filter(SolicitacaoHistorico.dataInicio >= dataInicioSearch).filter(SolicitacaoHistorico.dataInicio <= dataFimSearch)
+                        elif dataInicioSearch != "" and dataFimSearch == "":
+                                querySearch = querySearch.filter(SolicitacaoHistorico.dataInicio >= dataInicioSearch)
+                        elif dataInicioSearch == "" and dataFimSearch != "":
+                                querySearch = querySearch.filter(SolicitacaoHistorico.dataInicio <= dataFimSearch)
+
+                        listSolicitacaoHistorico = querySearch.order_by(SolicitacaoHistorico.dataInicio.desc()).paginate(page=page, per_page=ROWS_PER_PAGE)
+
+                        if listSolicitacaoHistorico.items == []:
+                                listSolicitacaoHistorico = None
+                                flash('A pesquisa não encontrou nenhum resultado', 'error')
+                                return render_template('listarSolicitacao.html', listSolicitacaoHistorico=listSolicitacaoHistorico, listStatus=listStatus,listTipoSolicitacao=listTipoSolicitacao)
+                        
                 except Exception as e:
                         flash('Erro: {}'.format(e), 'error')
-                        
-                return render_template('listarSolicitacao.html', listSolicitacaoHistorico=listSolicitacaoHistorico)
+
+                return render_template('listarSolicitacao.html', listSolicitacaoHistorico=listSolicitacaoHistorico, listStatus=listStatus, listTipoSolicitacao=listTipoSolicitacao)
         
 
         @login_required
