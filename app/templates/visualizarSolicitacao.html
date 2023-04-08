@@ -9,22 +9,25 @@
     <h5 class="titulo-filtra-demandas"><strong><i class="bi bi-search"></i> Consulta Solicitações </strong></h5>
     <hr class="mt-1">
   </div>
-  <span>Solicitação: {{ solicitacao.tipoSolicitacao.txtTipoSolicitacao}}</span>
-{% endif %}
+  <div class="container p-0 mb-1 mt-1 border-bottom">
+    <span><strong>Tipo de Solicitação:</strong> {{ solicitacao.tipoSolicitacao.txtTipoSolicitacao}}</span>
+  </div>
+  {% endif %}
 
 {% for solicitacaoHistorico in solicitacao.listSolicitacaoHistorico %}
-
-<table>
-  <tr>
-    <td>Status: {{ solicitacaoHistorico.status.txtStatus}}</td>
-  </tr>
-  <tr>
-    <td>Observação: {{ solicitacaoHistorico.txtObservacao}}</td>
-  </tr>
-  <tr>
-    <td>Data: {{solicitacaoHistorico.dataInicio.strftime('%d/%m/%Y %H:%M')}}</td>
-  </tr>
-</table>
+<div class="container mt-4">
+  <table class="table table-bordered">
+    <tr>
+      <td><strong>Status:</strong> {{ solicitacaoHistorico.status.txtStatus}}</td>
+    </tr>
+    <tr>
+      <td><strong>Observação:</strong> {{ solicitacaoHistorico.txtObservacao}}</td>
+    </tr>
+    <tr>
+      <td><strong>Data:</strong> {{solicitacaoHistorico.dataInicio.strftime('%d/%m/%Y %H:%M')}}</td>
+    </tr>
+  </table>
+</div>
 {% endfor %}
   <div class="border-0 text-end justify-content-end">
     <button type="button" class="btn btn-danger" onclick="window.location.href='{{url_for('public.cidadao')}}';"><i
@@ -34,7 +37,11 @@
 </div>
 
 {% if solicitacaoHistorico.status.id == 4 %}
-
+<div class="container border mt-4 rounded p-4">
+  <div class="container p-0 mb-1 mt-2">
+    <h6 class="titulo-filtra-demandas"><strong> Documentação analisada </strong></h6>
+    <hr class="mt-1">
+  </div>
   <form method="POST" enctype='multipart/form-data' action="{{ url_for('public.atualizarDocumento')}}">
     <div class="form-group mb-4">
       {{form.file.label(class_="form-label")}}
@@ -58,7 +65,7 @@
       {% endfor %}
     </div>
 
-    <div class="border-0 text-end justify-content-end">
+    <div class="border-0 text-end justify-content-end mb-2">
       <button type="submit" class="btn btn-primary "><i class="bi bi-pencil-square"></i>Reenviar</button>
       <button type="button" class="btn btn-danger" onclick="window.location.href='{{url_for('public.cidadao')}}';"><i
           class="bi bi-arrow-left-circle"></i>Voltar
@@ -66,6 +73,6 @@
     </div>
   </form>
 {% endif %}  
-
+</div>
 
 {% endblock conteudo %}
