@@ -27,11 +27,13 @@ body {
 .urban_logo a:hover {
     color: #3a51d5;
     transition: all .3s;
+    text-decoration: none;
 }
 
 .log_user {
     font-family: 'Roboto', sans-serif;
     color: #FFF;
+    font-size: 14px;
 }
 
 /* Painel esquerdo - geral */
@@ -90,9 +92,6 @@ body {
 
 .bi-patch-plus {
     padding-right: 5px;
-}
-.bi-search {
-    margin-right: 2px;
 }
 
 /* Visualizar demanda */

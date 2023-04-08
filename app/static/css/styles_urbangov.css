@@ -79,27 +79,20 @@
   font-size: 1em;
 }
 
-.bi-file-text, 
+.bi-file-text-fill, 
 .bi-search, 
-.bi-bar-chart-line, 
-.bi-file-earmark-plus,
+.bi-bar-chart-fill, 
+.bi-file-earmark-text-fill,
 .bi-house-fill,
-.bi-file-earmark-plus
 .bi-envelope-dash,
-.bi-envelope,
-.bi-check2-square
+.bi-envelope-fill,
+.bi-check2-square,
+.bi-envelope-exclamation-fill,
+.bi-search,
+.bi-file-earmark-plus
  {
-  font-size: 2.5em;
+  font-size: 2.2em;
   padding-right: 8px;
-}
-
-.ident-cargo {
-  padding-right: 10px;
-}
-
-#div-iden-cargo {
- display: flex;
- justify-content: center;
 }
 
 .menu-categorias {

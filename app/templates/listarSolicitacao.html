@@ -2,7 +2,7 @@
 
 {% block conteudo %}
 
-<main class="container-fluid">
+
 
   <div class="container border mt-2 rounded p-4">
 
@@ -20,10 +20,10 @@
         </div>
 
         <div class="col m-1">
-          <label class="form-label m-1"> Tipo de Solicitação: </label>
+          <label class="form-label m-1"> Solicitação: </label>
           <select class="form-select form-select-sm m-1" aria-label="Selecione o Tipo de Solicitação"
             name="tipoSolicitacaoSearch">
-            <option selected value="">- Todos - </option>
+            <option selected value=""> - Todos - </option>
             {% for tipoSolicitacao in listTipoSolicitacao %}
             <option value="{{ tipoSolicitacao.id }}">{{ tipoSolicitacao.txtTipoSolicitacao }}</option>
             {% endfor %}
@@ -62,7 +62,8 @@
       </div>
     </form>
   </div>
-  <div class="container border mt-2 rounded p-4 mb-1">
+  <div class="container border mt-2 rounded p-4 mb-2">
+
     <div class="container p-0 mb-1 mt-1">
       <h6 class="titulo-filtra-demandas"> <strong><i class="bi-list-ul"></i>&nbsp;&nbsp; Lista de Solicitações
         </strong></h5>
@@ -144,8 +145,10 @@
           </ul>
         </nav>
       </div>
+    </div>
     {% endif %}
-    </div>    
-  </main>
+  </div>    
+
+
 
 {% endblock conteudo %}
