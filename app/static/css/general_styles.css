@@ -38,7 +38,7 @@ body {
 
 /* Painel esquerdo - geral */
 
-.painel_esquerdo_geral {
+.sidebar {
     display: flex;
     flex-direction: column;
     background-image: url('../img/barra_lateral.png');
