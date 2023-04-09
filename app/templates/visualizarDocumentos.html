@@ -23,8 +23,32 @@
     <div class="form-group mb-2">
       <span><strong>Whatsapp:</strong> </span> {{solicitacaoHistorico.solicitacao.txtWhatsapp}}
     </div>
-    <div class="form-group mb-2">
-      <span><strong>Status:</strong> </span> {{solicitacaoHistorico.status.txtStatus}}
+    <div class="form-group d-flex  mb-2">
+      <span class='mt-2 p-1'><strong>Status:</strong> </span><span class="fw-semibold">
+        {% if solicitacaoHistorico.status.id == 1 %}
+        <p class="alert alert-warning mt-2 p-1 " role="alert"> {{solicitacaoHistorico.status.txtStatus}} </p>
+        {% endif %}
+
+        {% if solicitacaoHistorico.status.id == 2 %}
+        <p class="alert alert-info mt-2 p-1" role="alert"> {{solicitacaoHistorico.status.txtStatus}} </p>
+        {% endif %}
+
+        {% if solicitacaoHistorico.status.id == 3 %}
+        <p class="alert alert-success mt-2 p-1" role="alert"> {{solicitacaoHistorico.status.txtStatus}} </p>
+        {% endif %}
+
+        {% if solicitacaoHistorico.status.id == 4 %}
+        <p class="alert alert-danger mt-2 p-1" role="alert"> {{solicitacaoHistorico.status.txtStatus}} </p>
+        {% endif %}
+
+        {% if solicitacaoHistorico.status.id == 5 %}
+        <p class="alert alert-light mt-2 p-1" role="alert"> {{solicitacaoHistorico.status.txtStatus}} </p>
+        {% endif %}
+
+        {% if solicitacaoHistorico.status.id == 6 %}
+        <p class="alert alert-primary mt-2 p-1" role="alert"> {{solicitacaoHistorico.status.txtStatus}} </p>
+        {% endif %}
+    </span> 
     </div>
   </div>  
   <div class="container border mt-2 rounded p-4 mb-1">

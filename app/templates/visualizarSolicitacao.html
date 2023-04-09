@@ -17,8 +17,33 @@
 {% for solicitacaoHistorico in solicitacao.listSolicitacaoHistorico %}
 <div class="container mt-4">
   <table class="table table-bordered">
-    <tr>
-      <td><strong>Status:</strong> {{ solicitacaoHistorico.status.txtStatus}}</td>
+    <tr >
+      <td class=d-flex >
+        <span class='mt-1 p-1'><strong>Status:</strong></span><span class="fw-semibold">
+        {% if solicitacaoHistorico.status.id == 1 %}
+        <p class="alert alert-warning mt-1 p-1 " role="alert"> {{solicitacaoHistorico.status.txtStatus}} </p>
+        {% endif %}
+
+        {% if solicitacaoHistorico.status.id == 2 %}
+        <p class="alert alert-info mt-1 p-1" role="alert"> {{solicitacaoHistorico.status.txtStatus}} </p>
+        {% endif %}
+
+        {% if solicitacaoHistorico.status.id == 3 %}
+        <p class="alert alert-success mt-1 p-1" role="alert"> {{solicitacaoHistorico.status.txtStatus}} </p>
+        {% endif %}
+
+        {% if solicitacaoHistorico.status.id == 4 %}
+        <p class="alert alert-danger mt-1 p-1" role="alert"> {{solicitacaoHistorico.status.txtStatus}} </p>
+        {% endif %}
+
+        {% if solicitacaoHistorico.status.id == 5 %}
+        <p class="alert alert-light mt-1 p-1" role="alert"> {{solicitacaoHistorico.status.txtStatus}} </p>
+        {% endif %}
+
+        {% if solicitacaoHistorico.status.id == 6 %}
+        <p class="alert alert-primary mt-1 p-1" role="alert"> {{solicitacaoHistorico.status.txtStatus}} </p>
+        {% endif %}
+    </span> </td>
     </tr>
     <tr>
       <td><strong>Observação:</strong> {{ solicitacaoHistorico.txtObservacao}}</td>
