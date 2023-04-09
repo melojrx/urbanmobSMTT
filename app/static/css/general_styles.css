@@ -49,69 +49,7 @@ body {
     background-repeat: no-repeat;
 }
 
-/* Main da home */
 
-.painel-direito-home {
-    border: 1px solid #3333;
-    height: auto;
-    max-width: 550px; 
-    margin: 8px auto;
-    border-radius: 8px;
-}
-
-.nome_usuario {
-    display: flex;
-    align-items: center;  
-    border: 1px solid #3333;
-}
-
-.col.m-1 {
-    display: flex;
-    align-items: center; 
-  
-}
-
-#img {
-    max-width: 550px;
-    width: 100%;
-    margin-top: 20px;
-}
-
-#form_cad_evento {
-    padding: 10px;
-    
-}
-
-.botao_demanda {
-    padding: 15px;
-}
-
-.botao_demanda i {
-    padding-right: 5px;
-}
-
-.bi-patch-plus {
-    padding-right: 5px;
-}
-
-/* Visualizar demanda */
-
-.div-titulo-minha-demanda {
-    border-bottom: #3333;
-    margin-bottom: 5px;
-}
-
-.bi-arrow-left-circle {
-    margin-right: 3px;
-    padding-right: 3px;
-}
-
-.titulo-minha-demanda {
-    font-size: 1.5em;
-    font-weight: 500;
-    padding-top: 10px;
-    text-align: center;  
-}
  
 /* Paginação */
 
@@ -132,6 +70,9 @@ body {
     cursor: pointer;
   }
 
+  .rotate-card:hover {
+    transform: rotate(10deg);
+  }
 .smaller {
     font-size: 0.6em;
 
