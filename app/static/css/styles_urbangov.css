@@ -51,6 +51,7 @@
 .titulo-menu-gov {
   color: black;
   font-weight: bold; 
+  text-decoration: none;
 }
 
 .urban-gov-menu-gov-inicio {
@@ -62,6 +63,7 @@
   align-items: center;
   margin-left: 20px;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .urban-gov-menu-gov {
@@ -73,6 +75,7 @@
   display: flex;
   color: black;
   font-weight: bold;
+  text-decoration: none;
 }
 
 .titulo-menu-gov {
@@ -206,7 +209,7 @@
 
 @media screen and (max-width:990px) {
   .painel_esquerdo_gov,
-  .painel_esquerdo_geral {
+  .sidebar {
     display: none;
     transition: all .3s;
   }

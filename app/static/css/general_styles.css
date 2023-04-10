@@ -47,10 +47,14 @@ body {
     min-height: 92vh;
     background-size: cover;
     background-repeat: no-repeat;
+    left: 0; /* mostre a barra lateral */
+    transition: all 0.3s ease;
 }
 
-
- 
+.sidebar.show {
+    left: -250px; /* esconda a barra lateral */
+    
+  } 
 /* Paginação */
 
 .pagination {

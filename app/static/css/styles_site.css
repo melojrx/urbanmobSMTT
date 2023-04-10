@@ -75,13 +75,14 @@ ul {
 
 .conteudo_site {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     background-image: url('/static/img/imagem_fundo_site.png');
     height: 100%;
     background-repeat: no-repeat;
     background-size: cover;
-    justify-content: center;
     background-attachment: fixed;
+    align-items: center;
+    justify-content: center;
 }
 
 .conteudo_principal {
