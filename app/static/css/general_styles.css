@@ -44,7 +44,7 @@ body {
     background-image: url('../img/barra_lateral.png');
     width: 18%;
     max-height: 100%;
-    min-height: 92vh;
+    min-height: 91vh;
     background-size: cover;
     background-repeat: no-repeat;
     left: 0; /* mostre a barra lateral */
@@ -52,9 +52,14 @@ body {
 }
 
 .sidebar.show {
-    left: -250px; /* esconda a barra lateral */
+    left: -300px; /* esconda a barra lateral */
     
   } 
+
+  /* Footer Sidebar */
+.footer-sidebar p {
+    font-size: 0.8rem;
+}
 /* Paginação */
 
 .pagination {
