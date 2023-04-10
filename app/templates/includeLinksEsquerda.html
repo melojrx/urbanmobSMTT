@@ -1,9 +1,16 @@
   
-  
+{% if not current_user.is_authenticated %}   
   <div class="urban-gov-menu-gov mt-4">
     <i class="bi bi-house-fill"></i>
-    <a href="#"><span class="titulo-menu-gov">Inicio</span></a>
+    <a href="{{url_for('public.cidadao')}}"><span class="titulo-menu-gov">Inicio</span></a>
   </div>
+{% endif %}
+{% if current_user.is_authenticated %}
+  <div class="urban-gov-menu-gov mt-4">
+    <i class="bi bi-house-fill"></i>
+    <a href="{{url_for('solicitacao.prepareSearch')}}"><span class="titulo-menu-gov">Inicio</span></a>
+  </div>
+{% endif %}
   <div class="menu-categorias">
     <span class="categorias-menu-gov">ATENDIMENTO</span>
   </div>
