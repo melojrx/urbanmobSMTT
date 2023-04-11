@@ -17,7 +17,7 @@
   {% if current_user.is_authenticated %}
   <div class="urban-gov-menu-gov">
     <i class="bi bi-envelope-exclamation-fill"></i>
-    <a href="#"><span class="titulo-menu-gov">Avisos</span></a>
+    <a href="{{url_for('solicitacao.avisos')}}"><span class="titulo-menu-gov">Avisos</span></a>
   </div>
   <div class="urban-gov-menu-gov">
     <i class="bi bi-file-earmark-text-fill"></i>
@@ -25,11 +25,11 @@
   </div>
   <div class="urban-gov-menu-gov">
     <i class="bi bi-file-text-fill"></i>
-    <a href="#"><span class="titulo-menu-gov">Relatórios</span></a>
+    <a href="{{url_for('solicitacao.relatorios')}}"><span class="titulo-menu-gov">Relatórios</span></a>
   </div>
   <div class="urban-gov-menu-gov">
     <i class="bi bi-bar-chart-fill"></i>
-    <a href="#"><span class="titulo-menu-gov">Estatísticas</span></a>
+    <a href="{{url_for('solicitacao.estatisticas')}}"><span class="titulo-menu-gov">Estatísticas</span></a>
   </div>
   {% endif %}
   {% if not current_user.is_authenticated %}

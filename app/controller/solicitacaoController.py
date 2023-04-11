@@ -258,4 +258,25 @@ class solicitacaoController:
                         db.session.rollback
                         flash('Erro: {}'.format(e), 'error') 
 
-                return redirect(url_for('solicitacao.listar'))                       
+                return redirect(url_for('solicitacao.listar'))   
+                            
+        @login_required
+        @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+        @solicitacao_bp.route('/estatisticas', methods=['GET'])
+        def estatisticas():
+                flash('Funcionalidade em Desenvolvimento', 'sucess')
+                return redirect(url_for('solicitacao.prepareSearch'))
+        
+        @login_required
+        @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+        @solicitacao_bp.route('/relatorios', methods=['GET'])
+        def relatorios():
+                flash('Funcionalidade em Desenvolvimento', 'sucess')
+                return redirect(url_for('solicitacao.prepareSearch'))
+        
+        @login_required
+        @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+        @solicitacao_bp.route('/avisos', methods=['GET'])
+        def avisos():
+                flash('Funcionalidade em Desenvolvimento', 'sucess')
+                return redirect(url_for('solicitacao.prepareSearch'))
