@@ -76,7 +76,11 @@
           </div>
           <div class="modal-footer">
             <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>-->
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            <button id="btn-enviar" type="submit" class="btn btn-primary">Enviar mensagem</button>
+            <button id="btn-enviar-loader" class="btn btn-primary" type="button" disabled>
+              <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+              Enviando...
+            </button>
           </div>
         </form>
       </div>

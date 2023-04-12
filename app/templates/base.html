@@ -17,14 +17,8 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <button id="btn-sidebar-toggle" class="btn btn-link" ><i class="bi bi-list"></i></button>
-          </li>
-        <!--  <li class="nav-item">
-            <a class="nav-link" href="{{url_for('login.site')}}">Site</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{url_for('login.site')}}">Início</a>
-          </li> --> 
+            <button id="btn-sidebar-toggle" class="btn btn-link"  ><i class="bi bi-list" style="color: white; font-size: 1.5rem;"></i></button>
+          </li> 
         </ul> 
         
         {% if current_user.is_authenticated %}
@@ -92,6 +86,18 @@
     btnSidebarToggle.addEventListener('click', function() {
       sidebar.classList.toggle('show');
     });
+  </script>
+
+  <!--Ativar carregamento do Loader no Fale Conosco -->
+  <script>
+    const btnEnviar = document.querySelector("#btn-enviar")
+    const btnEnviarLoader = document.querySelector("#btn-enviar-loader")
+
+    btnEnviar.addEventListener('click', ()=>{
+        btnEnviarLoader.style.display = 'block' 
+        btnEnviar.style.display = 'none'
+    });
+
   </script>
 </body>
 

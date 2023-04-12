@@ -36,7 +36,7 @@ body {
     font-size: 14px;
 }
 
-/* Painel esquerdo - geral */
+/* Sidebar */
 
 .sidebar {
     display: flex;
@@ -67,6 +67,11 @@ body {
     justify-content: space-between;
 }
 
+/* Fale Conosco */
+
+#btn-enviar-loader {
+    display: none;
+}
 
 /* página cidadão */
 
@@ -74,13 +79,15 @@ body {
     background: linear-gradient(to bottom right, #87CEFA, #ADD8E6);
   }
   
-.card-body i {
+.card-body {
     font-size: 2em;
     cursor: pointer;
+   
   }
 
-  .rotate-card:hover {
-    transform: rotate(10deg);
+.rotate-card:hover {
+    background: #0C5DC5;
+    transition: all .4s;
   }
 .smaller {
     font-size: 0.6em;
