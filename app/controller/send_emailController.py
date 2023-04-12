@@ -4,9 +4,9 @@ from ..rotas.send_emailRout import send_email_bp
 from app import mail
 
 class Contato:
-        def __init__(self, name, phone, message):
-                self.name = name,
-                self.phone = phone, 
+        def __init__(self, name, email, message):
+                self.name = name
+                self.email = email 
                 self.message = message
 
         
@@ -16,20 +16,25 @@ class Contato:
                 if request.method == 'POST': 
                         formContato = Contato(
                                 request.form['name'],
-                                request.form['phone'],
+                                request.form['email'],
                                 request.form['message']
                         )
                
                 with mail.connect() as conn:
                         msg = Message(
                                 subject = f'{formContato.name} enviou uma mensagem.',
-                                sender='urbanpass2@gmail.com',
+                                sender='{urbanpass2@gmail.com}',
                                 recipients=['urbanpass2@gmail.com'],
-                                body = f'Nome: {formContato.name}\nTelefone: {formContato.phone}\n Mensagem: {formContato.message}'
-                )
+                                body = f'''
+                                
+                                {formContato.name} com o e-mail {formContato.email} enviou a seguinte mensagem: 
+                                
+                                {formContato.message}
+                                
+                                '''
+                )       
                         conn.send(msg)
 
                 # Envia a mensagem de e-mail
-                # Mail.send(msg)
                 flash('Obrigado pelo seu contato! Sua mensagem foi enviada com sucesso.')
                 return redirect(url_for('public.cidadao'))
