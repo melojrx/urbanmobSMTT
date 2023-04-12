@@ -11,6 +11,7 @@ from ..models.solicitacaoDocumento import SolicitacaoDocumento
 from ..models.tipoSolicitacaoDocumento import TipoSolicitacaoDocumento
 from ..forms.solicitacaoDocumentoForm import SolicitacaoDocumentoForm
 from ..forms.consultarProtocoloForm import ConsultarProtocoloForm
+from flask_mail import Mail, Message
 
 class publicController:
 
@@ -145,3 +146,4 @@ class publicController:
                        flash('Erro: {}'.format(e), 'error')
 
                 return redirect(url_for('public.cidadao'))
+
