@@ -52,16 +52,18 @@
       <section class="col-md-9 col-lg-9">
         {% with messages = get_flashed_messages(category_filter=["sucess"]) %}
         {% if messages %}
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
           {{ messages[0] }}.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         {% endif %}
         {% endwith %}
 
         {% with messages = get_flashed_messages(category_filter=["error"]) %}
         {% if messages %}
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
           {{ messages[0] }}.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         {% endif %}
         {% endwith %}

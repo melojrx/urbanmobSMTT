@@ -36,5 +36,5 @@ class Contato:
                         conn.send(msg)
 
                 # Envia a mensagem de e-mail
-                flash('Obrigado pelo seu contato! Sua mensagem foi enviada com sucesso.', "sucess")
+                flash('Obrigado pelo seu contato! Sua mensagem foi enviada com sucesso', "sucess")
                 return redirect(url_for('public.cidadao'))
