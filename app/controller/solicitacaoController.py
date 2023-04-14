@@ -134,7 +134,7 @@ class solicitacaoController:
         def atender(idSolicitacaoHistorico):
 
                 try:
-                        form = AnaliseDocumentacaoForm(request.form)
+                        # form = AnaliseDocumentacaoForm(request.form)
                         data = datetime.datetime.now()
                         solicitacaoHistorico = db.session.query(SolicitacaoHistorico).filter(SolicitacaoHistorico.id==idSolicitacaoHistorico).first() 
                         solicitacaoHistorico.dataFim = data
@@ -147,26 +147,29 @@ class solicitacaoController:
                         db.session.rollback
                         flash('Erro: {}'.format(e), 'error') 
 
-                return redirect(url_for('solicitacao.visualizar', form=form, idSolicitacao=solicitacaoHistorico.solicitacao.id)) 
+                return redirect(url_for('solicitacao.visualizar', idSolicitacao=solicitacaoHistorico.solicitacao.id)) 
         
         @login_required
         @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
         @solicitacao_bp.route('/analisar', methods=['POST'])
         def analisar():
-                listDocumentos = request.form.getlist('documento')
-                #print('listDocumentos', listDocumentos)
-                listRadio = [request.form[arg] for arg in listDocumentos]
-                #print('listRadio', listRadio)
-                listSolicitacaoDocumento = request.form.getlist('idSolicitacaoDocumento')
-                #print('listSolicitacaoDocumento', listSolicitacaoDocumento)
-
-                form = AnaliseDocumentacaoForm(request.form)
-                idSolicitacaoHistorico = form.idSolicitacaoHistorico.data
-                #print('idSolicitacaoHistorico', idSolicitacaoHistorico)
-                observacao = form.observacao.data
-                #print('observacao', observacao)
 
                 try:
+
+                        form = AnaliseDocumentacaoForm(request.form)
+                        idSolicitacaoHistorico = form.idSolicitacaoHistorico.data
+                        idSolicitacao = form.idSolicitacao.data
+                        #print('idSolicitacaoHistorico', idSolicitacaoHistorico)
+                        observacao = form.observacao.data
+                        #print('observacao', observacao)
+                        listDocumentos = request.form.getlist('documento')
+                        # print('listDocumentos', listDocumentos)
+                        listRadio = [request.form[arg] for arg in listDocumentos]
+                        # print('listRadio', listRadio)
+                        listSolicitacaoDocumento = request.form.getlist('idSolicitacaoDocumento')
+                        #print('listSolicitacaoDocumento', listSolicitacaoDocumento)
+
+
 
                         resultadoAnalise = True
 
@@ -189,8 +192,9 @@ class solicitacaoController:
                 except Exception as e:
                         db.session.rollback
                         flash('Erro: {}'.format(e), 'error') 
+                        return redirect(url_for('solicitacao.visualizar', idSolicitacao=idSolicitacao)) 
 
-                return redirect(url_for('solicitacao.visualizar', form=form, idSolicitacao=solicitacaoHistorico.solicitacao.id)) 
+                return redirect(url_for('solicitacao.visualizar', idSolicitacao=solicitacaoHistorico.solicitacao.id)) 
         
 
         @login_required
@@ -258,7 +262,7 @@ class solicitacaoController:
                         db.session.rollback
                         flash('Erro: {}'.format(e), 'error') 
 
-                return redirect(url_for('solicitacao.listar'))   
+                return redirect(url_for('solicitacao.prepareSearch'))   
                             
         @login_required
         @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
