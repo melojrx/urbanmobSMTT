@@ -14,4 +14,6 @@ class AnaliseDocumentacaoForm(Form):
 
     idSolicitacaoHistorico = HiddenField("idSolicitacaoHistorico")
 
+    idSolicitacao = HiddenField("idSolicitacao")
+
     submit = SubmitField('Cadastrar')
