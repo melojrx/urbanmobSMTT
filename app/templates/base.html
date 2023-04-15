@@ -1,106 +1,120 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+  {% include 'include.html' %}
 
-{% include 'include.html' %}
-
-<body>
-
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container-fluid container_nav">
-      <a class="navbar-brand" href="{{url_for('login.site')}}">
-        <h3 class="urban_logo"> URBAN PASS </h3>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <button id="btn-sidebar-toggle" class="btn btn-link"  ><i class="bi bi-list" style="color: white; font-size: 1.5rem;"></i></button>
-          </li> 
-        </ul> 
-        
-        {% if current_user.is_authenticated %}
-        <div class="btn-group">
-          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="log_user"><i class="fa fa-user"></i>
-              {{ current_user.name }}
-          </span>
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{{ url_for('login.logout') }}" id="logout-btn" class="dropdown-item" onclick="logoutUser()">
-              <i class="fa fa-power-off"> </i> Sair </a></li>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid container_nav">
+        <a class="navbar-brand" href="{{ url_for('login.site') }}"><h3 class="urban_logo">URBAN PASS</h3></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <button id="btn-sidebar-toggle" class="btn btn-link"><i class="bi bi-list" style="color: white; font-size: 1.5rem;"></i></button>
+            </li>
           </ul>
+
+          {% if current_user.is_authenticated %}
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="log_user">
+                  <i class="fa fa-user"></i>
+                  {{ current_user.name }}
+                </span>
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="{{ url_for('login.logout') }}" id="logout-btn" class="dropdown-item" onclick="logoutUser()"><i class="fa fa-power-off"></i> Sair</a>
+                </li>
+              </ul>
+            </div>
+          {% endif %}
         </div>
-        {% endif %}
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <section class="sidebar col-md-3 col-lg-3">
+          {% include 'includeLinksEsquerda.html' %}
+        </section>
+
+        <section class="col-md-9 col-lg-9">
+          {% with messages = get_flashed_messages(category_filter = ['sucess']) %}
+            {% if messages %}
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ messages[0] }}.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endif %}
+          {% endwith %}
+
+          {% with messages = get_flashed_messages(category_filter = ['error']) %}
+            {% if messages %}
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ messages[0] }}.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endif %}
+          {% endwith %}
+
+          {% block conteudo %}
+
+          {% endblock %}
+        </section>
       </div>
     </div>
-  </nav>
-
-  
-  <div class="container-fluid">
-    
-    <div class="row">
-      
-      <section class="sidebar col-md-3 col-lg-3">
-             
-        {% include 'includeLinksEsquerda.html' %}
-       
-      </section>
-
-      <section class="col-md-9 col-lg-9">
-        {% with messages = get_flashed_messages(category_filter=["sucess"]) %}
-        {% if messages %}
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-          {{ messages[0] }}.
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        {% endif %}
-        {% endwith %}
-
-        {% with messages = get_flashed_messages(category_filter=["error"]) %}
-        {% if messages %}
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          {{ messages[0] }}.
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        {% endif %}
-        {% endwith %}
-
-        {% block conteudo %}
-        {% endblock conteudo %}
-      </section>
-
+    <!--ChatBot-->
+    <button id="chatbot-icon" class="btn btn-primary"><i class="bi bi-chat-dots-fill"></i></button>
+    <div id="chatbot-container">
+      <div id="chatbot-header" class="d-flex justify-content-between align-items-center py-2 px-3">
+        <h6 class="mb-0"><i class="bi bi-robot me-2 md-2 fs-4"></i>UrbanChat</h6>
+        <i id="minimize-icon" class="bi bi-dash fs-4"></i>
+      </div>
+      <div id="chatbox" class="mt-2">
+        <div class="messages"></div>
+      </div>
+      <div class="mb-3">
+        <form id="user-input-form" class="d-flex mt-3">
+          <input id="user-input" type="text" class="form-control" placeholder="Digite sua mensagem..." />
+          <button type="submit" class="btn btn-primary ms-2"><i class="bi bi-arrow-right"></i></button>
+        </form>
+      </div>
     </div>
-  
-  </div>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
-    function logoutUser() {
-      document.getElementById('logout-btn').click();
-  }
-  </script>
-  <script>
-    const btnSidebarToggle = document.querySelector('#btn-sidebar-toggle');
-    const sidebar = document.querySelector('.sidebar');
-  
-    btnSidebarToggle.addEventListener('click', function() {
-      sidebar.classList.toggle('show');
-    });
-  </script>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      function logoutUser() {
+        document.getElementById('logout-btn').click()
+      }
+    </script>
+    <script>
+      const btnSidebarToggle = document.querySelector('#btn-sidebar-toggle')
+      const sidebar = document.querySelector('.sidebar')
+      
+      btnSidebarToggle.addEventListener('click', function () {
+        sidebar.classList.toggle('show')
+      })
+    </script>
 
-  <!--Ativar carregamento do Loader no Fale Conosco -->
-  <script>
-    const btnEnviar = document.querySelector("#btn-enviar")
-    const btnEnviarLoader = document.querySelector("#btn-enviar-loader")
-
-    btnEnviar.addEventListener('click', ()=>{
-        btnEnviarLoader.style.display = 'block' 
+    <!-- Ativar carregamento do Loader no Fale Conosco -->
+    <script>
+      const btnEnviar = document.querySelector('#btn-enviar')
+      const btnEnviarLoader = document.querySelector('#btn-enviar-loader')
+      
+      btnEnviar.addEventListener('click', () => {
+        btnEnviarLoader.style.display = 'block'
         btnEnviar.style.display = 'none'
-    });
-
-  </script>
-</body>
-
+      })
+    </script>
+    <!-- Ativar os Tooltips -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+      });
+    </script>
+  </body>
 </html>

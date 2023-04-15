@@ -7,7 +7,7 @@
     <div class="row">
       {% for tipoSolicitacao in listTipoSolicitacao %}
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-          <div class="card rotate-card mb-3">
+          <div class="card rotate-card mb-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Clique para cadastrar sua solicitação de: {{tipoSolicitacao.txtTipoSolicitacao}}">
             <div class="card-body text-center">
               <i class="{{tipoSolicitacao.txtIcone}} mb-2"
                 onclick="window.location.href='{{ url_for('public.selecionarTipoSolicitacao', tipo_solicitacao=tipoSolicitacao.id) }}';"></i>
