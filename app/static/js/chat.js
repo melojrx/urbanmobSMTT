@@ -7,12 +7,14 @@ $(document).ready(function () {
     
     function showWelcomeMessage() {
         const messageElement = $('<div class="chatbot-message chatbot-message-bot mb-2 welcome-message"></div>').text(welcomeMessage);
-        $("#chatbox .messages").append(messageElement);
+        $("#chatbot-container .messages").append(messageElement);
+        scrollToBottom();
     }
 
     function showSecondWelcomeMessage() {
         const messageElement = $('<div class="chatbot-message chatbot-message-bot mb-2 welcome-message"></div>').text(secondWelcomeMessage);
-        $("#chatbox .messages").append(messageElement);
+        $("#chatbot-container .messages").append(messageElement);
+        scrollToBottom();
     }
 
     function showOptionsMessage() {
@@ -25,7 +27,8 @@ $(document).ready(function () {
         buttonsContainer.append(button2);
         messageElement.append(buttonsContainer);
         
-        $("#chatbox .messages").append(messageElement);
+        $("#chatbot-container .messages").append(messageElement);
+        scrollToBottom();
     }
 
     function closeChat() {
@@ -34,12 +37,18 @@ $(document).ready(function () {
 
     function displayBotMessage(message) {
         const messageElement = $('<div class="chatbot-message chatbot-message-bot mb-2 welcome-message"></div>').text(message);
-        $("#chatbox .messages").append(messageElement);
+        $("#chatbot-container .messages").append(messageElement);
+        scrollToBottom();
     }
 
     function endChat() {
         displayBotMessage("Muito obrigado.");
         setTimeout(closeChat, 2000);
+    }
+
+    function scrollToBottom() {
+        const chatbox = $("#chatbot-container");
+        chatbox.scrollTop(chatbox[0].scrollHeight);
     }
 
     // Função para exibir ou ocultar o chatbot ao clicar no ícone
@@ -74,5 +83,29 @@ $(document).ready(function () {
         // Lembre-se de limpar o campo de entrada após processar a mensagem do usuário
         $("#user-input").val("");
     });
+
+    function invalidOptionMessage() {
+        const message = 'Opção inválida. Por favor, digite uma das opções válidas.';
+        const messageElement = $('<div class="chatbot-message chatbot-message-bot mb-2 welcome-message"></div>').text(message);
+        $("#chatbot-container .messages").append(messageElement);
+        scrollToBottom();
+    }
+
+    $("#user-input-form").on("submit", function (e) {
+        e.preventDefault();
+        const userInput = $("#user-input").val().trim().toLowerCase();
+
+        if (userInput === "sair") {
+            endChat();
+        } else if (userInput === "1" || userInput === "como solicitar sua credencial de idoso") {
+            // Aqui você pode adicionar a lógica para processar a opção 1
+        } else {
+            invalidOptionMessage();
+        }
+
+        // Lembre-se de limpar o campo de entrada após processar a mensagem do usuário
+        $("#user-input").val("");
+    });
+
 });
 

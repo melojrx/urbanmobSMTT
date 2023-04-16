@@ -32,6 +32,7 @@
     right: 20px;
     width: 400px;
     z-index: 1000;
+    overflow-y: auto;
 }
 
 #chatbot-header {
@@ -47,12 +48,16 @@
 }
 
 .welcome-message {
-    background: linear-gradient(to right, #007bff, #00c3ff);
+    background: linear-gradient(to bottom right, #87CEFA, #ADD8E6);
     border-radius: 0 25px 25px 25px;
     padding: 10px 15px;
-    font-size: 0.9rem;
-    color: #ffffff;
+    font-size: 0.8rem;
+    color: black;
     width: 95%; /* ajuste esse valor conforme necessário */
     margin: 0 auto;
 }
 
+#chatbox {
+    max-height: 300px; /* Ajuste essa altura de acordo com a altura desejada do chatbox */
+    overflow-y: auto;
+}
