@@ -81,8 +81,17 @@ ul {
 .dropdown-menu a {
     font-weight: 500;
 }
+
+.dropdown-item {
+    color: #FFF;
+}
 .navbar-nav, .d-flex {
     margin-right: 0 !important;
+}
+
+.menu-logo:hover {
+    color: #3a51d5;
+
 }
 
 /* BANNERS */
