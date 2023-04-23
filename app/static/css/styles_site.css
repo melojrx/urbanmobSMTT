@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: #FFF;
+}
+
+
 body,
 h1,
 h2,
@@ -41,7 +46,7 @@ ul {
 .menu-logo a {
     font-family: 'Righteous', cursive !important;
     font-size: 2.25em;
-    font-weight: bold;
+    font-weight: 700;
     margin: 0 10px;
     color: white;
 }
@@ -60,7 +65,7 @@ ul {
 
 .menu-nav a {
     font-size: 1.25em;
-    font-weight: bold;
+    font-weight: 700;
     display: block;
     padding: 10px;
     color: white;
@@ -73,42 +78,62 @@ ul {
     text-decoration: none;
 }
 
-.conteudo_site {
-    display: flex;
-    flex-direction: row;
-    background-image: url('/static/img/imagem_fundo_site.png');
-    height: 100%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    align-items: center;
-    justify-content: center;
-}
-
-.conteudo_principal {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    margin-left: 50px;
-    text-align: left;
-}
-
-.conteudo_principal_titulo {
-    font-size: 4em;
-    font-family: 'Open Sans', sans-serif;
+.dropdown-menu a {
     font-weight: 500;
-    text-align: left;
+}
+.navbar-nav, .d-flex {
+    margin-right: 0 !important;
 }
 
-.img_site {
-    margin-top: 5px;
+/* BANNERS */
+#banners-container {
+    padding: 0;
+  }
+  
+.carousel-caption {
+    background: linear-gradient(90deg, rgba(9, 9, 121, 1) 0%, rgba(49, 5, 245, 1) 35%, rgba(0, 212, 255, 1) 100%);
+    bottom: 5em;
+    padding: 1em;
+    left: 12%;
+    right: 12%;
+  }
+  
+  .carousel-caption h5 {
+    font-size: 1.8em;
+  }
+  
+/* Seção do Video */
+
+.section-title {
+    margin-bottom: 20px;
 }
 
-.img_googleplay,
-.img_appstore {
-    max-height: 50px;
-    margin-right: 5px;
+.section-content {
+    background-color: #d9d9e3;
+    padding: 20px;
+    border-radius: 10px;
 }
+
+.section-content p {
+    text-align: justify;
+}
+
+  @media(min-width: 768px) {
+    #slider .carousel-item,
+    #slider img {
+      height: 600px;
+    }
+  
+    .carousel-caption {
+      left: 23%;
+      right: 23%;
+    }
+  
+    .carousel-caption h5 {
+      font-size: 4em;
+    }
+  }
+
 
 @media screen and (max-width: 479px) {
     .conteudo_principal,

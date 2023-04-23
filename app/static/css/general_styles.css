@@ -75,14 +75,30 @@ body {
 
 /* página cidadão */
 
-.card {
+.card-cidadao {
     background: linear-gradient(to bottom right, #87CEFA, #ADD8E6);
+    border-radius: 10px;
   }
   
-.card-body {
+.card-body-cidadao {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
     font-size: 2em;
     cursor: pointer;
    
+  }
+
+  .card-cidadao,
+  .card {
+    height: 100%;
+  }
+
+  .card-img-top {
+    height: 220px;
+    object-fit: cover;
   }
 
 .rotate-card:hover {
