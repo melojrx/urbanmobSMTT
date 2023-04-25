@@ -29,6 +29,8 @@ ul {
     list-style: none;
 }
 
+/*Menu*/
+
 .menu-bg {
     background: linear-gradient(90deg, rgba(9, 9, 121, 1) 0%, rgba(49, 5, 245, 1) 35%, rgba(0, 212, 255, 1) 100%);
 }
@@ -107,8 +109,12 @@ ul {
     right: 12%;
   }
   
-  .carousel-caption h5 {
+  .carousel-caption h2 {
     font-size: 1.8em;
+  }
+
+  .carousel-caption a {
+    text-decoration: none;
   }
   
 /* Seção do Video */
@@ -142,6 +148,51 @@ ul {
       font-size: 4em;
     }
   }
+
+/* Conteudo main do home */
+
+.conteudo_site {
+    
+    display: flex;
+    flex-direction: column;
+    background-image: url('/static/img/imagem_fundo_site.png');
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    justify-content: center;
+    background-attachment: fixed;
+
+}
+
+.conteudo_principal {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin-left: 50px;
+    text-align: left;
+
+}
+
+.conteudo_principal_titulo {
+    font-size: 4em;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
+    text-align: left;
+      
+}
+
+.img_site {
+    margin-top: 5px;
+}
+
+.img_googleplay {
+    max-height: 50px;
+    margin-right: 5px;
+}
+
+.img_appstore {
+    max-height: 50px;
+}
 
 
 @media screen and (max-width: 479px) {

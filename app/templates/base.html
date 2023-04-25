@@ -5,7 +5,7 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container-fluid container_nav">
-        <a class="navbar-brand" href="{{ url_for('login.site') }}"><h3 class="urban_logo">URBAN PASS</h3></a>
+        <a class="navbar-brand" href="{{url_for('public.home_urbanpass')}}"><h3 class="urban_logo">URBAN PASS</h3></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -39,7 +39,7 @@
           {% include 'includeLinksEsquerda.html' %}
         </section>
 
-        <section class="col-md-9 col-lg-9">
+        <section class="main_base col-md-9 col-lg-9">
           {% with messages = get_flashed_messages(category_filter = ['sucess']) %}
             {% if messages %}
               <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -88,9 +88,11 @@
         document.getElementById('logout-btn').click()
       }
     </script>
+    <!-- Ativação do botão de esconder a sidebar -->
     <script>
       const btnSidebarToggle = document.querySelector('#btn-sidebar-toggle')
       const sidebar = document.querySelector('.sidebar')
+      const main_base = document.querySelector('.main_base')
       
       btnSidebarToggle.addEventListener('click', function () {
         sidebar.classList.toggle('show')

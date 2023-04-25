@@ -19,6 +19,10 @@ class publicController:
         def home():
                 return render_template('index.html')
         
+        @public_bp.route('/home')
+        def home_urbanpass():
+                return render_template('home.html')
+        
         @public_bp.route('/cidadao')
         def cidadao():
                 
