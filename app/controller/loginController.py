@@ -106,7 +106,7 @@ class loginController:
     @login_bp.route('/logout')
     def logout():
         logout_user()
-        return redirect(url_for('login.login'))
+        return redirect(url_for('public.home'))
 
     @login_bp.route('/site')
     def site():
