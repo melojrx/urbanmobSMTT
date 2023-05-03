@@ -3,7 +3,7 @@
 
 {% include 'include.html' %}
 
-<body>
+<body style="background-color: rgba(81, 81, 81, 0.9)" >
     <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
         <div class="container col-12 col-md-6 col-lg-4" id="form-container">
             <div class="row justify-content-center">
@@ -35,12 +35,11 @@
                             </div>
                             {% endfor %}
                         </div>
-                        <div class="text-center mt-5">
-                            <div class="d-flex justify-content-center">
-                                {{ form.submit(class_="btn btn-primary") }}
+                            <div class="d-grid mb-3 mt-5" >
+                                {{ form.submit(class="btn btn-primary") }}
                             </div>
-                            <div class="text-center mt-5">
-                                <a href="{{url_for('login.register')}}">Ainda não tenho cadastro? Clique aqui. </a>
+                            <div class="checkbox text-center pt-3">
+                                <h6> Ainda não possui cadastro? <a href="{{url_for('login.register')}}"> Cadastre-se aqui </a> </h6>
                             </div>
                         </div>
                     </form>

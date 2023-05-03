@@ -1,84 +1,107 @@
 {% include 'include.html' %}
 
-<body>
-  <header class="menu-bg">
-      <div class="menu-site">
-          <div class="menu-logo">
-              <a href="{{url_for('public.home')}}">URBAN PASS</a>
-          </div>
-          <nav class="menu-nav"> 
-              <ul> 
-                  <li> <a href="{{url_for('public.cidadao')}}">CIDADÃO</a></li>
-                  <li> <a href="{{url_for('login.login')}}">GOVERNO</a></li>
-              </ul>    
-          </nav>
-      </div>
-  </header>
- 
-  <main class="conteudo_site">
-      <section class="conteudo_principal">
-          <h1 class="conteudo_principal_titulo"><strong> Vamos</strong> fazer<br>juntos uma<br><strong>cidade melhor.</strong>  </h1>
-          <div class="img_site">
-              <img class="img_googleplay" src="static/img/google-play-dark.png">
-              <img class="img_appstore" src="static/img/app-store-dark.png">
-          </div>
-      </section>
-      
-  
-  </main> 
+<body style="background-color: rgba(81, 81, 81, 0.9) ">
+    <header class="menu-bg">
+        <div class="menu-site">
+            <div class="menu-logo">
+                <a href="{{url_for('public.home')}}">URBAN PASS</a>
+            </div>
+            <nav class="menu-nav">
+                <ul>
+                    <li> <a href="{{url_for('public.cidadao')}}">CIDADÃO</a></li>
+                    <li> <a href="{{url_for('login.login')}}">GOVERNO</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-  <section class="row grids-site">
-      <div class="row titulo-site-secao1">
-          <h1 class="titulo-section1-site">A nossa solução envolve três elementos integrados 
-          e dependentes entre si </h1>   
-      </div>
-      <div class="row suporte-grids-site justify-content-center">
-          <div class="col-md-3 col-lg-3 col-sm-12 grid-site">
-              <i class="bi bi-check-circle-fill"></i>
-              <p class="par-grid-site-titulo">O cidadão participando da gestão pública.</p>
-              <p>É um aplicativo em formato de rede social focada para cidadania, 
-                  gratuito e disponível nas plataformas iOS e Android Mobile.</p>
-          </div>
-          <div class="col-md-3 col-lg-3 col-sm-12 grid-site-meio">
-              <i class="bi bi-check-circle-fill"></i>
-              <p class="par-grid-site-titulo">Monitor de gestão de demandas e suporte. </p>
-              <p>Monitor de gestão de demandas e suporte.
-                  Uma gestão baseada em dados aumenta o nível de eficiência, 
-                  eficácia e responsividade com as quais as decisões são tomadas.</p>
-          </div>
-          <div class="col-md-3 col-lg-3 col-sm-12 grid-site">
-              <i class="bi bi-check-circle-fill"></i>
-              <p class="par-grid-site-titulo">Apoio técnico especializado.</p>
-              <p>Apoio técnico especializado.
-                 foco em gestão pública colaborativa, 
-                 participação e engajamento cidadão.</p>
-          </div>
-      </div>
-  </section>
+    <main class="conteudo_site">
+        <div class="sombra-main">
+            <section class="conteudo_principal">
+                <h1 class="conteudo_principal_titulo"><strong> Vamos</strong> fazer<br>juntos uma<br><strong>cidade
+                        melhor.</strong> </h1>
+            </section>
+        </div>
+    </main>
 
+    <!-- Seção do carrossel -->
+    <section class="d-flex justify-content-center mt-5 mb-5 py-5">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col px-5">
+                <div class="card border-secundary" style="width: 20rem; background-color: #515151; color: #FFF;">
+                    <img src="static/img/card1.jpg" class="card-img-top image-fluid">
+                    <div class="card-body">
+                        <h6 class="card-title" style="color: rgb(26, 194, 26); font-weight: bold;">AGILIDADE</h6>
+                        <h3 class="card-title text-start pb-4">Processos digitais!</h3>
+                        <p class="card-text text-justify pb-4">
+                            Com o UrbanPass, você poderá solicitar a emissão de credencial para idosos e deficientes físicos de forma totalmente online e rápida, sem precisar enfrentar filas e burocracias. 
+                            Transforme a sua experiência em algo simples e eficiente.
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-star" style="color: #1288FC ;">SAIBA MAIS</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col px-5">
+                <div class="card border-secundary" style="width: 20rem; background-color: #515151; color: #FFF;">
+                    <img src="static/img/card2.jpg" class="card-img-top image-fluid">
+                    <div class="card-body">
+                        <h6 class="card-title" style="color: rgb(26, 194, 26); font-weight: bold;">MODERNIDADE</h6>
+                        <h3 class="card-title text-start pb-4">É o inicio da Transformação digital!</h3>
+                        <p class="card-text text-justify pb-4">
+                            Solução para a modernização da gestão pública. 
+                            Com o sistema de processos digitais, os serviços serão realizados de maneira mais 
+                            eficiente, trazendo mais praticidade para a rotina dos cidadãos e uma gestão mais ágil 
+                            e moderna para a administração pública.
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-star" style="color: #1288FC ;">SAIBA MAIS</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col px-5">
+                <div class="card border-secundary" style="width: 20rem; background-color: #515151; color: #FFF;">
+                    <img src="static/img/card3.jpg" class="card-img-top image-fluid">
+                    <div class="card-body">
+                        <h6 class="card-title" style="color: rgb(26, 194, 26); font-weight: bold;">EFICIÊNCIA</h6>
+                        <h3 class="card-title text-start pb-4">Serviços públicos on-line!</h3>
+                        <p class="card-text text-justify pb-4">
+                            Com o UrbanPass, os permissionários terão acesso a serviços rápidos e descomplicados, 
+                            permitindo que foquem no que realmente importa: o sucesso do seu negócio. 
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-star" style="color: #1288FC ;">SAIBA MAIS</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+<!-- Footer -->
+    <footer class="footer-bg">
+        <div class="footer-menu">
 
-  <footer class="footer-bg">
-      <div class="footer-menu">
+            <div class="copy-footer-site">
+                Copyright © 2023 Tiger Todos os direitos reservados
+            </div>
 
-          <div class="copy-footer-site">
-          Copyright © 2022 Tiger_Dev. Todos os direitos reservados
-          </div>
+            <div class="contato-footer">
+                <i class="bi bi-envelope-fill"></i>
+                <a href="#" class="link-mail">contato@tiger.com</a>
+            </div>
 
-          <div class="contato-footer">
-              <i class="bi bi-envelope-fill"></i>
-              <a href="#" class="link-mail">contato@tiger_dev.com</a>
-          </div>
+            <div class="social-footer">
+                <i class="bi bi-linkedin"></i>
+                <i class="bi bi-instagram"></i>
+                <i class="bi bi-facebook"></i>
+            </div>
 
-          <div class="social-footer">
-              <i class="bi bi-linkedin"></i>
-              <i class="bi bi-instagram"></i>
-              <i class="bi bi-facebook"></i>
-          </div>
-          
-      </div>
-  </footer>  
-  
+        </div>
+    </footer>
+
 
 
 
