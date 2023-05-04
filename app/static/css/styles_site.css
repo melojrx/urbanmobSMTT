@@ -130,6 +130,10 @@ ul {
 }
 /* Cards */
 
+.card {
+   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
 .card:hover{
     border: 2px solid #007bff; /* Cor azul forte */
     transition: border-color 0.3s ease-in-out;
