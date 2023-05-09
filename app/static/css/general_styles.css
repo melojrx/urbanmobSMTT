@@ -20,8 +20,8 @@ body {
 .urban_logo {
     font-family: 'Righteous', cursive !important; 
     font-size: 1.5em;
-	font-weight: bold;
-	margin: 0 10px;
+    font-weight: bold;
+    margin: 0 10px;
 }
 
 .urban_logo a:hover {
@@ -50,11 +50,6 @@ body {
     left: 0; /* mostre a barra lateral */
     transition: all 0.3s ease;
 }
-
-.sidebar.show {
-    left: -300px; /* esconda a barra lateral */
-    
-  } 
 
   /* Footer Sidebar */
 .footer-sidebar p {

@@ -86,7 +86,20 @@ ul {
 
 }
 
+.zoom-wraper {
+    overflow: hidden;
+    height: 200px;
+}
 
+.zoom-wraper img {
+    object-fit: cover;
+    transition: transform 0.8s;
+    height: 100%;
+}
+
+.zoom-wraper:hover img {
+    transform: scale(1.5);
+}
 /* Conteudo main do index */
 
 .conteudo_site {
