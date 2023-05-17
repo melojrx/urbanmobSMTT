@@ -2,9 +2,9 @@
 
 {% block conteudo %}
 
-<div class="d-flex mt-5 justify-content-center align-items-center">
-  <div class="container">
-    <div class="row">
+
+  <div class="container-fluid">
+    <div class="row d-flex mt-5 justify-content-start align-items-center">
       {% for tipoSolicitacao in listTipoSolicitacao %}
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
           <div class="card-cidadao rotate-card" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Clique para cadastrar sua solicitação de: {{tipoSolicitacao.txtTipoSolicitacao}}">
@@ -18,7 +18,7 @@
       {% endfor %}
     </div>
   </div>
-</div>
+
 
 
 {% endblock conteudo %}
