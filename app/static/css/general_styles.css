@@ -39,22 +39,60 @@ body {
 /* Sidebar */
 
 .sidebar {
-    display: flex;
-    flex-direction: column;
-    background-image: url('../img/barra_lateral.png');
-    width: 18%;
-    max-height: 100%;
-    min-height: 91vh;
-    background-size: cover;
-    background-repeat: no-repeat;
-    left: 0; /* mostre a barra lateral */
-    transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  background-image: url('../img/barra_lateral.png');
+  max-width: 20%;
+  max-height: 100%;
+  min-height: 94vh;
+  background-size: cover;
+  background-repeat: no-repeat; 
+    
 }
 
   /* Footer Sidebar */
 .footer-sidebar p {
     font-size: 0.8rem;
 }
+
+/* Conteúdo principal - Main */
+
+.main_base {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  max-height: 100%;
+  min-width: 80%;
+  
+  
+}
+
+.navbar_menu {
+  display: none;
+  color: #FFF;
+
+}
+/* Resposividade navbar */
+
+@media screen and (max-width: 991px) {
+  .navbar_menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 10px;
+  }
+}
+
+/* Resposividade main */
+
+@media screen and (max-width: 991px) {
+  .main_base {
+    width: 100%;
+  }
+}
+
+
+
 /* Paginação */
 
 .pagination {
@@ -86,15 +124,11 @@ body {
    
   }
 
-  .card-cidadao,
-  .card {
+.card-cidadao,
+.card {
     height: 100%;
   }
 
-  .card-img-top {
-    height: 220px;
-    object-fit: cover;
-  }
 
 .rotate-card:hover {
     background: #0C5DC5;
