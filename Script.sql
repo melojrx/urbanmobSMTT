@@ -178,7 +178,7 @@ ALTER TABLE credencial.tb_solicitacao_historico_shi ADD CONSTRAINT usuario_fkey 
 -- #        INSERTS PARA TESTES       #
 -- ####################################
 
-INSERT INTO credencial.tb_usuario_usu (txt_nome_usu, txt_email_usu, txt_cpf_usu) VALUES('SMTT', 'usergoverno@urbanmob.com', '1111111111');
+INSERT INTO credencial.tb_usuario_usu (txt_nome_usu, txt_email_usu, txt_cpf_usu) VALUES('Governo', 'governo@urbanpass.com.br', '1111111111');
 
 INSERT INTO credencial.tb_status_sta (id_status_sta, txt_status_sta, dat_inicio_sta, dat_fim_sta) VALUES(1,'Aguardando Atendimento', now(), null);
 INSERT INTO credencial.tb_status_sta (id_status_sta, txt_status_sta, dat_inicio_sta, dat_fim_sta) VALUES(2,'Em andamento', now(), null);
