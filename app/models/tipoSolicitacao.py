@@ -2,7 +2,7 @@ from ..database import db
 
 class TipoSolicitacao(db.Model):
     __tablename__ = 'tb_tipo_solicitacao_tis'
-    __table_args__ = {"schema":"credencial"}
+    __table_args__ = {"schema":"pass"}
 
     id = db.Column('id_tipo_solicitacao_tis', db.Integer, autoincrement=True, primary_key=True)
     txtTipoSolicitacao = db.Column('txt_tipo_solicitacao_tis', db.String(200), nullable=False)

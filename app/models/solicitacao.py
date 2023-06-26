@@ -3,7 +3,7 @@ from ..database import db
 
 class Solicitacao(db.Model):
     __tablename__ = 'tb_solicitacao_sol'
-    __table_args__ = {"schema":"credencial"}
+    __table_args__ = {"schema":"pass"}
 
     id = db.Column('id_solicitacao_sol', db.Integer, autoincrement=True, primary_key=True)
     idTipoSolicitacao = db.Column('id_tipo_solicitacao_sol',db.Integer, db.ForeignKey(TipoSolicitacao.id), nullable=False)

@@ -4,7 +4,7 @@ from app.models.solicitacao import Solicitacao
 
 class SolicitacaoDocumento(db.Model):
     __tablename__ = 'tb_solicitacao_documento_sdo'
-    __table_args__ = {"schema":"credencial"}
+    __table_args__ = {"schema":"pass"}
 
     id = db.Column('id_solicitacao_documento_sdo', db.Integer, autoincrement=True, primary_key=True)
     idSolicitacao = db.Column('id_solicitacao_sdo',db.Integer, db.ForeignKey(Solicitacao.id), nullable=False)

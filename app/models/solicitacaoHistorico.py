@@ -5,7 +5,7 @@ from ..models.userModel import User
 
 class SolicitacaoHistorico(db.Model):
     __tablename__ = 'tb_solicitacao_historico_shi'
-    __table_args__ = {"schema":"credencial"}
+    __table_args__ = {"schema":"pass"}
 
     id = db.Column('id_solicitacao_historico_shi', db.Integer, autoincrement=True, primary_key=True)
     idSolicitacao = db.Column('id_solicitacao_shi',db.Integer, db.ForeignKey(Solicitacao.id), nullable=False)
