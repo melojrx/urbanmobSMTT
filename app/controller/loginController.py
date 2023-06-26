@@ -37,7 +37,7 @@ class loginController:
                 user = User(name, email, txtcpf, pwd)
                 db.session.add(user)
                 
-                url = 'http://10.82.85.8:8080/api/caa/user/role'
+                url = 'http://10.82.85.8:8080/api/b2in/auth'
                 data = {'institution_external_id': institution_external_id, 'email': email, 'password': pwd, "application_external_id": app_key, "role_name": "URBANMOB_USER", 'type': 'USER'}
                 headers = {'Content-Type': 'application/json'}
                 response = requests.post(url, json=data, headers=headers)
@@ -78,7 +78,7 @@ class loginController:
 
             try:
 
-                url = 'http://10.82.85.8:8080/api/caa/auth'
+                url = 'http://10.82.85.8:8080/api/b2in/auth'
                 data = {'email': email, 'password': pwd, 'app_key': app_key, 'type': 'WEB'}
                 headers = {'Content-Type': 'application/json'}
                 response = requests.post(url, json=data, headers=headers)
