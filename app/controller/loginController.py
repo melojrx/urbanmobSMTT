@@ -11,9 +11,9 @@ import requests
 class loginController:
 
     global app_key 
-    app_key = '15b1fac5baa876d624e6a7ea70b80d0ec89b5fa99558f275016e651e'
+    app_key = '35a150d0e633f907a0a1f5f4606a9818068f27c8713cc65a0202c836'
     global institution_external_id
-    institution_external_id = '5a88f1a9cbcbccc6da0d942db89b78b7353802fb07d54a74061a3a06'
+    institution_external_id = 'cff955b7939ec690e6b63d82ffca69de1a45184b292e9792d8aa709f'
 
     @login_bp.route('/register', methods=['GET', 'POST'])
     def register():

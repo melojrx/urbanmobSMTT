@@ -21,7 +21,7 @@ from flask import flash, make_response, redirect, render_template, request, url_
 class solicitacaoController:
 
         @login_required
-        @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+        @roles_required('URBANPASS_USER')
         @solicitacao_bp.route('/prepareSearch', methods=['GET'])
         def prepareSearch():
                 
@@ -46,7 +46,7 @@ class solicitacaoController:
         
 
         @login_required
-        @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+        @roles_required('URBANPASS_USER')
         @solicitacao_bp.route('/search', methods=['GET'])
         def search():
                 
@@ -100,7 +100,7 @@ class solicitacaoController:
         
 
         @login_required
-        @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+        @roles_required('URBANPASS_USER')
         @solicitacao_bp.route('/visualizar/<idSolicitacao>', methods=['GET'])
         def visualizar(idSolicitacao):
                 
@@ -117,7 +117,7 @@ class solicitacaoController:
         
 
         @login_required
-        @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+        @roles_required('URBANPASS_USER')
         @solicitacao_bp.route('/open/<idSolicitacaoDocumento>', methods=['GET'])
         def open(idSolicitacaoDocumento):
                 
@@ -129,7 +129,7 @@ class solicitacaoController:
                 return response  
 
         @login_required
-        @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+        @roles_required('URBANPASS_USER')
         @solicitacao_bp.route('/atender/<idSolicitacaoHistorico>', methods=['GET'])
         def atender(idSolicitacaoHistorico):
 
@@ -150,7 +150,7 @@ class solicitacaoController:
                 return redirect(url_for('solicitacao.visualizar', idSolicitacao=solicitacaoHistorico.solicitacao.id)) 
         
         @login_required
-        @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+        @roles_required('URBANPASS_USER')
         @solicitacao_bp.route('/analisar', methods=['POST'])
         def analisar():
 
@@ -198,7 +198,7 @@ class solicitacaoController:
         
 
         @login_required
-        @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+        @roles_required('URBANPASS_USER')
         @solicitacao_bp.route('/imprimirCredencial/<idSolicitacao>', methods=['GET'])
         def imprimirCredencial(idSolicitacao):
 
@@ -244,7 +244,7 @@ class solicitacaoController:
                         flash('Erro: {}'.format(e), 'error') 
 
         @login_required
-        @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+        @roles_required('URBANPASS_USER')
         @solicitacao_bp.route('/finalizar/<idSolicitacaoHistorico>', methods=['GET'])
         def finalizar(idSolicitacaoHistorico):
 
@@ -265,21 +265,21 @@ class solicitacaoController:
                 return redirect(url_for('solicitacao.prepareSearch'))   
                             
         @login_required
-        @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+        @roles_required('URBANPASS_USER')
         @solicitacao_bp.route('/estatisticas', methods=['GET'])
         def estatisticas():
                 flash('Funcionalidade em Desenvolvimento', 'sucess')
                 return redirect(url_for('solicitacao.prepareSearch'))
         
         @login_required
-        @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+        @roles_required('URBANPASS_USER')
         @solicitacao_bp.route('/relatorios', methods=['GET'])
         def relatorios():
                 flash('Funcionalidade em Desenvolvimento', 'sucess')
                 return redirect(url_for('solicitacao.prepareSearch'))
         
         @login_required
-        @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+        @roles_required('URBANPASS_USER')
         @solicitacao_bp.route('/avisos', methods=['GET'])
         def avisos():
                 flash('Funcionalidade em Desenvolvimento', 'sucess')
