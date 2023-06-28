@@ -1,8 +1,10 @@
 from flask_login import LoginManager
 from flask import Flask
 from flask_mail import Mail
+from whitenoise import WhiteNoise
 
 app = Flask(__name__)
+app.wsgi_app = WhiteNoise(app.wsgi_app, root='static/', prefix='static/')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 #app.debug = True
 # app.config['SQLALCHEMY_ECHO'] = True
