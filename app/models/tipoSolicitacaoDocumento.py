@@ -5,7 +5,7 @@ from ..models.documento import Documento
 
 class TipoSolicitacaoDocumento(db.Model):
     __tablename__ = 'tb_tipo_solicitacao_documento_tsd'
-    __table_args__ = {"schema":"credencial"}
+    __table_args__ = {"schema":"pass"}
 
     id = db.Column('id_tipo_solicitacao_documento_tsd', db.Integer, autoincrement=True, primary_key=True)
     idTipoSolicitacao = db.Column('id_tipo_solicitacao_tsd',db.Integer, db.ForeignKey(TipoSolicitacao.id), nullable=False)

@@ -10,7 +10,7 @@ def load_user(user_id):
 
 class User(db.Model, UserMixin):
     __tablename__ = 'tb_usuario_usu'
-    __table_args__ = {"schema":"credencial"}
+    __table_args__ = {"schema":"comum"}
     
     id = db.Column('id_usuario_usu', db.Integer, autoincrement=True, primary_key=True)
     name = db.Column('txt_nome_usu', db.String(200), nullable=False)
