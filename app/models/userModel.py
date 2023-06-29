@@ -13,12 +13,10 @@ class User(db.Model, UserMixin):
     __table_args__ = {"schema":"comum"}
     
     id = db.Column('id_usuario_usu', db.Integer, autoincrement=True, primary_key=True)
-    name = db.Column('txt_nome_usu', db.String(200), nullable=False)
     email = db.Column('txt_email_usu', db.String(200), nullable=False, unique=True)
     cpf = db.Column('txt_cpf_usu', db.String(11), nullable=False, unique=True)
 
-    def __init__(self, name, email, cpf, password):
-        self.name = name
+    def __init__(self, email, cpf, password):
         self.email = email
         self.cpf = cpf
         self.password = generate_password_hash(password)

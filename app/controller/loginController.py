@@ -87,7 +87,8 @@ class loginController:
 
                 if(response.status_code == 200):
 
-                    user = User.query.filter_by(email=email).first()
+                    user = User.query.filter(User.email == email).first()
+                    print(user)
                     #user.roles = data['roles']
 
                     #print(data['roles'])
@@ -100,6 +101,7 @@ class loginController:
                     return render_template('login.html', form=form)
             except Exception as e:
                 flash('Erro: {}'.format(e), 'error')             
+                return render_template('login.html', form=form)        
         else:
             return render_template('login.html', form=form)
             
