@@ -13,3 +13,8 @@ SQLAlchemy==2.0.7
 Werkzeug==2.2.3
 WTForms==3.0.1
 whitenoise==6.5.0
+validate_docbr==1.10.0
+flask_paginate==2022.1.8
+Flask_Session==0.4.0
+requests
+pyreportjasper
