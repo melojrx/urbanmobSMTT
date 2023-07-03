@@ -15,11 +15,8 @@ COPY requirements.txt .
 #RUN pip install --no-cache-dir --upgrade pip
 RUN pip install --no-cache-dir gunicorn
 RUN pip install --no-cache-dir -r requirements.txt
-
-FROM openjdk:8
-
-# Instalação do Java
-RUN apt-get update && apt-get install -y openjdk-8-jdk
+RUN apt-get update && apt-get install -y default-jre
+RUN pip install pyreportjasper
 
 # Copie o restante do código
 COPY . .
