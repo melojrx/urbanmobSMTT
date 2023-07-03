@@ -268,8 +268,7 @@ class solicitacaoController:
         @roles_required('URBANPAS_GOVERNO')
         @solicitacao_bp.route('/estatisticas', methods=['GET'])
         def estatisticas():
-                flash('Funcionalidade em Desenvolvimento', 'sucess')
-                return redirect(url_for('solicitacao.prepareSearch'))
+               return render_template('estatisticas.html')
         
         @login_required
         @roles_required('URBANPAS_GOVERNO')
