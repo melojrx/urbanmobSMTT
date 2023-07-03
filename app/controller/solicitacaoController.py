@@ -1,6 +1,8 @@
 import os
 import datetime
 import tempfile
+
+from sqlalchemy import func
 from ..database import db
 from operator import and_, or_
 from ..enum.statusEnum import StatusEnum
@@ -268,7 +270,28 @@ class solicitacaoController:
         @roles_required('URBANPAS_GOVERNO')
         @solicitacao_bp.route('/estatisticas', methods=['GET'])
         def estatisticas():
-               return render_template('estatisticas.html')
+                contTotal = db.session.query(func.count(func.distinct(Solicitacao.id))).scalar()
+                contFinalizada = db.session.query(func.count(func.distinct(Solicitacao.id))).filter(and_(SolicitacaoHistorico.dataFim.is_(None), SolicitacaoHistorico.idStatus == StatusEnum.FINALIZADO.value)).join(SolicitacaoHistorico.solicitacao).scalar()
+                contAndamento = db.session.query(func.count(func.distinct(Solicitacao.id))).filter(and_(SolicitacaoHistorico.dataFim.is_(None), SolicitacaoHistorico.idStatus == StatusEnum.EM_ANDAMENTO.value)).join(SolicitacaoHistorico.solicitacao).scalar()
+                contAguardando = db.session.query(func.count(func.distinct(Solicitacao.id))).filter(and_(SolicitacaoHistorico.dataFim.is_(None), SolicitacaoHistorico.idStatus == StatusEnum.AGUARDANDO_ATENDIMENTO.value)).join(SolicitacaoHistorico.solicitacao).scalar()
+        
+                contDeferido = db.session.query(func.count(func.distinct(Solicitacao.id))).filter(and_(SolicitacaoHistorico.dataFim.is_(None), SolicitacaoHistorico.idStatus == StatusEnum.DEFERIDO.value)).join(SolicitacaoHistorico.solicitacao).scalar()
+                contIndeferido = db.session.query(func.count(func.distinct(Solicitacao.id))).filter(and_(SolicitacaoHistorico.dataFim.is_(None), SolicitacaoHistorico.idStatus == StatusEnum.INDEFERIDO.value)).join(SolicitacaoHistorico.solicitacao).scalar()
+                contReenviado = db.session.query(func.count(func.distinct(Solicitacao.id))).filter(and_(SolicitacaoHistorico.dataFim.is_(None), SolicitacaoHistorico.idStatus == StatusEnum.REENVIADO.value)).join(SolicitacaoHistorico.solicitacao).scalar()
+
+                perTotal = (contTotal / contTotal ) * 100
+                perFinalizada = (contFinalizada / contTotal ) * 100
+                perAndamento = (contAndamento / contTotal ) * 100
+                perAguardando = (contAguardando / contTotal ) * 100
+                perDeferido = (contDeferido / contTotal ) * 100
+                perIndeferido = (contIndeferido / contTotal ) * 100
+                perReenviado = (contReenviado / contTotal ) * 100
+
+                return render_template('estatisticas.html', contTotal=contTotal, contFinalizada=contFinalizada, contAndamento=contAndamento, contAguardando=contAguardando,
+                contDeferido=contDeferido, contIndeferido=contIndeferido, contReenviado=contReenviado,
+                perTotal=round(perTotal,3), perFinalizada=round(perFinalizada,2), perAndamento=round(perAndamento,2), perAguardando=round(perAguardando,2),
+                perDeferido=round(perDeferido,2), perIndeferido=round(perIndeferido,2) , perReenviado=round(perReenviado,2)) 
+               
         
         @login_required
         @roles_required('URBANPAS_GOVERNO')
