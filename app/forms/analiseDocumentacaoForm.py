@@ -6,7 +6,7 @@ class AnaliseDocumentacaoForm(Form):
                          validators=[DataRequired()], 
                          choices=[(True,'Sim'),(False,'Não')])
     
-    observacao = TextAreaField('Observação', validators=[DataRequired()])
+    observacao = TextAreaField('Observação')
     
     documento = HiddenField("documento")
 

@@ -163,7 +163,8 @@ class solicitacaoController:
                         idSolicitacao = form.idSolicitacao.data
                         #print('idSolicitacaoHistorico', idSolicitacaoHistorico)
                         observacao = form.observacao.data
-                        #print('observacao', observacao)
+                        # print('observacaoNone', observacao == None)
+                        # print('observacaoLimpo', observacao == '')
                         listDocumentos = request.form.getlist('documento')
                         # print('listDocumentos', listDocumentos)
                         listRadio = [request.form[arg] for arg in listDocumentos]
@@ -171,8 +172,10 @@ class solicitacaoController:
                         listSolicitacaoDocumento = request.form.getlist('idSolicitacaoDocumento')
                         #print('listSolicitacaoDocumento', listSolicitacaoDocumento)
 
-
-
+                        if(observacao == ''):
+                                flash('Informe a Observação para o indeferimento do documento', 'error')
+                                return redirect(url_for('solicitacao.visualizar', idSolicitacao=idSolicitacao)) 
+                        
                         resultadoAnalise = True
 
                         for sd, r in zip(listSolicitacaoDocumento, listRadio):
