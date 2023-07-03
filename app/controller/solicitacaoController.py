@@ -1,6 +1,8 @@
 import os
 import datetime
 import tempfile
+
+from sqlalchemy import func
 from ..database import db
 from operator import and_, or_
 from ..enum.statusEnum import StatusEnum
@@ -37,7 +39,7 @@ class solicitacaoController:
                         listStatus = db.session.query(Status).filter(Status.dataFim.is_(None)).all()
                         listTipoSolicitacao = db.session.query(TipoSolicitacao).filter(TipoSolicitacao.dataFim.is_(None)).all() 
 
-                        listSolicitacaoHistorico = db.session.query(SolicitacaoHistorico).join(Status).filter(and_(SolicitacaoHistorico.dataFim.is_(None), or_(Status.id == StatusEnum.AGUARDANDO_ATENDIMENTO.value, Status.id == StatusEnum.REENVIADO.value))).paginate(page=page, per_page=ROWS_PER_PAGE)
+                        listSolicitacaoHistorico = db.session.query(SolicitacaoHistorico).join(Status).filter(and_(SolicitacaoHistorico.dataFim.is_(None), or_(Status.id == StatusEnum.AGUARDANDO_ATENDIMENTO.value, Status.id == StatusEnum.REENVIADO.value))).order_by(SolicitacaoHistorico.dataInicio.desc()).paginate(page=page, per_page=ROWS_PER_PAGE)
 
                 except Exception as e:
                         flash('Erro: {}'.format(e), 'error')                        
@@ -161,7 +163,8 @@ class solicitacaoController:
                         idSolicitacao = form.idSolicitacao.data
                         #print('idSolicitacaoHistorico', idSolicitacaoHistorico)
                         observacao = form.observacao.data
-                        #print('observacao', observacao)
+                        # print('observacaoNone', observacao == None)
+                        # print('observacaoLimpo', observacao == '')
                         listDocumentos = request.form.getlist('documento')
                         # print('listDocumentos', listDocumentos)
                         listRadio = [request.form[arg] for arg in listDocumentos]
@@ -169,8 +172,10 @@ class solicitacaoController:
                         listSolicitacaoDocumento = request.form.getlist('idSolicitacaoDocumento')
                         #print('listSolicitacaoDocumento', listSolicitacaoDocumento)
 
-
-
+                        if(observacao == ''):
+                                flash('Informe a Observação para o indeferimento do documento', 'error')
+                                return redirect(url_for('solicitacao.visualizar', idSolicitacao=idSolicitacao)) 
+                        
                         resultadoAnalise = True
 
                         for sd, r in zip(listSolicitacaoDocumento, listRadio):
@@ -268,8 +273,28 @@ class solicitacaoController:
         @roles_required('URBANPAS_GOVERNO')
         @solicitacao_bp.route('/estatisticas', methods=['GET'])
         def estatisticas():
-                flash('Funcionalidade em Desenvolvimento', 'sucess')
-                return redirect(url_for('solicitacao.prepareSearch'))
+                contTotal = db.session.query(func.count(func.distinct(Solicitacao.id))).scalar()
+                contFinalizada = db.session.query(func.count(func.distinct(Solicitacao.id))).filter(and_(SolicitacaoHistorico.dataFim.is_(None), SolicitacaoHistorico.idStatus == StatusEnum.FINALIZADO.value)).join(SolicitacaoHistorico.solicitacao).scalar()
+                contAndamento = db.session.query(func.count(func.distinct(Solicitacao.id))).filter(and_(SolicitacaoHistorico.dataFim.is_(None), SolicitacaoHistorico.idStatus == StatusEnum.EM_ANDAMENTO.value)).join(SolicitacaoHistorico.solicitacao).scalar()
+                contAguardando = db.session.query(func.count(func.distinct(Solicitacao.id))).filter(and_(SolicitacaoHistorico.dataFim.is_(None), SolicitacaoHistorico.idStatus == StatusEnum.AGUARDANDO_ATENDIMENTO.value)).join(SolicitacaoHistorico.solicitacao).scalar()
+        
+                contDeferido = db.session.query(func.count(func.distinct(Solicitacao.id))).filter(and_(SolicitacaoHistorico.dataFim.is_(None), SolicitacaoHistorico.idStatus == StatusEnum.DEFERIDO.value)).join(SolicitacaoHistorico.solicitacao).scalar()
+                contIndeferido = db.session.query(func.count(func.distinct(Solicitacao.id))).filter(and_(SolicitacaoHistorico.dataFim.is_(None), SolicitacaoHistorico.idStatus == StatusEnum.INDEFERIDO.value)).join(SolicitacaoHistorico.solicitacao).scalar()
+                contReenviado = db.session.query(func.count(func.distinct(Solicitacao.id))).filter(and_(SolicitacaoHistorico.dataFim.is_(None), SolicitacaoHistorico.idStatus == StatusEnum.REENVIADO.value)).join(SolicitacaoHistorico.solicitacao).scalar()
+
+                perTotal = (contTotal / contTotal ) * 100
+                perFinalizada = (contFinalizada / contTotal ) * 100
+                perAndamento = (contAndamento / contTotal ) * 100
+                perAguardando = (contAguardando / contTotal ) * 100
+                perDeferido = (contDeferido / contTotal ) * 100
+                perIndeferido = (contIndeferido / contTotal ) * 100
+                perReenviado = (contReenviado / contTotal ) * 100
+
+                return render_template('estatisticas.html', contTotal=contTotal, contFinalizada=contFinalizada, contAndamento=contAndamento, contAguardando=contAguardando,
+                contDeferido=contDeferido, contIndeferido=contIndeferido, contReenviado=contReenviado,
+                perTotal=round(perTotal,3), perFinalizada=round(perFinalizada,2), perAndamento=round(perAndamento,2), perAguardando=round(perAguardando,2),
+                perDeferido=round(perDeferido,2), perIndeferido=round(perIndeferido,2) , perReenviado=round(perReenviado,2)) 
+               
         
         @login_required
         @roles_required('URBANPAS_GOVERNO')

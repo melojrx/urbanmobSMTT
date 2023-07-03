@@ -45,9 +45,11 @@
         {% endif %}
     </span> </td>
     </tr>
+    {% if solicitacaoHistorico.txtObservacao %}
     <tr>
       <td><strong>Observação:</strong> {{ solicitacaoHistorico.txtObservacao}}</td>
     </tr>
+    {% endif %}
     <tr>
       <td><strong>Data:</strong> {{solicitacaoHistorico.dataInicio.strftime('%d/%m/%Y %H:%M')}}</td>
     </tr>
@@ -60,6 +62,7 @@
     </button>
   </div>
 </div>
+
 
 {% if solicitacaoHistorico.status.id == 4 %}
 <div class="container border mt-4 rounded p-4">
