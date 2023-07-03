@@ -39,7 +39,7 @@ class solicitacaoController:
                         listStatus = db.session.query(Status).filter(Status.dataFim.is_(None)).all()
                         listTipoSolicitacao = db.session.query(TipoSolicitacao).filter(TipoSolicitacao.dataFim.is_(None)).all() 
 
-                        listSolicitacaoHistorico = db.session.query(SolicitacaoHistorico).join(Status).filter(and_(SolicitacaoHistorico.dataFim.is_(None), or_(Status.id == StatusEnum.AGUARDANDO_ATENDIMENTO.value, Status.id == StatusEnum.REENVIADO.value))).paginate(page=page, per_page=ROWS_PER_PAGE)
+                        listSolicitacaoHistorico = db.session.query(SolicitacaoHistorico).join(Status).filter(and_(SolicitacaoHistorico.dataFim.is_(None), or_(Status.id == StatusEnum.AGUARDANDO_ATENDIMENTO.value, Status.id == StatusEnum.REENVIADO.value))).order_by(SolicitacaoHistorico.dataInicio.desc()).paginate(page=page, per_page=ROWS_PER_PAGE)
 
                 except Exception as e:
                         flash('Erro: {}'.format(e), 'error')                        
