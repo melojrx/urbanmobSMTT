@@ -15,8 +15,9 @@ COPY requirements.txt .
 #RUN pip install --no-cache-dir --upgrade pip
 RUN pip install --no-cache-dir gunicorn
 RUN pip install --no-cache-dir -r requirements.txt
-RUN apt-get update && apt-get install -y default-jre
 RUN pip install pyreportjasper
+
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64
 
 # Copie o restante do código
 COPY . .
